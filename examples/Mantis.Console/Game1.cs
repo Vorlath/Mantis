@@ -1,19 +1,13 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Mantis.Engine;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Mantis.Console
 {
-    
-
     public sealed class Game1 : Microsoft.Xna.Framework.Game
     {
         private readonly GraphicsDeviceManager _graphics;
-        private readonly bool _internalServer;
+        private readonly MantisEngine _mantis;
 
 
         // https://community.monogame.net/t/start-in-maximized-window/12264
@@ -21,9 +15,9 @@ namespace Mantis.Console
         // public static extern void SDL_MaximizeWindow(IntPtr window);
 
 
-        public Game1(bool internalServer = false)
+        public Game1()
         {
-            _internalServer = internalServer;
+            _mantis = new MantisEngine();
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
@@ -93,6 +87,8 @@ namespace Mantis.Console
         {
             // TODO: Add your update logic here
             base.Update(gameTime);
+
+            _mantis.Update();
         }
 
         /// <summary>
@@ -104,6 +100,8 @@ namespace Mantis.Console
             base.Draw(gameTime);
 
             GraphicsDevice.Clear(Color.Black);
+
+            _mantis.Draw();
         }
     }
 }
