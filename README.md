@@ -1,4 +1,4 @@
-# Codename: Project Pebble
+# Mantis
 _A joint MonoGame engine effort_
 <br />
 <br />
