@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Mantis.Console.Scenes;
 using Mantis.Console.Services;
 using Mantis.Engine;
 using Microsoft.Xna.Framework;
@@ -41,6 +42,7 @@ namespace Mantis.Console
             _graphics.SynchronizeWithVerticalRetrace = false;
             _graphics.GraphicsProfile = GraphicsProfile.HiDef;
             _graphics.ApplyChanges();
+            _mantis.Scenes.Create<BreakoutScene>();
         }
 
         /// <summary>
