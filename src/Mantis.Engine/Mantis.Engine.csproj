@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="8.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\libraries\MonoGame\MonoGame.Framework\MonoGame.Framework.DesktopGL.csproj" />
+    <ProjectReference Include="..\Mantis.Engine.Common\Mantis.Engine.Common.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,6 @@
-﻿using Mantis.Engine;
+﻿using Autofac;
+using Mantis.Console.Services;
+using Mantis.Engine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -17,7 +19,11 @@ namespace Mantis.Console
 
         public Game1()
         {
-            _mantis = new MantisEngine();
+            _mantis = new MantisEngine(builder =>
+            {
+                builder.RegisterType<BrickService>();
+            });
+
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
@@ -99,7 +105,7 @@ namespace Mantis.Console
         {
             base.Draw(gameTime);
 
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(Color.Red);
 
             _mantis.Draw();
         }

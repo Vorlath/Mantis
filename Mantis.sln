@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MonoGame", "MonoGame", "{A9
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonoGame.Framework.DesktopGL", "libraries\MonoGame\MonoGame.Framework\MonoGame.Framework.DesktopGL.csproj", "{98FBE30C-1B9D-4C00-86BF-8AE29A42A1F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mantis.Engine.Common", "src\Mantis.Engine.Common\Mantis.Engine.Common.csproj", "{0FBF4AA6-2437-4256-A3E6-CAFA559A6FC9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{98FBE30C-1B9D-4C00-86BF-8AE29A42A1F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98FBE30C-1B9D-4C00-86BF-8AE29A42A1F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98FBE30C-1B9D-4C00-86BF-8AE29A42A1F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FBF4AA6-2437-4256-A3E6-CAFA559A6FC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FBF4AA6-2437-4256-A3E6-CAFA559A6FC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FBF4AA6-2437-4256-A3E6-CAFA559A6FC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FBF4AA6-2437-4256-A3E6-CAFA559A6FC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +50,7 @@ Global
 		{F7B3D232-3C8F-49D2-8997-46D233183CD9} = {3B50B8D3-9093-4D92-9061-4CAA1562353B}
 		{A9779A36-6ACE-4979-9064-123BEE2DD427} = {EFAD5831-4226-4A71-B31E-B3FF99DE44EE}
 		{98FBE30C-1B9D-4C00-86BF-8AE29A42A1F0} = {A9779A36-6ACE-4979-9064-123BEE2DD427}
+		{0FBF4AA6-2437-4256-A3E6-CAFA559A6FC9} = {1CE51378-F746-43D8-8B7A-568958556D9A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7F4F9176-64F3-43D9-912D-00699AA19BD1}
