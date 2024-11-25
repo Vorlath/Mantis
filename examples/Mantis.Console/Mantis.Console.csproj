@@ -5,8 +5,18 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	<MonoGamePlatform>DesktopGL</MonoGamePlatform>
   </PropertyGroup>
 
+  <Import Project="..\..\libraries\MonoGame\Tools\MonoGame.Content.Builder.Task\MonoGame.Content.Builder.Task.props" />
+  <Import Project="..\..\libraries\MonoGame\Tools\MonoGame.Content.Builder.Task\MonoGame.Content.Builder.Task.targets" />
+  <ItemGroup>
+    <None Remove="Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <MonoGameContentReference Include="Content\Content.mgcb" />
+  </ItemGroup>
+	
   <ItemGroup>
     <ProjectReference Include="..\..\libraries\MonoGame\MonoGame.Framework\MonoGame.Framework.DesktopGL.csproj" />
     <ProjectReference Include="..\..\src\engine\Mantis.Engine\Mantis.Engine.csproj" />

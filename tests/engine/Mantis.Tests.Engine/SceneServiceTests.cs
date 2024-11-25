@@ -2,12 +2,24 @@ using Autofac;
 using Autofac.Extras.Moq;
 using Mantis.Engine.Common;
 using Mantis.Engine.Services;
+using Microsoft.Xna.Framework;
 
 namespace Mantis.Tests.Engine
 {
     public class SceneServiceTests
     {
-        private class TestScene : IScene { }
+        private class TestScene : IScene
+        {
+            public void Draw(GameTime gameTime)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void Update(GameTime gameTime)
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         [Fact]
         public void SceneService_Create_UniqueInstances()
