@@ -2,7 +2,9 @@
 using Mantis.Console.Scenes;
 using Mantis.Console.Services;
 using Mantis.Engine;
+using Mantis.Engine.Extentions;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Mantis.Console
@@ -20,11 +22,7 @@ namespace Mantis.Console
 
         public Game1()
         {
-            _mantis = new MantisEngine(builder =>
-            {
-                builder.RegisterType<BrickService>().AsSelf().InstancePerLifetimeScope();
-                builder.RegisterType<BreakoutScene>().AsSelf().InstancePerLifetimeScope();
-            });
+           
 
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -43,6 +41,13 @@ namespace Mantis.Console
             _graphics.SynchronizeWithVerticalRetrace = false;
             _graphics.GraphicsProfile = GraphicsProfile.HiDef;
             _graphics.ApplyChanges();
+            _mantis = new MantisEngine(builder =>
+            {
+                builder.RegisterMonoGameServices(this.Content, _graphics);
+                
+                builder.RegisterType<BrickService>().AsSelf().InstancePerLifetimeScope();
+                builder.RegisterType<BreakoutScene>().AsSelf().InstancePerLifetimeScope();
+            });
             _mantis.Scenes.Create<BreakoutScene>();
         }
 
