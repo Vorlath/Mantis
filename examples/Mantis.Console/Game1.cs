@@ -22,7 +22,8 @@ namespace Mantis.Console
         {
             _mantis = new MantisEngine(builder =>
             {
-                builder.RegisterType<BrickService>();
+                builder.RegisterType<BrickService>().AsSelf().InstancePerLifetimeScope();
+                builder.RegisterType<BreakoutScene>().AsSelf().InstancePerLifetimeScope();
             });
 
             _graphics = new GraphicsDeviceManager(this);
@@ -96,7 +97,7 @@ namespace Mantis.Console
             // TODO: Add your update logic here
             base.Update(gameTime);
 
-            _mantis.Update();
+            _mantis.Update(gameTime);
         }
 
         /// <summary>
@@ -109,7 +110,7 @@ namespace Mantis.Console
 
             GraphicsDevice.Clear(Color.Red);
 
-            _mantis.Draw();
+            _mantis.Draw(gameTime);
         }
     }
 }

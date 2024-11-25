@@ -1,6 +1,8 @@
 ﻿using Autofac;
+using Mantis.Engine.Common;
 using Mantis.Engine.Common.Services;
 using Mantis.Engine.Services;
+using Microsoft.Xna.Framework;
 
 namespace Mantis.Engine
 {
@@ -19,14 +21,20 @@ namespace Mantis.Engine
             _sceneService = _container.Resolve<ISceneService>();
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
-            
+            foreach (IScene scene in _sceneService.GetAll())
+            {
+                scene.Update(gameTime);
+            }
         }
 
-        public void Draw()
+        public void Draw(GameTime gameTime)
         {
-
+            foreach (IScene scene in _sceneService.GetAll())
+            {
+                scene.Draw(gameTime);
+            }
         }
     }
 }
