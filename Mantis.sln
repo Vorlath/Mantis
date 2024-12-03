@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Svelto.Common", "libraries\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Svelto.ECS", "libraries\Svelto.ECS\com.sebaslab.svelto.ecs\Svelto.ECS.csproj", "{043D9469-AD66-4C6A-8C89-5C4E3369C813}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mantis.Core.ECS.Common", "src\core\Mantis.Core.ECS.Common\Mantis.Core.ECS.Common.csproj", "{6F9F7198-5200-4F56-AC5C-6C0C1B4DCB77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{043D9469-AD66-4C6A-8C89-5C4E3369C813}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{043D9469-AD66-4C6A-8C89-5C4E3369C813}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{043D9469-AD66-4C6A-8C89-5C4E3369C813}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F9F7198-5200-4F56-AC5C-6C0C1B4DCB77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F9F7198-5200-4F56-AC5C-6C0C1B4DCB77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F9F7198-5200-4F56-AC5C-6C0C1B4DCB77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F9F7198-5200-4F56-AC5C-6C0C1B4DCB77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +109,7 @@ Global
 		{FD0FBA97-574F-40C6-9C49-062CAAB441A8} = {EFAD5831-4226-4A71-B31E-B3FF99DE44EE}
 		{9D3CFEFA-4529-4CE7-B0A4-5080B6FDF9AA} = {FD0FBA97-574F-40C6-9C49-062CAAB441A8}
 		{043D9469-AD66-4C6A-8C89-5C4E3369C813} = {FD0FBA97-574F-40C6-9C49-062CAAB441A8}
+		{6F9F7198-5200-4F56-AC5C-6C0C1B4DCB77} = {271DF633-4254-4610-A4B7-D909F4501ADF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7F4F9176-64F3-43D9-912D-00699AA19BD1}
