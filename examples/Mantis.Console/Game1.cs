@@ -1,8 +1,9 @@
 ﻿using Autofac;
 using Mantis.Console.Scenes;
 using Mantis.Console.Services;
+using Mantis.Core.Extensions;
 using Mantis.Engine;
-using Mantis.Engine.Extentions;
+using Mantis.Engine.Extensions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -43,8 +44,7 @@ namespace Mantis.Console
             _graphics.ApplyChanges();
             _mantis = new MantisEngine(builder =>
             {
-                builder.RegisterMonoGameServices(this.Content, _graphics);
-                
+                builder.RegisterMonoGameServices(this.Content, _graphics).RegisterECSServices();
                 builder.RegisterType<BrickService>().AsSelf().InstancePerLifetimeScope();
                 builder.RegisterType<BreakoutScene>().AsSelf().InstancePerLifetimeScope();
             });

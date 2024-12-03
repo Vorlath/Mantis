@@ -19,6 +19,7 @@
 	
   <ItemGroup>
     <ProjectReference Include="..\..\libraries\MonoGame\MonoGame.Framework\MonoGame.Framework.DesktopGL.csproj" />
+    <ProjectReference Include="..\..\src\core\Mantis.Core.ECS\Mantis.Core.ECS.csproj" />
     <ProjectReference Include="..\..\src\engine\Mantis.Engine\Mantis.Engine.csproj" />
   </ItemGroup>
 
