@@ -8,18 +8,16 @@ namespace Mantis.Example.Breakout.Engines
 {
     public class TextureEngine : IFrameEngine, IQueryingEntitiesEngine
     {
-        private SpriteBatch _spriteBatch;
-        private Texture2D _ball;
-        GraphicsDevice graphics;
+        private readonly SpriteBatch _spriteBatch;
+        private readonly Texture2D _ball;
 
-        public TextureEngine(SpriteBatch spriteBatch, ContentManager contentManager, GraphicsDevice graphics)
+        public TextureEngine(SpriteBatch spriteBatch, ContentManager contentManager)
         {
-            this.graphics = graphics;
             _spriteBatch = spriteBatch;
             _ball = contentManager.Load<Texture2D>("ball");
         }
 
-        public EntitiesDB entitiesDB { get; set; }
+        public EntitiesDB entitiesDB { get; set; } = null!;
 
         public void Ready()
         {
@@ -38,8 +36,10 @@ namespace Mantis.Example.Breakout.Engines
                     Position position = positions[i];
                     Size size = sizes[i];
 
-                    _spriteBatch.Draw(_ball, new Rectangle((int)position.Value.X, (int)position.Value.Y, (int)size.Value.X, (int)size.Value.Y), Color.White);
-
+                    _spriteBatch.Draw(
+                        texture: _ball,
+                        destinationRectangle: RectangleHelper.CreateBounds(position, size),
+                        color: Color.White);
                 }
             }
             _spriteBatch.End();

@@ -5,6 +5,6 @@ namespace Mantis.Example.Breakout.Components
 {
     public struct Position(float x = 0, float y = 0) : IEntityComponent
     {
-        public Vector2 Value = new Vector2(x, y);
+        public Vector2 Value = new(x, y);
     }
 }
