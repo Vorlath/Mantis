@@ -1,3 +1,6 @@
 [submodule "libraries/MonoGame"]
 	path = libraries/MonoGame
 	url = https://github.com/cpt-max/MonoGame/
+[submodule "libraries/Svelto.ECS"]
+	path = libraries/Svelto.ECS
+	url = https://github.com/sebas77/Svelto.ECS.git
