@@ -1,4 +1,5 @@
 ﻿using Mantis.Example.Breakout.Components;
+using Mantis.Example.Breakout.Enums;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,12 +10,15 @@ namespace Mantis.Example.Breakout.Engines
     public class TextureEngine : IFrameEngine, IQueryingEntitiesEngine
     {
         private readonly SpriteBatch _spriteBatch;
-        private readonly Texture2D _ball;
+        private readonly Dictionary<TextureEnum, Texture2D> _textures;
 
         public TextureEngine(SpriteBatch spriteBatch, ContentManager contentManager)
         {
             _spriteBatch = spriteBatch;
-            _ball = contentManager.Load<Texture2D>("ball");
+            _textures = new() {
+                { TextureEnum.ball, contentManager.Load<Texture2D>("ball") },
+                { TextureEnum.paddle, contentManager.Load<Texture2D>("paddle") }
+            };
         }
 
         public EntitiesDB entitiesDB { get; set; } = null!;
@@ -37,9 +41,9 @@ namespace Mantis.Example.Breakout.Engines
                     Size size = sizes[i];
 
                     _spriteBatch.Draw(
-                        texture: _ball,
+                        texture: _textures[texture.Value],
                         destinationRectangle: RectangleHelper.CreateBounds(position, size),
-                        color: Color.White);
+                        color: texture.Color);
                 }
             }
             _spriteBatch.End();
