@@ -43,7 +43,7 @@ namespace Mantis.Example.Breakout.Engines
                     _spriteBatch.Draw(
                         texture: _textures[texture.Value],
                         destinationRectangle: RectangleHelper.CreateBounds(position, size),
-                        color: Color.White);
+                        color: texture.Color);
                 }
             }
             _spriteBatch.End();
