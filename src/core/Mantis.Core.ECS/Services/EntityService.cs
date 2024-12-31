@@ -1,17 +1,13 @@
-﻿using Svelto.ECS;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Mantis.Core.ECS.Common.Services;
+using Svelto.ECS;
 
 namespace Mantis.Core.ECS.Services
 {
-    public class EntityService
+    public class EntityService : IEntityService
     {
-        public EntityService(IEntityFactory entityFactory) 
+        public EntityService(IEntityFactory entityFactory)
         {
-            
+
         }
     }
 }

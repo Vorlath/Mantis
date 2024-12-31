@@ -1,12 +1,8 @@
 ﻿using Autofac;
+using Mantis.Core.ECS.Common.Services;
 using Mantis.Core.ECS.Services;
 using Svelto.ECS;
 using Svelto.ECS.Schedulers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Mantis.Core.Extensions
 {
@@ -17,7 +13,7 @@ namespace Mantis.Core.Extensions
             builder.RegisterType<EntitiesSubmissionScheduler>().AsSelf().InstancePerLifetimeScope();
             builder.RegisterType<EnginesRoot>().AsSelf().InstancePerLifetimeScope();
             builder.Register(EntityFactoryResolver).InstancePerLifetimeScope();
-            builder.RegisterType<EntityService>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<EntityService>().As<IEntityService>().InstancePerLifetimeScope();
 
             return builder;
         }
