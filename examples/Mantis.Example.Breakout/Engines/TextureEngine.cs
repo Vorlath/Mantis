@@ -10,9 +10,11 @@ namespace Mantis.Example.Breakout.Engines
     {
         private SpriteBatch _spriteBatch;
         private Texture2D _ball;
+        GraphicsDevice graphics;
 
-        public TextureEngine(SpriteBatch spriteBatch, ContentManager contentManager)
+        public TextureEngine(SpriteBatch spriteBatch, ContentManager contentManager, GraphicsDevice graphics)
         {
+            this.graphics = graphics;
             _spriteBatch = spriteBatch;
             _ball = contentManager.Load<Texture2D>("ball");
         }
@@ -26,17 +28,17 @@ namespace Mantis.Example.Breakout.Engines
 
         public void Draw(GameTime gameTime)
         {
-            var groups = this.entitiesDB.FindGroups<Texture, Position>();
+            var groups = this.entitiesDB.FindGroups<Texture, Position, Size>();
             _spriteBatch.Begin();
-            foreach (var ((textures, positions, count), _) in entitiesDB.QueryEntities<Texture, Position>(groups))
+            foreach (var ((textures, positions, sizes, count), _) in entitiesDB.QueryEntities<Texture, Position, Size>(groups))
             {
                 for (int i = 0; i < count; i++)
                 {
                     Texture texture = textures[i];
                     Position position = positions[i];
+                    Size size = sizes[i];
 
-
-                    _spriteBatch.Draw(_ball, position.Value, Color.White);
+                    _spriteBatch.Draw(_ball, new Rectangle((int)position.Value.X, (int)position.Value.Y, (int)size.Value.X, (int)size.Value.Y), Color.White);
 
                 }
             }

@@ -27,17 +27,10 @@ namespace Mantis.Example.Breakout.Scenes
             {
                 enginesRoot.AddEngine(engine);
             }
-            Random random = new Random();
-            random.Next();
             var entityInitializer = entityFactory.BuildEntity<BallDescriptor>(0, ExclusiveGroups.ballGroup);
             entityInitializer.Init(new Position(100, 100));
             entityInitializer.Init(new Velocity(100, 200));
-            for (int i = 0; i < 500; i++)
-            {
-                entityInitializer = entityFactory.BuildEntity<BallDescriptor>((uint)i + 1, ExclusiveGroups.ballGroup);
-                entityInitializer.Init(new Position(random.Next(0, 1000), random.Next(0, 1000)));
-                entityInitializer.Init(new Velocity(random.Next(50, 400), random.Next(50, 400)));
-            }
+            entityInitializer.Init(new Size(32, 32));
         }
 
         public void Draw(GameTime gameTime)
