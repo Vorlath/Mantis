@@ -9,7 +9,8 @@ namespace Mantis.Example.Breakout.Engines
     {
         public int num = 0;
         public EntitiesDB entitiesDB { get; set; }
-        GraphicsDevice graphics;
+
+        private readonly GraphicsDevice graphics;
         public CollisionEngine(GraphicsDevice graphics)
         {
             this.graphics = graphics;
@@ -39,23 +40,23 @@ namespace Mantis.Example.Breakout.Engines
 
 
                     // check for blocks
-                    var blockGroups = this.entitiesDB.FindGroups<Position, Size, Collidable, Health>();
-                    foreach (var ((blockPositions, blockSizes, collidables, healths, blockCount), _) in entitiesDB.QueryEntities<Position, Size, Collidable, Health>(blockGroups))
+                    var blockGroups = this.entitiesDB.FindGroups<Position, Size, Collidable>();
+                    foreach (var ((blockPositions, blockSizes, collidables, blockCount), _) in entitiesDB.QueryEntities<Position, Size, Collidable>(blockGroups))
                     {
                         for (int j = 0; j < count; j++)
                         {
                             ref Position blockPosition = ref blockPositions[j];
-                            ref Health blockHealth = ref healths[j];
+                            // ref Health blockHealth = ref healths[j];
                             ref Collidable blockCollidable = ref collidables[j];
                             ref Size blockSize = ref blockSizes[j];
 
                             if (RectangleHelper.CreateBounds(blockPosition, blockSize).Intersects(RectangleHelper.CreateBounds(position, size)))
                             {
-                                blockHealth.Value--;
-                                if (blockHealth.Value <= 0)
-                                {
-                                    // need to learn how to destroy stuff
-                                }
+                                // blockHealth.Value--;
+                                // if (blockHealth.Value <= 0)
+                                // {
+                                //     // need to learn how to destroy stuff
+                                // }
                                 // find out how to bounce
                                 // figuring out corners
                                 float ballBottom = position.Value.Y + size.Value.Y;
