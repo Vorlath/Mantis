@@ -17,7 +17,8 @@ namespace Mantis.Example.Breakout.Engines
             _spriteBatch = spriteBatch;
             _textures = new() {
                 { TextureEnum.ball, contentManager.Load<Texture2D>("ball") },
-                { TextureEnum.paddle, contentManager.Load<Texture2D>("paddle") }
+                { TextureEnum.paddle, contentManager.Load<Texture2D>("paddle") },
+                { TextureEnum.block, contentManager.Load<Texture2D>("block") }
             };
         }
 

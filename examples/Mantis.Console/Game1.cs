@@ -5,7 +5,6 @@ using Mantis.Core.Extensions;
 using Mantis.Engine;
 using Mantis.Engine.Extensions;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Mantis.Console
@@ -23,7 +22,7 @@ namespace Mantis.Console
 
         public Game1()
         {
-           
+
 
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -113,7 +112,7 @@ namespace Mantis.Console
         {
             base.Draw(gameTime);
 
-            GraphicsDevice.Clear(Color.Red);
+            GraphicsDevice.Clear(Color.DarkGray);
 
             _mantis.Draw(gameTime);
         }

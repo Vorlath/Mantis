@@ -5,6 +5,6 @@
         ball,
         wall,
         paddle,
-        brick
+        block
     }
 }
