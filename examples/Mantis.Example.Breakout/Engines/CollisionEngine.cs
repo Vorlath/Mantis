@@ -10,8 +10,9 @@ namespace Mantis.Example.Breakout.Engines
     {
         public int num = 0;
         public EntitiesDB entitiesDB { get; set; }
-        GraphicsDevice graphics;
-        IEntityFunctions entityFunctions;
+
+        private readonly GraphicsDevice graphics;
+        private readonly IEntityFunctions entityFunctions;
         public CollisionEngine(GraphicsDevice graphics, IEntityFunctions entityFunctions)
         {
             this.graphics = graphics;
@@ -39,6 +40,8 @@ namespace Mantis.Example.Breakout.Engines
                     ref Position position = ref positions[i];
                     ref Size size = ref sizes[i];
 
+                    var posCache = position;
+
 
                     // check for blocks
                     var blockGroups = this.entitiesDB.FindGroups<Position, Size, Collidable, Health>();
@@ -51,48 +54,45 @@ namespace Mantis.Example.Breakout.Engines
                             ref Collidable blockCollidable = ref collidables[j];
                             ref Size blockSize = ref blockSizes[j];
 
-                            if (RectangleHelper.CreateBounds(blockPosition, blockSize).Intersects(RectangleHelper.CreateBounds(position, size)))
+                            RectangleF ballBounds = RectangleHelper.CreateBoundsF(position, size);
+                            RectangleF blockBounds = RectangleHelper.CreateBoundsF(blockPosition, blockSize);
+
+                            if (blockBounds.IntersectsWith(ballBounds))
                             {
                                 blockHealth.Value--;
 
-                                // find out how to bounce
-                                // figuring out corners
-                                float ballBottom = position.Value.Y + size.Value.Y;
-                                float blockBottom = blockPosition.Value.Y + blockSize.Value.Y;
-                                float ballRight = position.Value.X + size.Value.X;
-                                float blockRight = blockPosition.Value.X + blockSize.Value.X;
+                                // https://stackoverflow.com/questions/5062833/detecting-the-direction-of-a-collision
+                                float bottomIntersect = blockBounds.Bottom - ballBounds.Top;
+                                float topIntersect = ballBounds.Bottom - blockBounds.Top;
+                                float leftIntersect = ballBounds.Right - blockBounds.Left;
+                                float rightIntersect = blockBounds.Right - ballBounds.Left;
 
-                                float bottom = blockBottom - position.Value.Y;
-                                float top = ballBottom - blockPosition.Value.Y;
-                                float left = ballRight - blockPosition.Value.X;
-                                float right = blockRight - position.Value.X;
-
-                                if (top < bottom && top < left && top < right)
+                                if (topIntersect < bottomIntersect && topIntersect < leftIntersect && topIntersect < rightIntersect)
                                 {
                                     // Top hit
                                     Console.WriteLine("Top Collision");
-                                    position.Value.Y = blockPosition.Value.Y - (blockSize.Value.Y / 2) - (size.Value.Y / 2);
+                                    position.Value.Y = blockBounds.Top - ballBounds.Height;
                                     velocity.Value.Y *= -1;
                                 }
-                                if (right < bottom && right < left && right < top)
+                                if (rightIntersect < bottomIntersect && rightIntersect < leftIntersect && rightIntersect < topIntersect)
                                 {
                                     // Right hit
                                     Console.WriteLine("Right Collision");
-                                    position.Value.X = (blockPosition.Value.X + (blockSize.Value.X / 2)) + (size.Value.X);
+                                    position.Value.X = blockBounds.Right;
                                     velocity.Value.X *= -1;
                                 }
-                                if (bottom < top && bottom < left && bottom < right)
+                                if (bottomIntersect < topIntersect && bottomIntersect < leftIntersect && bottomIntersect < rightIntersect)
                                 {
                                     // Bottom hit
                                     Console.WriteLine("Bottom Collision");
-                                    position.Value.Y = (blockPosition.Value.Y + (blockSize.Value.Y / 2)) + (size.Value.Y / 2);
+                                    position.Value.Y = blockBounds.Bottom;
                                     velocity.Value.Y *= -1;
                                 }
-                                if (left < bottom && left < top && left < right)
+                                if (leftIntersect < bottomIntersect && leftIntersect < topIntersect && leftIntersect < rightIntersect)
                                 {
                                     // Left hit
                                     Console.WriteLine("Left Collision");
-                                    position.Value.X = blockPosition.Value.X - (blockSize.Value.X / 2);
+                                    position.Value.X = blockBounds.Left - ballBounds.Width;
                                     velocity.Value.X *= -1;
                                 }
 
