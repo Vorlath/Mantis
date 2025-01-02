@@ -1,4 +1,5 @@
 ﻿using Mantis.Example.Breakout.Components;
+using Mantis.Example.Breakout.Descriptors;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Svelto.ECS;
@@ -10,10 +11,11 @@ namespace Mantis.Example.Breakout.Engines
         public int num = 0;
         public EntitiesDB entitiesDB { get; set; }
         GraphicsDevice graphics;
-        public CollisionEngine(GraphicsDevice graphics)
+        IEntityFunctions entityFunctions;
+        public CollisionEngine(GraphicsDevice graphics, IEntityFunctions entityFunctions)
         {
             this.graphics = graphics;
-
+            this.entityFunctions = entityFunctions;
         }
 
         public void Ready()
@@ -40,9 +42,9 @@ namespace Mantis.Example.Breakout.Engines
 
                     // check for blocks
                     var blockGroups = this.entitiesDB.FindGroups<Position, Size, Collidable, Health>();
-                    foreach (var ((blockPositions, blockSizes, collidables, healths, blockCount), _) in entitiesDB.QueryEntities<Position, Size, Collidable, Health>(blockGroups))
+                    foreach (var ((blockPositions, blockSizes, collidables, healths, nativeIDs, blockCount), blockGroup) in entitiesDB.QueryEntities<Position, Size, Collidable, Health>(blockGroups))
                     {
-                        for (int j = 0; j < count; j++)
+                        for (int j = 0; j < blockCount; j++)
                         {
                             ref Position blockPosition = ref blockPositions[j];
                             ref Health blockHealth = ref healths[j];
@@ -52,10 +54,7 @@ namespace Mantis.Example.Breakout.Engines
                             if (RectangleHelper.CreateBounds(blockPosition, blockSize).Intersects(RectangleHelper.CreateBounds(position, size)))
                             {
                                 blockHealth.Value--;
-                                if (blockHealth.Value <= 0)
-                                {
-                                    // need to learn how to destroy stuff
-                                }
+
                                 // find out how to bounce
                                 // figuring out corners
                                 float ballBottom = position.Value.Y + size.Value.Y;
@@ -95,6 +94,14 @@ namespace Mantis.Example.Breakout.Engines
                                     Console.WriteLine("Left Collision");
                                     position.Value.X = blockPosition.Value.X - (blockSize.Value.X / 2);
                                     velocity.Value.X *= -1;
+                                }
+
+                                if (blockHealth.Value <= 0)
+                                {
+                                    //var egid = new EGID(nativeIDs[j], blockGroup);
+                                    this.entityFunctions.RemoveEntity<BlockDescriptor>(nativeIDs[j], blockGroup);
+                                    // need to learn how to destroy stuff
+                                    //blockPosition.destr
                                 }
                             }
                         }

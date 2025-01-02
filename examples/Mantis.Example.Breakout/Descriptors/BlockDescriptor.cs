@@ -14,7 +14,8 @@ namespace Mantis.Example.Breakout.Descriptors
             new ComponentBuilder<Size>(new Size(10, 10)),
             new ComponentBuilder<Texture>(new Texture(Enums.TextureEnum.block, Color.LightBlue)),
             new ComponentBuilder<Health>(new Health()),
-            new ComponentBuilder<Collidable>(new Collidable())
+            new ComponentBuilder<Collidable>(new Collidable()),
+            new ComponentBuilder<Destructable>(new Destructable())
         };
     }
 }

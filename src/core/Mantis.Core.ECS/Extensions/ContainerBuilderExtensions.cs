@@ -13,6 +13,7 @@ namespace Mantis.Core.Extensions
             builder.RegisterType<EntitiesSubmissionScheduler>().AsSelf().InstancePerLifetimeScope();
             builder.RegisterType<EnginesRoot>().AsSelf().InstancePerLifetimeScope();
             builder.Register(EntityFactoryResolver).InstancePerLifetimeScope();
+            builder.Register(EntityFunctionsResolver).InstancePerLifetimeScope();
             builder.RegisterType<EntityService>().As<IEntityService>().InstancePerLifetimeScope();
 
             return builder;
@@ -21,6 +22,11 @@ namespace Mantis.Core.Extensions
         private static IEntityFactory EntityFactoryResolver(IComponentContext context)
         {
             return context.Resolve<EnginesRoot>().GenerateEntityFactory();
+        }
+
+        private static IEntityFunctions EntityFunctionsResolver(IComponentContext context)
+        {
+            return context.Resolve<EnginesRoot>().GenerateEntityFunctions();
         }
     }
 }
