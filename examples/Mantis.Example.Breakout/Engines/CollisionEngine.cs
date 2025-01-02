@@ -40,8 +40,7 @@ namespace Mantis.Example.Breakout.Engines
                     ref Position position = ref positions[i];
                     ref Size size = ref sizes[i];
 
-                    var posCache = position;
-
+                    RectangleF ballBounds = RectangleHelper.CreateBoundsF(position, size);
 
                     // check for blocks
                     var blockGroups = this.entitiesDB.FindGroups<Position, Size, Collidable, Health>();
@@ -54,7 +53,6 @@ namespace Mantis.Example.Breakout.Engines
                             ref Collidable blockCollidable = ref collidables[j];
                             ref Size blockSize = ref blockSizes[j];
 
-                            RectangleF ballBounds = RectangleHelper.CreateBoundsF(position, size);
                             RectangleF blockBounds = RectangleHelper.CreateBoundsF(blockPosition, blockSize);
 
                             if (blockBounds.IntersectsWith(ballBounds))
@@ -68,31 +66,24 @@ namespace Mantis.Example.Breakout.Engines
                                 float rightIntersect = blockBounds.Right - ballBounds.Left;
 
                                 if (topIntersect < bottomIntersect && topIntersect < leftIntersect && topIntersect < rightIntersect)
-                                {
-                                    // Top hit
-                                    Console.WriteLine("Top Collision");
-                                    position.Value.Y = blockBounds.Top - ballBounds.Height;
+                                { // Top hit
+                                    ballBounds.Y = blockBounds.Top - ballBounds.Height;
                                     velocity.Value.Y *= -1;
                                 }
+                                else if (bottomIntersect < topIntersect && bottomIntersect < leftIntersect && bottomIntersect < rightIntersect)
+                                { // Bottom hit
+                                    ballBounds.Y = blockBounds.Bottom;
+                                    velocity.Value.Y *= -1;
+                                }
+
                                 if (rightIntersect < bottomIntersect && rightIntersect < leftIntersect && rightIntersect < topIntersect)
-                                {
-                                    // Right hit
-                                    Console.WriteLine("Right Collision");
-                                    position.Value.X = blockBounds.Right;
+                                { // Right hit
+                                    ballBounds.X = blockBounds.Right;
                                     velocity.Value.X *= -1;
                                 }
-                                if (bottomIntersect < topIntersect && bottomIntersect < leftIntersect && bottomIntersect < rightIntersect)
-                                {
-                                    // Bottom hit
-                                    Console.WriteLine("Bottom Collision");
-                                    position.Value.Y = blockBounds.Bottom;
-                                    velocity.Value.Y *= -1;
-                                }
-                                if (leftIntersect < bottomIntersect && leftIntersect < topIntersect && leftIntersect < rightIntersect)
-                                {
-                                    // Left hit
-                                    Console.WriteLine("Left Collision");
-                                    position.Value.X = blockBounds.Left - ballBounds.Width;
+                                else if (leftIntersect < bottomIntersect && leftIntersect < topIntersect && leftIntersect < rightIntersect)
+                                { // Left hit
+                                    ballBounds.X = blockBounds.Left - ballBounds.Width;
                                     velocity.Value.X *= -1;
                                 }
 
@@ -106,6 +97,9 @@ namespace Mantis.Example.Breakout.Engines
                             }
                         }
                     }
+
+                    position.Value.X = ballBounds.Location.X;
+                    position.Value.Y = ballBounds.Location.Y;
                 }
             }
         }

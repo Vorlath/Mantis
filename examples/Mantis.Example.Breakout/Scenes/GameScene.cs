@@ -39,8 +39,8 @@ namespace Mantis.Example.Breakout.Scenes
             int num = 0;
             var entityInitializer = entityFactory.BuildEntity<BallDescriptor>(0, ExclusiveGroups.ballGroup);
             entityInitializer.Init(new Position(100, 500));
-            entityInitializer.Init(new Velocity(100, 200));
-            entityInitializer.Init(new Size(32, 32));
+            entityInitializer.Init(new Velocity(200, 300));
+            entityInitializer.Init(new Size(16, 16));
             num++;
 
             //block
