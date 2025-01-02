@@ -3,6 +3,7 @@ using Mantis.Example.Breakout.Components;
 using Mantis.Example.Breakout.Descriptors;
 using Mantis.Example.Breakout.Engines;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Svelto.ECS;
 using Svelto.ECS.Schedulers;
 
@@ -11,16 +12,22 @@ namespace Mantis.Example.Breakout.Scenes
     public static class ExclusiveGroups
     {
 
-        public static ExclusiveGroup ballGroup = new ExclusiveGroup();
-        public static ExclusiveGroup blockGroup = new ExclusiveGroup();
-        public static ExclusiveGroup wallGroup = new ExclusiveGroup();
+        public static ExclusiveGroup ballGroup = new();
+        public static ExclusiveGroup blockGroup = new();
+        public static ExclusiveGroup wallGroup = new();
+        public static ExclusiveGroup paddleGroup = new();
     }
 
     public class GameScene : IScene
     {
-        EntitiesSubmissionScheduler entitiesSubmissionScheduler;
-        private IFrameEngine[] _engines;
-        public GameScene(EnginesRoot enginesRoot, IEnumerable<IEngine> engines, IEntityFactory entityFactory, EntitiesSubmissionScheduler entitiesSubmissionScheduler)
+        private readonly EntitiesSubmissionScheduler entitiesSubmissionScheduler;
+        private readonly IFrameEngine[] _engines;
+        public GameScene(
+            EnginesRoot enginesRoot,
+            IEnumerable<IEngine> engines,
+            IEntityFactory entityFactory,
+            EntitiesSubmissionScheduler entitiesSubmissionScheduler,
+            GraphicsDevice graphics)
         {
             this.entitiesSubmissionScheduler = entitiesSubmissionScheduler;
             _engines = engines.OfType<IFrameEngine>().ToArray();
@@ -51,6 +58,15 @@ namespace Mantis.Example.Breakout.Scenes
                     num++;
                 }
             }
+            // entityInitializer = entityFactory.BuildEntity<BlockDescriptor>(3, ExclusiveGroups.blockGroup);
+            // entityInitializer.Init(new Position(300, 100));
+            // entityInitializer.Init(new Size(64, 32));
+            // entityInitializer.Init(new Health(1));
+            // entityInitializer.Init(new Collidable());
+
+            // paddle
+            entityInitializer = entityFactory.BuildEntity<PaddleDescriptor>(3, ExclusiveGroups.paddleGroup);
+            entityInitializer.Init(new Position(0, graphics.Viewport.Height - 16));
         }
 
         public void Draw(GameTime gameTime)
