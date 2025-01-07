@@ -36,6 +36,7 @@ namespace Mantis.Example.Breakout.Engines
                     ref Position position = ref positions[i];
                     ref Size size = ref sizes[i];
 
+
                     this.Update(ref velocity, ref position, ref size, gameTime);
                 }
             }
@@ -45,6 +46,8 @@ namespace Mantis.Example.Breakout.Engines
         {
 
             position.Value += (velocity.Value * (float)gameTime.ElapsedGameTime.TotalSeconds);
+
+            // Check for walls
             if (position.Value.X + size.Value.X > this.graphics.Viewport.Width)
             {
                 position.Value.X = this.graphics.Viewport.Width - size.Value.X;
