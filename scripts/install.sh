@@ -59,6 +59,12 @@ dotnet tool uninstall dotnet-mgcb-editor-linux
 dotnet tool uninstall dotnet-mgcb-editor
 
 # Install new tools
-dotnet tool install --version "$MONOGAME_BUILD_VERSION" --add-source "$MONOGAME_DIRECTORY/artifacts/NuGet" dotnet-mgcb
-dotnet tool install --version "$MONOGAME_BUILD_VERSION" --add-source "$MONOGAME_DIRECTORY/artifacts/NuGet" dotnet-mgcb-editor-linux
-dotnet tool install --version "$MONOGAME_BUILD_VERSION" --add-source "$MONOGAME_DIRECTORY/artifacts/NuGet" dotnet-mgcb-editor
+# Build.csproj uses a special package version in github workflows. By ditching the explicit version on the install we can unsure whatever
+# version workflows decides to use will be utilized
+
+#dotnet tool install --version "$MONOGAME_BUILD_VERSION" --add-source "$MONOGAME_DIRECTORY/artifacts/NuGet" dotnet-mgcb
+#dotnet tool install --version "$MONOGAME_BUILD_VERSION" --add-source "$MONOGAME_DIRECTORY/artifacts/NuGet" dotnet-mgcb-editor-linux
+#dotnet tool install --version "$MONOGAME_BUILD_VERSION" --add-source "$MONOGAME_DIRECTORY/artifacts/NuGet" dotnet-mgcb-editor
+dotnet tool install --add-source "$MONOGAME_DIRECTORY/artifacts/NuGet" dotnet-mgcb
+dotnet tool install --add-source "$MONOGAME_DIRECTORY/artifacts/NuGet" dotnet-mgcb-editor-linux
+dotnet tool install --add-source "$MONOGAME_DIRECTORY/artifacts/NuGet" dotnet-mgcb-editor
