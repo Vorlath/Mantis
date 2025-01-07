@@ -15,8 +15,23 @@ on:
      - 'src/**'
   
 jobs:
-  run-linters:
-    name: Run linters
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v4
+        
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Build with dotnet
+        run: dotnet build ./Mantis.sln --configuration Release
+        
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
 
     steps:
