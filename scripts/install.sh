@@ -54,9 +54,17 @@ git reset --hard HEAD
 cd "$WORKING_DIRECTORY"
 
 # Uninstall old tools (if any)
-dotnet tool uninstall dotnet-mgcb
-dotnet tool uninstall dotnet-mgcb-editor-linux
-dotnet tool uninstall dotnet-mgcb-editor
+if dotnet tool list | grep -q "dotnet-mgcb-editor-linux"; then
+    dotnet tool uninstall dotnet-mgcb-editor-linux
+fi
+
+if dotnet tool list | grep -q "dotnet-mgcb-editor"; then
+    dotnet tool uninstall dotnet-mgcb-editor
+fi
+
+if dotnet tool list | grep -q "dotnet-mgcb"; then
+    dotnet tool uninstall dotnet-mgcb
+fi
 
 # Install new tools
 # Build.csproj uses a special package version in github workflows. By ditching the explicit version on the install we can unsure whatever
