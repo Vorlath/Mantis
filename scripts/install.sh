@@ -40,6 +40,7 @@ if [[ -f "./build.cake" ]]; then
 
     MONOGAME_BUILD_VERSION="${MONOGAME_BUILD_VERSION}-develop"
 else
+    echo run --project "$MONOGAME_DIRECTORY/build/Build.csproj" -- "--build-version" "$MONOGAME_BUILD_VERSION"
     dotnet run --project "$MONOGAME_DIRECTORY/build/Build.csproj" -- "--build-version" "$MONOGAME_BUILD_VERSION"
 
     # Why isn't this included in Build.csproj tho?
