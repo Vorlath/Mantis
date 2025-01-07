@@ -30,7 +30,7 @@ namespace Mantis.Example.Breakout.Scenes
             GraphicsDevice graphics)
         {
             this.entitiesSubmissionScheduler = entitiesSubmissionScheduler;
-            _engines = engines.OfType<IFrameEngine>().ToArray();
+            this._engines = engines.OfType<IFrameEngine>().ToArray();
             foreach (IEngine engine in engines)
             {
                 enginesRoot.AddEngine(engine);
@@ -71,7 +71,7 @@ namespace Mantis.Example.Breakout.Scenes
 
         public void Draw(GameTime gameTime)
         {
-            foreach (IFrameEngine engine in _engines)
+            foreach (IFrameEngine engine in this._engines)
             {
                 engine.Draw(gameTime);
             }
@@ -79,8 +79,8 @@ namespace Mantis.Example.Breakout.Scenes
 
         public void Update(GameTime gameTime)
         {
-            entitiesSubmissionScheduler.SubmitEntities();
-            foreach (IFrameEngine engine in _engines)
+            this.entitiesSubmissionScheduler.SubmitEntities();
+            foreach (IFrameEngine engine in this._engines)
             {
                 engine.Update(gameTime);
             }

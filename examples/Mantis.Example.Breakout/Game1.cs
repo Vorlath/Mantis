@@ -23,33 +23,33 @@ namespace Mantis.Example.Breakout
 
         public Game1()
         {
-            _graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
+            this._graphics = new GraphicsDeviceManager(this);
+            this.Content.RootDirectory = "Content";
 
             this.IsMouseVisible = true;
             this.Window.AllowUserResizing = true;
             this.IsFixedTimeStep = false;
 
-            _graphics.PreparingDeviceSettings += (s, e) =>
+            this._graphics.PreparingDeviceSettings += (s, e) =>
             {
-                _graphics.PreferMultiSampling = true;
+                this._graphics.PreferMultiSampling = true;
                 e.GraphicsDeviceInformation.PresentationParameters.MultiSampleCount = 8;
                 e.GraphicsDeviceInformation.PresentationParameters.PresentationInterval = PresentInterval.Immediate;
                 e.GraphicsDeviceInformation.PresentationParameters.RenderTargetUsage = RenderTargetUsage.PreserveContents;
             };
-            _graphics.SynchronizeWithVerticalRetrace = false;
-            _graphics.GraphicsProfile = GraphicsProfile.HiDef;
-            _graphics.ApplyChanges();
-            _mantis = new MantisEngine(builder =>
+            this._graphics.SynchronizeWithVerticalRetrace = false;
+            this._graphics.GraphicsProfile = GraphicsProfile.HiDef;
+            this._graphics.ApplyChanges();
+            this._mantis = new MantisEngine(builder =>
             {
-                builder.RegisterMonoGameServices(this.Content, _graphics).RegisterECSServices();
+                builder.RegisterMonoGameServices(this.Content, this._graphics).RegisterECSServices();
                 builder.RegisterType<GameScene>().AsSelf().InstancePerLifetimeScope();
                 builder.RegisterType<TextureEngine>().As<IEngine>().InstancePerLifetimeScope();
                 builder.RegisterType<MovementEngine>().As<IEngine>().InstancePerLifetimeScope();
                 builder.RegisterType<CollisionEngine>().As<IEngine>().InstancePerLifetimeScope();
                 builder.RegisterType<ControllableEngine>().As<IEngine>().InstancePerLifetimeScope();
             });
-            _mantis.Scenes.Create<GameScene>();
+            this._mantis.Scenes.Create<GameScene>();
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace Mantis.Example.Breakout
             // TODO: Add your update logic here
             base.Update(gameTime);
 
-            _mantis.Update(gameTime);
+            this._mantis.Update(gameTime);
         }
 
         /// <summary>
@@ -114,9 +114,9 @@ namespace Mantis.Example.Breakout
         {
             base.Draw(gameTime);
 
-            GraphicsDevice.Clear(Color.DarkGray);
+            this.GraphicsDevice.Clear(Color.DarkGray);
 
-            _mantis.Draw(gameTime);
+            this._mantis.Draw(gameTime);
         }
     }
 }

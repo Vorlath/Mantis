@@ -6,20 +6,16 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Mantis.Console.Scenes
 {
-    public class BreakoutScene : IScene
+    public class BreakoutScene(ContentManager content, SpriteBatch spriteBatch, IEntityService entityService) : IScene
     {
-        private readonly Texture2D _texture;
-        private readonly SpriteBatch _spriteBatch;
-        public BreakoutScene(ContentManager content, SpriteBatch spriteBatch, IEntityService entityService)
-        {
-            _texture = content.Load<Texture2D>("Art/placeholder");
-            _spriteBatch = spriteBatch;
-        }
+        private readonly Texture2D _texture = content.Load<Texture2D>("Art/placeholder");
+        private readonly SpriteBatch _spriteBatch = spriteBatch;
+
         public void Draw(GameTime gameTime)
         {
-            _spriteBatch.Begin();
-            _spriteBatch.Draw(_texture, new Vector2(0, 0), Color.White);
-            _spriteBatch.End();
+            this._spriteBatch.Begin();
+            this._spriteBatch.Draw(this._texture, new Vector2(0, 0), Color.White);
+            this._spriteBatch.End();
         }
 
         public void Update(GameTime gameTime)

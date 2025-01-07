@@ -9,8 +9,8 @@ namespace Mantis.Example.Breakout.Descriptors
     {
         public IComponentBuilder[] componentsToBuild => _componentsToBuild;
 
-        private static readonly IComponentBuilder[] _componentsToBuild = new IComponentBuilder[]
-        {
+        private static readonly IComponentBuilder[] _componentsToBuild =
+        [
             new ComponentBuilder<Controllable>(new Controllable()
             {
                 TargetVelocity = 300f
@@ -22,6 +22,6 @@ namespace Mantis.Example.Breakout.Descriptors
             new ComponentBuilder<Collidable>(new Collidable()),
             new ComponentBuilder<Health>(new Health(10000000))
 
-        };
+        ];
     }
 }

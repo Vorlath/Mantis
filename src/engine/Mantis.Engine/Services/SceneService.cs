@@ -1,31 +1,26 @@
-﻿using Autofac;
+﻿using System.Runtime.CompilerServices;
+using Autofac;
 using Mantis.Engine.Common;
 using Mantis.Engine.Common.Services;
-using System.Runtime.CompilerServices;
 
 namespace Mantis.Engine.Services
 {
-    public sealed class SceneService : ISceneService
+    public sealed class SceneService(ILifetimeScope scope) : ISceneService
     {
-        private ILifetimeScope _scope;
-        private List<IScene> _scenes;
-        public SceneService(ILifetimeScope scope)
-        {
-            _scope = scope;
-            _scenes = new List<IScene>();
-        }
+        private readonly ILifetimeScope _scope = scope;
+        private readonly List<IScene> _scenes = [];
 
         public TScene Create<TScene>()
             where TScene : IScene
         {
-            TScene scene = _scope.Resolve<TScene>();
-            _scenes.Add(scene);
+            TScene scene = this._scope.Resolve<TScene>();
+            this._scenes.Add(scene);
             return scene;
         }
 
         public IEnumerable<IScene> GetAll()
         {
-            return _scenes;
+            return this._scenes;
         }
     }
 }
