@@ -9,10 +9,11 @@ namespace Mantis.Example.Breakout.Engines
     {
 
         public EntitiesDB entitiesDB { get; set; }
-        readonly GraphicsDevice graphics = graphics;
+        private readonly GraphicsDevice graphics = graphics;
 
         public void Ready()
         {
+            Console.WriteLine("test");
             //    throw new NotImplementedException();
         }
 
