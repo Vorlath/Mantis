@@ -13,6 +13,8 @@ on:
     branches: [ "main" ]
     paths:
      - 'src/**'
+     - 'examples/**'
+     - 'tests/**'
   
 jobs:
   build_and_test:
