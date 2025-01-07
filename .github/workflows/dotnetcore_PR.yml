@@ -14,53 +14,25 @@ on:
     paths:
      - 'src/**'
 
-jobs: 
-  Linter:
+permissions:
+  checks: write
+  contents: write
+  
+jobs:
+  run-linters:
+    name: Run linters
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout Code
+      - name: Check out Git repository
         uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v1
         with:
-          fetch-depth: 0
-          
-      - name: Run Linter
-        uses: github/super-linter@v4
-        env:
-          VALIDATE_ALL_CODEBASE: false
-          DEFAULT_BRANCH: "main"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VALIDATE_CSHARP: true
-          SAVE_SUPER_LINTER_SUMMARY: true
+          dotnet-version: "6.0.x"
 
-      # Step 5: Post suggested fixes to PR
-      - name: Post suggested fixes to PR
-        if: failure()  # Only run if Super Linter found issues
-        uses: actions/github-script@v6
+      - name: Run linters
+        uses: wearerequired/lint-action@v2
         with:
-          script: |
-            // Read the linter output file for C# issues
-            const lintingResults = await require('fs').promises.readFile('super-linter-output.log', 'utf-8');
-            const lintingErrors = lintingResults.split('\n').filter(line => line.includes('error'));
-
-            if (lintingErrors.length === 0) {
-              console.log('No linting errors found.');
-              return;
-            }
-
-            // Create a formatted list of suggestions for the user
-            let suggestionsMessage = '### Linter Suggestions for C# Code:\n\n';
-            lintingErrors.forEach(error => {
-              // Example: "file:line:column: error message"
-              const match = error.match(/(.*):(\d+):(\d+):\s(.+)/);
-              if (match) {
-                suggestionsMessage += `- **File**: ${match[1]}, **Line**: ${match[2]}, **Message**: ${match[4]}\n`;
-              }
-            });
-
-            // Post a comment with suggestions in the PR conversation
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body: `${suggestionsMessage}\n\nPlease review the suggested changes and apply them manually.`
-            });
+          dotnet_format: true
