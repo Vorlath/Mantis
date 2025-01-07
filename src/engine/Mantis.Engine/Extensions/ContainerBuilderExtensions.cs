@@ -14,7 +14,7 @@ namespace Mantis.Engine.Extensions
     {
         public static ContainerBuilder RegisterMonoGameServices(this ContainerBuilder builder, ContentManager content, GraphicsDeviceManager graphicsDeviceManager)
         {
-            builder.RegisterType<SpriteBatch>().AsSelf().InstancePerLifetimeScope();
+             builder.RegisterType<SpriteBatch>().AsSelf().InstancePerLifetimeScope();
 
             builder.RegisterInstance<ContentManager>(content);
             builder.RegisterInstance<GraphicsDeviceManager>(graphicsDeviceManager);
