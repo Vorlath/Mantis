@@ -58,4 +58,4 @@ jobs:
         uses: wearerequired/lint-action@v2
         with:
           dotnet_format: true
-          dotnet_format_args: "--no-restore true --severity info --exclude libraries --include tests examples --exclude-diagnostics IDE0130"
+          dotnet_format_args: "--no-restore true --severity info --exclude libraries --include src tests examples --exclude-diagnostics IDE0130"
