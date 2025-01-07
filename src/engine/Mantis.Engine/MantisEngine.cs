@@ -9,21 +9,21 @@ namespace Mantis.Engine
     public class MantisEngine
     {
         private readonly IContainer _container;
-        private ISceneService _sceneService;
-        public ISceneService Scenes => _sceneService;
+
+        public ISceneService Scenes { get; }
         public MantisEngine(Action<ContainerBuilder> customBuilder)
         {
             ContainerBuilder builder = new();
             builder.RegisterType<SceneService>().As<ISceneService>().SingleInstance();
             customBuilder(builder);
-            _container = builder.Build();
+            this._container = builder.Build();
 
-            _sceneService = _container.Resolve<ISceneService>();
+            this.Scenes = this._container.Resolve<ISceneService>();
         }
 
         public void Update(GameTime gameTime)
         {
-            foreach (IScene scene in _sceneService.GetAll())
+            foreach (IScene scene in this.Scenes.GetAll())
             {
                 scene.Update(gameTime);
             }
@@ -31,7 +31,7 @@ namespace Mantis.Engine
 
         public void Draw(GameTime gameTime)
         {
-            foreach (IScene scene in _sceneService.GetAll())
+            foreach (IScene scene in this.Scenes.GetAll())
             {
                 scene.Draw(gameTime);
             }

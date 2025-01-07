@@ -24,30 +24,30 @@ namespace Mantis.Console
         {
 
 
-            _graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
+            this._graphics = new GraphicsDeviceManager(this);
+            this.Content.RootDirectory = "Content";
 
             this.IsMouseVisible = true;
             this.Window.AllowUserResizing = true;
             this.IsFixedTimeStep = false;
 
-            _graphics.PreparingDeviceSettings += (s, e) =>
+            this._graphics.PreparingDeviceSettings += (s, e) =>
             {
-                _graphics.PreferMultiSampling = true;
+                this._graphics.PreferMultiSampling = true;
                 e.GraphicsDeviceInformation.PresentationParameters.MultiSampleCount = 8;
                 e.GraphicsDeviceInformation.PresentationParameters.PresentationInterval = PresentInterval.Immediate;
                 e.GraphicsDeviceInformation.PresentationParameters.RenderTargetUsage = RenderTargetUsage.PreserveContents;
             };
-            _graphics.SynchronizeWithVerticalRetrace = false;
-            _graphics.GraphicsProfile = GraphicsProfile.HiDef;
-            _graphics.ApplyChanges();
-            _mantis = new MantisEngine(builder =>
+            this._graphics.SynchronizeWithVerticalRetrace = false;
+            this._graphics.GraphicsProfile = GraphicsProfile.HiDef;
+            this._graphics.ApplyChanges();
+            this._mantis = new MantisEngine(builder =>
             {
-                builder.RegisterMonoGameServices(this.Content, _graphics).RegisterECSServices();
+                builder.RegisterMonoGameServices(this.Content, this._graphics).RegisterECSServices();
                 builder.RegisterType<BrickService>().AsSelf().InstancePerLifetimeScope();
                 builder.RegisterType<BreakoutScene>().AsSelf().InstancePerLifetimeScope();
             });
-            _mantis.Scenes.Create<BreakoutScene>();
+            this._mantis.Scenes.Create<BreakoutScene>();
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Mantis.Console
             // TODO: Add your update logic here
             base.Update(gameTime);
 
-            _mantis.Update(gameTime);
+            this._mantis.Update(gameTime);
         }
 
         /// <summary>
@@ -112,9 +112,9 @@ namespace Mantis.Console
         {
             base.Draw(gameTime);
 
-            GraphicsDevice.Clear(Color.DarkGray);
+            this.GraphicsDevice.Clear(Color.DarkGray);
 
-            _mantis.Draw(gameTime);
+            this._mantis.Draw(gameTime);
         }
     }
 }

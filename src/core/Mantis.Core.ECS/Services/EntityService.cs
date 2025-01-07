@@ -3,11 +3,7 @@ using Svelto.ECS;
 
 namespace Mantis.Core.ECS.Services
 {
-    public class EntityService : IEntityService
+    public class EntityService(IEntityFactory entityFactory) : IEntityService
     {
-        public EntityService(IEntityFactory entityFactory)
-        {
-
-        }
     }
 }

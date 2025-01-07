@@ -6,18 +6,13 @@ using Svelto.ECS;
 
 namespace Mantis.Example.Breakout.Engines
 {
-    public class CollisionEngine : IFrameEngine, IQueryingEntitiesEngine
+    public class CollisionEngine(GraphicsDevice graphics, IEntityFunctions entityFunctions) : IFrameEngine, IQueryingEntitiesEngine
     {
         public int num = 0;
         public EntitiesDB entitiesDB { get; set; }
 
-        private readonly GraphicsDevice graphics;
-        private readonly IEntityFunctions entityFunctions;
-        public CollisionEngine(GraphicsDevice graphics, IEntityFunctions entityFunctions)
-        {
-            this.graphics = graphics;
-            this.entityFunctions = entityFunctions;
-        }
+        private readonly GraphicsDevice graphics = graphics;
+        private readonly IEntityFunctions entityFunctions = entityFunctions;
 
         public void Ready()
         {
@@ -32,7 +27,7 @@ namespace Mantis.Example.Breakout.Engines
         public void Update(GameTime gameTime)
         {
             var groups = this.entitiesDB.FindGroups<Velocity, Position, Size>(); // This should get ball, and nothing else
-            foreach (var ((velocities, positions, sizes, count), _) in entitiesDB.QueryEntities<Velocity, Position, Size>(groups))
+            foreach (var ((velocities, positions, sizes, count), _) in this.entitiesDB.QueryEntities<Velocity, Position, Size>(groups))
             {
                 for (int i = 0; i < count; i++)
                 {
@@ -44,7 +39,7 @@ namespace Mantis.Example.Breakout.Engines
 
                     // check for blocks
                     var blockGroups = this.entitiesDB.FindGroups<Position, Size, Collidable, Health>();
-                    foreach (var ((blockPositions, blockSizes, collidables, healths, nativeIDs, blockCount), blockGroup) in entitiesDB.QueryEntities<Position, Size, Collidable, Health>(blockGroups))
+                    foreach (var ((blockPositions, blockSizes, collidables, healths, nativeIDs, blockCount), blockGroup) in this.entitiesDB.QueryEntities<Position, Size, Collidable, Health>(blockGroups))
                     {
                         for (int j = 0; j < blockCount; j++)
                         {

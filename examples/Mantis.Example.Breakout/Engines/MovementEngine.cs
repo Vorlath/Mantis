@@ -5,15 +5,11 @@ using Svelto.ECS;
 
 namespace Mantis.Example.Breakout.Engines
 {
-    public class MovementEngine : IFrameEngine, IQueryingEntitiesEngine
+    public class MovementEngine(GraphicsDevice graphics) : IFrameEngine, IQueryingEntitiesEngine
     {
 
         public EntitiesDB entitiesDB { get; set; }
-        GraphicsDevice graphics;
-        public MovementEngine(GraphicsDevice graphics)
-        {
-            this.graphics = graphics;
-        }
+        readonly GraphicsDevice graphics = graphics;
 
         public void Ready()
         {
@@ -28,7 +24,7 @@ namespace Mantis.Example.Breakout.Engines
         public void Update(GameTime gameTime)
         {
             var groups = this.entitiesDB.FindGroups<Velocity, Position, Size>();
-            foreach (var ((velocities, positions, sizes, count), _) in entitiesDB.QueryEntities<Velocity, Position, Size>(groups))
+            foreach (var ((velocities, positions, sizes, count), _) in this.entitiesDB.QueryEntities<Velocity, Position, Size>(groups))
             {
                 for (int i = 0; i < count; i++)
                 {

@@ -1,5 +1,5 @@
-﻿using Svelto.ECS;
-using System.Drawing;
+﻿using System.Drawing;
+using Svelto.ECS;
 
 namespace Mantis.Example.Breakout.Components
 {

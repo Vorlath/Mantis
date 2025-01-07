@@ -21,10 +21,10 @@ namespace Mantis.Example.Breakout.Engines
 
         public void Update(GameTime gameTime)
         {
-            float targetVelocityModifier = this.GetTargetVelocityModifier();
+            float targetVelocityModifier = GetTargetVelocityModifier();
 
             var groups = this.entitiesDB.FindGroups<Controllable, Velocity, Size>();
-            foreach (var ((controllables, velocities, sizes, count), _) in entitiesDB.QueryEntities<Controllable, Velocity, Size>(groups))
+            foreach (var ((controllables, velocities, _, count), _) in this.entitiesDB.QueryEntities<Controllable, Velocity, Size>(groups))
             {
                 for (int i = 0; i < count; i++)
                 {
@@ -36,7 +36,7 @@ namespace Mantis.Example.Breakout.Engines
             }
         }
 
-        private float GetTargetVelocityModifier()
+        private static float GetTargetVelocityModifier()
         {
             KeyboardState keyboard = Keyboard.GetState();
             bool isLeftActive = keyboard.IsKeyDown(Keys.A);

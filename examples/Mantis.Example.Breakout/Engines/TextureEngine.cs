@@ -14,8 +14,8 @@ namespace Mantis.Example.Breakout.Engines
 
         public TextureEngine(SpriteBatch spriteBatch, ContentManager contentManager)
         {
-            _spriteBatch = spriteBatch;
-            _textures = new() {
+            this._spriteBatch = spriteBatch;
+            this._textures = new() {
                 { TextureEnum.ball, contentManager.Load<Texture2D>("ball") },
                 { TextureEnum.paddle, contentManager.Load<Texture2D>("paddle") },
                 { TextureEnum.block, contentManager.Load<Texture2D>("block") }
@@ -32,8 +32,8 @@ namespace Mantis.Example.Breakout.Engines
         public void Draw(GameTime gameTime)
         {
             var groups = this.entitiesDB.FindGroups<Texture, Position, Size>();
-            _spriteBatch.Begin();
-            foreach (var ((textures, positions, sizes, count), _) in entitiesDB.QueryEntities<Texture, Position, Size>(groups))
+            this._spriteBatch.Begin();
+            foreach (var ((textures, positions, sizes, count), _) in this.entitiesDB.QueryEntities<Texture, Position, Size>(groups))
             {
                 for (int i = 0; i < count; i++)
                 {
@@ -41,13 +41,13 @@ namespace Mantis.Example.Breakout.Engines
                     Position position = positions[i];
                     Size size = sizes[i];
 
-                    _spriteBatch.Draw(
-                        texture: _textures[texture.Value],
+                    this._spriteBatch.Draw(
+                        texture: this._textures[texture.Value],
                         destinationRectangle: RectangleHelper.CreateBounds(position, size),
                         color: texture.Color);
                 }
             }
-            _spriteBatch.End();
+            this._spriteBatch.End();
         }
 
         public void Update(GameTime gameTime)
