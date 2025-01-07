@@ -17,7 +17,7 @@ namespace Mantis.Engine.Extensions
              builder.RegisterType<SpriteBatch>().AsSelf().InstancePerLifetimeScope();
 
             builder.RegisterInstance<ContentManager>(content);
-            builder.RegisterInstance<GraphicsDeviceManager>(graphicsDeviceManager);
+             builder.RegisterInstance<GraphicsDeviceManager>(graphicsDeviceManager);
             builder.RegisterInstance<GraphicsDevice>(graphicsDeviceManager.GraphicsDevice);
             return builder;
         }
