@@ -21,14 +21,19 @@ jobs:
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v4
+        with:
+          submodules: true
         
       - name: Set up .NET
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: "8.0.x"
 
-      - name: Build with dotnet
+      - name: Run dotnet build
         run: dotnet build ./Mantis.sln --configuration Release
+
+      - name: Run dotnet test
+        run: dotnet test
         
   lint:
     name: Lint
