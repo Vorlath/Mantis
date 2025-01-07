@@ -28,10 +28,8 @@ jobs:
         with:
           dotnet-version: "6.0.x"
 
-      - name: Restore Dependencies
-        run: dotnet restore
-
       - name: Run linters
         uses: wearerequired/lint-action@v2
         with:
           dotnet_format: true
+          dotnet_format_args: "--no-restore true"
