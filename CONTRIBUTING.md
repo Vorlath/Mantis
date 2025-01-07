@@ -3,6 +3,7 @@
 1. [Coding Practices](#coding-practices)
 2. [Folder Structure](#folder-structure)
 3. [Project Layout](#project-layout)
+4. [Commit Guidlines](#commit-guidelines)
 
 ## Coding Practices
 **1. Class and Type Names**
@@ -204,3 +205,24 @@ Projects currently found in this namespace include:
   - [`Mantis.Engine`](src/engine/Mantis.Engine/) - Contains MonoGame specific implementations for common engine interfaces 
 
 ---
+
+## Commit Guidelines
+- All commits should formatted as so: `#[issue-number] - [commit message]`
+  - `[issue-number]` should link back to an existing github issue
+  - `[commit message]` should:
+    - Start with a capitalized action word. "Add", "Fix", "Update", "Remove", "Create", etc.
+    - Describe what the commit does in a concise and direct manner. Aim for 50 characters or less in the subject line.
+  - **Acceptable commit messages:**
+    ```
+    #69 - Add logging middleware to capture API requests
+    ```
+  - **Unacceptable commit messages:**
+    ```
+    #69 - Fix stuff
+    ```
+    ```
+    Add logging middleware to capture API requests
+    ```
+    ```
+    #69 - Added logging middleware to capture API requests
+    ```
