@@ -46,6 +46,8 @@ namespace Mantis.Example.Breakout
                 builder.RegisterType<GameScene>().AsSelf().InstancePerLifetimeScope();
                 builder.RegisterType<TextureEngine>().As<IEngine>().InstancePerLifetimeScope();
                 builder.RegisterType<MovementEngine>().As<IEngine>().InstancePerLifetimeScope();
+                builder.RegisterType<CollisionEngine>().As<IEngine>().InstancePerLifetimeScope();
+                builder.RegisterType<ControllableEngine>().As<IEngine>().InstancePerLifetimeScope();
             });
             _mantis.Scenes.Create<GameScene>();
         }
@@ -112,7 +114,7 @@ namespace Mantis.Example.Breakout
         {
             base.Draw(gameTime);
 
-            GraphicsDevice.Clear(Color.Red);
+            GraphicsDevice.Clear(Color.DarkGray);
 
             _mantis.Draw(gameTime);
         }

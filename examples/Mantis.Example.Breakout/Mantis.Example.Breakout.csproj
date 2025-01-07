@@ -28,6 +28,9 @@
 	  <Using Include="Mantis.Example.Breakout.Components.Texture">
 	    <Alias>Texture</Alias>
 	  </Using>
+	  <Using Include="System.Drawing.RectangleF">
+	    <Alias>RectangleF</Alias>
+	  </Using>
 	</ItemGroup>
 
 </Project>
