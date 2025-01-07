@@ -1,0 +1,59 @@
+# This workflow executes several linters on changed files based on languages used in your code base whenever
+# you push a code or open a pull request.
+#
+# You can adjust the behavior by modifying this file.
+# For more information, see:
+# https://github.com/github/super-linter
+name: CI for PRs
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    paths:
+     - 'src/**'
+  
+jobs:
+  build_and_test:
+    name: build_and_test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+        
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Install MonoGame
+        run: ./scripts/install.sh --no-git-update
+
+      - name: Run dotnet build
+        run: dotnet build ./Mantis.sln --configuration Release
+
+      - name: Run dotnet test
+        run: dotnet test
+        
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Run linters
+        uses: wearerequired/lint-action@v2
+        with:
+          dotnet_format: true
+          dotnet_format_args: "--no-restore true --severity info --exclude libraries --exclude-diagnostics IDE0130"
