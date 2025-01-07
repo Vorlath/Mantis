@@ -30,40 +30,37 @@ jobs:
           DEFAULT_BRANCH: "main"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_CSHARP: true
-          FIX_CSHARP: true
+          FIX_CSHARP: false
 
-      # Step 4: Commit the changes if Super Linter applied any fixes
-      - name: Commit and push changes if fixes were applied
-        id: commit
-        run: |
-          # Check if any changes were made by Super Linter
-          git diff --exit-code || echo "Changes found, committing..."
-          
-          # If there are changes, commit them
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git add .
-          git commit -m "Apply auto-fix for C# code with Super Linter"
-
-      # Step 5: Push changes to the PR branch if fixes were applied
-      - name: Push changes to the PR branch
-        if: steps.commit.outcome == 'success'  # Only push if there were commits
-        run: |
-          git push origin HEAD:${{ github.head_ref }}
-          
-      # Step 6: Comment on the PR about the fixes applied (optional)
-      - name: Comment on PR with fix status
+      # Step 4: Parse Super Linter output and post suggestions in PR conversation
+      - name: Post suggested fixes to PR
+        if: failure()  # Only run if Super Linter found issues
         uses: actions/github-script@v6
         with:
           script: |
-            const prStatus = "${{ steps.commit.outcome }}";
-            let commentBody = prStatus === 'success' 
-              ? 'The C# code has been automatically fixed using Super Linter.'
-              : 'No formatting changes were made to the code.';
-            
+            // Read the linter output file for C# issues
+            const lintingResults = await require('fs').promises.readFile('super-linter-output.log', 'utf-8');
+            const lintingErrors = lintingResults.split('\n').filter(line => line.includes('error'));
+
+            if (lintingErrors.length === 0) {
+              console.log('No linting errors found.');
+              return;
+            }
+
+            // Create a formatted list of suggestions for the user
+            let suggestionsMessage = '### Linter Suggestions for C# Code:\n\n';
+            lintingErrors.forEach(error => {
+              // Example: "file:line:column: error message"
+              const match = error.match(/(.*):(\d+):(\d+):\s(.+)/);
+              if (match) {
+                suggestionsMessage += `- **File**: ${match[1]}, **Line**: ${match[2]}, **Message**: ${match[4]}\n`;
+              }
+            });
+
+            // Post a comment with suggestions in the PR conversation
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: commentBody
+              body: `${suggestionsMessage}\n\nPlease review the suggested changes and apply them manually.`
             });
