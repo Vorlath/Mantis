@@ -33,7 +33,7 @@ jobs:
           dotnet-version: "8.0.x"
 
       - name: Install MonoGame
-        run: ./scripts/install.sh --no-git-update
+        run: ./scripts/install-workflow.sh
 
       - name: Run linters
         uses: wearerequired/lint-action@v2

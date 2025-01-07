@@ -1,5 +1,9 @@
 #!/bin/bash
 
+## Stripped down version of other install scripts
+## Designed for github workflow - to speed up the
+## average run time.
+
 # ---------------
 # BEGIN VARIABLES
 # ---------------
