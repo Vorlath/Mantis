@@ -16,7 +16,7 @@ namespace Mantis.Engine
             ContainerBuilder builder = new();
             builder.RegisterType<SceneService>().As<ISceneService>().SingleInstance();
             customBuilder(builder);
-            _container = builder.Build();
+            this._container = builder.Build();
 
             this.Scenes = this._container.Resolve<ISceneService>();
         }
