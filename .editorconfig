@@ -206,15 +206,15 @@ csharp_preserve_single_line_statements = true
 
 # Naming rules
 
-dotnet_naming_rule.interface_should_be_begins_with_i.severity = warning
+dotnet_naming_rule.interface_should_be_begins_with_i.severity = error
 dotnet_naming_rule.interface_should_be_begins_with_i.symbols = interface
 dotnet_naming_rule.interface_should_be_begins_with_i.style = begins_with_i
 
-dotnet_naming_rule.types_should_be_pascal_case.severity = warning
+dotnet_naming_rule.types_should_be_pascal_case.severity = error
 dotnet_naming_rule.types_should_be_pascal_case.symbols = types
 dotnet_naming_rule.types_should_be_pascal_case.style = pascal_case
 
-dotnet_naming_rule.non_field_members_should_be_pascal_case.severity = warning
+dotnet_naming_rule.non_field_members_should_be_pascal_case.severity = error
 dotnet_naming_rule.non_field_members_should_be_pascal_case.symbols = non_field_members
 dotnet_naming_rule.non_field_members_should_be_pascal_case.style = pascal_case
 
@@ -259,7 +259,7 @@ dotnet_naming_style.enum_suffix.required_suffix = Enum
 # Enforce _ prefix for private fields
 dotnet_naming_rule.private_members_should_have_underscore.symbols = private_fields
 dotnet_naming_rule.private_members_should_have_underscore.style = underscore_prefix
-dotnet_naming_rule.private_members_should_have_underscore.severity = warning
+dotnet_naming_rule.private_members_should_have_underscore.severity = error
 
 # Define the symbol group for private fields
 dotnet_naming_symbols.private_fields.applicable_kinds = field
@@ -269,7 +269,7 @@ dotnet_naming_symbols.private_fields.required_modifiers =
 # Enforce PascalCase for public members
 dotnet_naming_rule.public_members_should_be_pascal_case.symbols = public_members
 dotnet_naming_rule.public_members_should_be_pascal_case.style = pascal_case
-dotnet_naming_rule.public_members_should_be_pascal_case.severity = warning
+dotnet_naming_rule.public_members_should_be_pascal_case.severity = error
 
 # Define the symbol group for public members
 dotnet_naming_symbols.public_members.applicable_kinds = field, property
@@ -279,7 +279,7 @@ dotnet_naming_symbols.public_members.required_modifiers =
 # Enforce camelCase for protected or internal fields and properties
 dotnet_naming_rule.protected_internal_members_should_be_camel_case.symbols = protected_internal_members
 dotnet_naming_rule.protected_internal_members_should_be_camel_case.style = camel_case
-dotnet_naming_rule.protected_internal_members_should_be_camel_case.severity = warning
+dotnet_naming_rule.protected_internal_members_should_be_camel_case.severity = error
 
 # Define the symbol group for protected or internal fields and properties
 dotnet_naming_symbols.protected_internal_members.applicable_kinds = field, property
@@ -287,7 +287,7 @@ dotnet_naming_symbols.protected_internal_members.applicable_accessibilities = pr
 dotnet_naming_symbols.protected_internal_members.required_modifiers = 
 
 # Enforce all enums to have a name ending with "Enum"
-dotnet_naming_rule.enums_should_have_enum_suffix.severity = warning
+dotnet_naming_rule.enums_should_have_enum_suffix.severity = error
 dotnet_naming_rule.enums_should_have_enum_suffix.symbols = enums
 dotnet_naming_rule.enums_should_have_enum_suffix.style = enum_suffix
 
