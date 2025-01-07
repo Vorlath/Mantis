@@ -1,4 +1,8 @@
 # Mantis Contribution Guide
+**Contents**
+1. [Coding Practices](#coding-practices)
+2. [Folder Structure](#folder-structure)
+3. [Project Layout](#project-layout)
 
 ## Coding Practices
 **1. Class and Type Names**
