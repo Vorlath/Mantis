@@ -1,0 +1,1 @@
+dotnet format -v diag --severity info --exclude libraries
