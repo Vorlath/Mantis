@@ -13,11 +13,14 @@ MONOGAME_DIRECTORY=$(realpath "$SCRIPT_DIR/../libraries/MonoGame")
 
 # Default flag value
 GIT_UPDATE=true
+BUILD_TOOLS=true
 
 # Parse CLI arguments for a specific flag (e.g., --bypass)
 for arg in "$@"; do
   if [[ "$arg" == "--no-git-update" ]]; then
     GIT_UPDATE=false
+  elif [[ "$arg" == "--no-build" ]]; then
+    BUILD_TOOLS=false
   fi
 done
 
@@ -32,23 +35,26 @@ fi
 # ---------------------------
 
 # Build MonoGame
-cd "$MONOGAME_DIRECTORY"
 
-if [[ -f "./build.cake" ]]; then
-    dotnet tool restore
-    dotnet cake --build-version "$MONOGAME_BUILD_VERSION"
+if [ "$BUILD_TOOLS" = true ]; then
+    cd "$MONOGAME_DIRECTORY"
 
-    MONOGAME_BUILD_VERSION="${MONOGAME_BUILD_VERSION}-develop"
-else
-    dotnet run --project "$MONOGAME_DIRECTORY/build/Build.csproj" -- "--build-version" "$MONOGAME_BUILD_VERSION"
+    if [[ -f "./build.cake" ]]; then
+        dotnet tool restore
+        dotnet cake --build-version "$MONOGAME_BUILD_VERSION"
 
-    # Why isn't this included in Build.csproj tho?
-    dotnet pack -o "$MONOGAME_DIRECTORY/artifacts/NuGet" \
-        /p:Version="$MONOGAME_BUILD_VERSION" \
-        "$MONOGAME_DIRECTORY/Tools/MonoGame.Content.Builder.Editor.Launcher/MonoGame.Content.Builder.Editor.Launcher.Linux.csproj"
+        MONOGAME_BUILD_VERSION="${MONOGAME_BUILD_VERSION}-develop"
+    else
+        dotnet run --project "$MONOGAME_DIRECTORY/build/Build.csproj" -- "--build-version" "$MONOGAME_BUILD_VERSION"
+
+        # Why isn't this included in Build.csproj tho?
+        dotnet pack -o "$MONOGAME_DIRECTORY/artifacts/NuGet" \
+            /p:Version="$MONOGAME_BUILD_VERSION" \
+            "$MONOGAME_DIRECTORY/Tools/MonoGame.Content.Builder.Editor.Launcher/MonoGame.Content.Builder.Editor.Launcher.Linux.csproj"
+    fi
+
+    git reset --hard HEAD
 fi
-
-git reset --hard HEAD
 
 cd "$WORKING_DIRECTORY"
 
@@ -72,6 +78,6 @@ fi
 #dotnet tool install --version "$MONOGAME_BUILD_VERSION" --add-source "$MONOGAME_DIRECTORY/artifacts/NuGet" dotnet-mgcb
 #dotnet tool install --version "$MONOGAME_BUILD_VERSION" --add-source "$MONOGAME_DIRECTORY/artifacts/NuGet" dotnet-mgcb-editor-linux
 #dotnet tool install --version "$MONOGAME_BUILD_VERSION" --add-source "$MONOGAME_DIRECTORY/artifacts/NuGet" dotnet-mgcb-editor
-dotnet tool install --add-source "$MONOGAME_DIRECTORY/artifacts/NuGet" dotnet-mgcb
-dotnet tool install --add-source "$MONOGAME_DIRECTORY/artifacts/NuGet" dotnet-mgcb-editor-linux
-dotnet tool install --add-source "$MONOGAME_DIRECTORY/artifacts/NuGet" dotnet-mgcb-editor
+dotnet tool install --local --create-manifest-if-needed --add-source "$MONOGAME_DIRECTORY/artifacts/NuGet" dotnet-mgcb
+dotnet tool install --local --create-manifest-if-needed --add-source "$MONOGAME_DIRECTORY/artifacts/NuGet" dotnet-mgcb-editor-linux
+dotnet tool install --local --create-manifest-if-needed --add-source "$MONOGAME_DIRECTORY/artifacts/NuGet" dotnet-mgcb-editor
