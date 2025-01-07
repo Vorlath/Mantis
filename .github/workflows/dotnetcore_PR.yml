@@ -31,7 +31,16 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_CSHARP: true
           FIX_CSHARP: false
-
+          
+      # Step 4: Capture and process Super Linter output
+      - name: Capture Super Linter output
+        if: failure()  # Run this step only if Super Linter found issues
+        run: |
+          # Capture the Super Linter output to a file
+          echo "Capturing Super Linter output..."
+          cat /tmp/linter_output.txt > super-linter-output.log
+          echo "Super Linter output saved to super-linter-output.log"
+          
       # Step 4: Parse Super Linter output and post suggestions in PR conversation
       - name: Post suggested fixes to PR
         if: failure()  # Only run if Super Linter found issues
