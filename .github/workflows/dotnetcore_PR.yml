@@ -17,8 +17,8 @@ on:
      - 'tests/**'
   
 jobs:
-  build_and_test:
-    name: build_and_test
+  lint_and_test:
+    name: lint_and_test
     runs-on: ubuntu-latest
 
     steps:
