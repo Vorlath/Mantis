@@ -28,3 +28,45 @@ jobs:
           DEFAULT_BRANCH: "main"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_CSHARP: true
+      
+      - name: Parse linting results and comment on PR
+        if: failure()  # Only run if linting fails
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const lintingResults = await require('fs').promises.readFile('./super-linter-output.log', 'utf-8');  // Path to Super Linter's output file
+            const lintingErrors = lintingResults.split('\n').filter(line => line.includes('error')); // Filter errors from the log file
+
+            if (lintingErrors.length === 0) {
+              console.log('No linting errors found.');
+              return;
+            }
+
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+
+            for (const error of lintingErrors) {
+              // Assuming the format is similar to: "file:line:column: error message"
+              const match = error.match(/(.*):(\d+):(\d+):\s(.+)/);
+              if (!match) continue;
+
+              const file = match[1];
+              const line = parseInt(match[2]);
+              const message = match[4];
+
+              const prFile = pr.files.find(f => f.filename === file);
+              if (prFile) {
+                await github.rest.pulls.createReviewComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: context.issue.number,
+                  body: `Linting error: ${message}`,
+                  commit_id: pr.head.sha,
+                  path: file,
+                  position: line - 1  // Line number is 1-based, adjust for GitHub API
+                });
+              }
+            }
