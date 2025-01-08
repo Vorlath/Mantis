@@ -54,7 +54,7 @@ namespace Mantis.Example.Breakout.Scenes
                     entityInitializer.Init(new Size(64, 32));
                     entityInitializer.Init(new Health(1));
                     entityInitializer.Init(new Collidable());
-                    entityInitializer.Init(new Texture(Enums.TextureEnum.block, colors[i - 1]));
+                    entityInitializer.Init(new Texture(Enums.TextureEnum.Block, colors[i - 1]));
                     num++;
                 }
             }
