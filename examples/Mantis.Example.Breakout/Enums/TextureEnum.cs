@@ -2,9 +2,9 @@
 {
     public enum TextureEnum
     {
-        ball,
-        wall,
-        paddle,
-        block
+        Ball,
+        Wall,
+        Paddle,
+        Block
     }
 }

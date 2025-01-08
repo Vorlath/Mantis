@@ -18,7 +18,7 @@ namespace Mantis.Example.Breakout.Descriptors
             new ComponentBuilder<Position>(new Position()),
             new ComponentBuilder<Velocity>(new Velocity()),
             new ComponentBuilder<Size>(new Size(64, 16)),
-            new ComponentBuilder<Texture>(new Texture(TextureEnum.paddle, Color.LightBlue)),
+            new ComponentBuilder<Texture>(new Texture(TextureEnum.Paddle, Color.LightBlue)),
             new ComponentBuilder<Collidable>(new Collidable()),
             new ComponentBuilder<Health>(new Health(10000000))
 

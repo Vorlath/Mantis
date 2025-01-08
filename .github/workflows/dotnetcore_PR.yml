@@ -39,7 +39,7 @@ jobs:
         uses: wearerequired/lint-action@v2
         with:
           dotnet_format: true
-          dotnet_format_args: "--no-restore --exclude libraries --exclude-diagnostics IDE0130"
+          dotnet_format_args: "--exclude libraries --exclude-diagnostics IDE0130"
 
       - name: Run dotnet build
         run: dotnet build ./Mantis.sln --configuration Release

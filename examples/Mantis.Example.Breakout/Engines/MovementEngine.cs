@@ -8,8 +8,9 @@ namespace Mantis.Example.Breakout.Engines
     public class MovementEngine(GraphicsDevice graphics) : IFrameEngine, IQueryingEntitiesEngine
     {
 
-        public EntitiesDB entitiesDB { get; set; }
-        readonly GraphicsDevice graphics = graphics;
+        public EntitiesDB entitiesDB { get; set; } = null!;
+
+        private readonly GraphicsDevice _graphics = graphics;
 
         public void Ready()
         {
@@ -44,9 +45,9 @@ namespace Mantis.Example.Breakout.Engines
             position.Value += (velocity.Value * (float)gameTime.ElapsedGameTime.TotalSeconds);
 
             // Check for walls
-            if (position.Value.X + size.Value.X > this.graphics.Viewport.Width)
+            if (position.Value.X + size.Value.X > this._graphics.Viewport.Width)
             {
-                position.Value.X = this.graphics.Viewport.Width - size.Value.X;
+                position.Value.X = this._graphics.Viewport.Width - size.Value.X;
                 velocity.Value.X *= -1;
             }
             if (position.Value.X < 0)
@@ -54,9 +55,9 @@ namespace Mantis.Example.Breakout.Engines
                 position.Value.X = 0;
                 velocity.Value.X *= -1;
             }
-            if (position.Value.Y + size.Value.Y > this.graphics.Viewport.Height)
+            if (position.Value.Y + size.Value.Y > this._graphics.Viewport.Height)
             {
-                position.Value.Y = this.graphics.Viewport.Height - size.Value.Y;
+                position.Value.Y = this._graphics.Viewport.Height - size.Value.Y;
                 velocity.Value.Y *= -1;
             }
             if (position.Value.Y < 0)

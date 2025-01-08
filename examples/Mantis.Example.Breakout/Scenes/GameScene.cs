@@ -12,15 +12,15 @@ namespace Mantis.Example.Breakout.Scenes
     public static class ExclusiveGroups
     {
 
-        public static ExclusiveGroup ballGroup = new();
-        public static ExclusiveGroup blockGroup = new();
-        public static ExclusiveGroup wallGroup = new();
-        public static ExclusiveGroup paddleGroup = new();
+        public static ExclusiveGroup BallGroup = new();
+        public static ExclusiveGroup BlockGroup = new();
+        public static ExclusiveGroup WallGroup = new();
+        public static ExclusiveGroup PaddleGroup = new();
     }
 
     public class GameScene : IScene
     {
-        private readonly EntitiesSubmissionScheduler entitiesSubmissionScheduler;
+        private readonly EntitiesSubmissionScheduler _entitiesSubmissionScheduler;
         private readonly IFrameEngine[] _engines;
         public GameScene(
             EnginesRoot enginesRoot,
@@ -29,7 +29,7 @@ namespace Mantis.Example.Breakout.Scenes
             EntitiesSubmissionScheduler entitiesSubmissionScheduler,
             GraphicsDevice graphics)
         {
-            this.entitiesSubmissionScheduler = entitiesSubmissionScheduler;
+            this._entitiesSubmissionScheduler = entitiesSubmissionScheduler;
             this._engines = engines.OfType<IFrameEngine>().ToArray();
             foreach (IEngine engine in engines)
             {
@@ -37,7 +37,7 @@ namespace Mantis.Example.Breakout.Scenes
             }
             // ball
             int num = 0;
-            var entityInitializer = entityFactory.BuildEntity<BallDescriptor>(0, ExclusiveGroups.ballGroup);
+            var entityInitializer = entityFactory.BuildEntity<BallDescriptor>(0, ExclusiveGroups.BallGroup);
             entityInitializer.Init(new Position(100, 500));
             entityInitializer.Init(new Velocity(200, 300));
             entityInitializer.Init(new Size(16, 16));
@@ -49,12 +49,12 @@ namespace Mantis.Example.Breakout.Scenes
             {
                 for (int j = 1; j < 11; j++)
                 {
-                    entityInitializer = entityFactory.BuildEntity<BlockDescriptor>((uint)num, ExclusiveGroups.blockGroup);
+                    entityInitializer = entityFactory.BuildEntity<BlockDescriptor>((uint)num, ExclusiveGroups.BlockGroup);
                     entityInitializer.Init(new Position((j * 64), (i * 32)));
                     entityInitializer.Init(new Size(64, 32));
                     entityInitializer.Init(new Health(1));
                     entityInitializer.Init(new Collidable());
-                    entityInitializer.Init(new Texture(Enums.TextureEnum.block, colors[i - 1]));
+                    entityInitializer.Init(new Texture(Enums.TextureEnum.Block, colors[i - 1]));
                     num++;
                 }
             }
@@ -65,7 +65,7 @@ namespace Mantis.Example.Breakout.Scenes
             // entityInitializer.Init(new Collidable());
 
             // paddle
-            entityInitializer = entityFactory.BuildEntity<PaddleDescriptor>(3, ExclusiveGroups.paddleGroup);
+            entityInitializer = entityFactory.BuildEntity<PaddleDescriptor>(3, ExclusiveGroups.PaddleGroup);
             entityInitializer.Init(new Position(0, graphics.Viewport.Height - 16));
         }
 
@@ -79,7 +79,7 @@ namespace Mantis.Example.Breakout.Scenes
 
         public void Update(GameTime gameTime)
         {
-            this.entitiesSubmissionScheduler.SubmitEntities();
+            this._entitiesSubmissionScheduler.SubmitEntities();
             foreach (IFrameEngine engine in this._engines)
             {
                 engine.Update(gameTime);

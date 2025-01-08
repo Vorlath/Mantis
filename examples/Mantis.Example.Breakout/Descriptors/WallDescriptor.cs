@@ -13,7 +13,7 @@ namespace Mantis.Example.Breakout.Descriptors
             new ComponentBuilder<Position>(new Position()),
             new ComponentBuilder<Collidable>(new Collidable(0)),
             new ComponentBuilder<Size>(new Size()),
-            new ComponentBuilder<Texture>(new Texture(Enums.TextureEnum.wall, Color.White))
+            new ComponentBuilder<Texture>(new Texture(Enums.TextureEnum.Wall, Color.White))
         ];
     }
 }
