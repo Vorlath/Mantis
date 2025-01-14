@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "DocumentId": {
+      "ProjectId": {
+        "Id": "e758f764-9169-4150-91af-76eb9459be0a"
+      },
+      "Id": "01907f57-112f-487f-a2fb-6e9e430137b5"
+    },
+    "FileName": "ContainerBuilderExtensions.cs",
+    "FilePath": "C:\\Users\\Anthony\\source\\repos\\Mantis\\src\\core\\Mantis.Core\\Extensions\\ContainerBuilderExtensions.cs",
+    "FileChanges": [
+      {
+        "LineNumber": 10,
+        "CharNumber": 121,
+        "DiagnosticId": "IDE0060",
+        "FormatDescription": "info IDE0060: Remove unused parameter \u0027configurator\u0027 if it is not part of a shipped public API"
+      }
+    ]
+  }
+]
