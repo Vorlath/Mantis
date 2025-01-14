@@ -1,16 +1,14 @@
 ﻿using Mantis.Example.Breakout.Components;
 using Mantis.Example.Breakout.Descriptors;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Svelto.ECS;
 
 namespace Mantis.Example.Breakout.Engines
 {
-    public class CollisionEngine(GraphicsDevice graphics, IEntityFunctions entityFunctions) : IFrameEngine, IQueryingEntitiesEngine
+    public class CollisionEngine(IEntityFunctions entityFunctions) : IFrameEngine, IQueryingEntitiesEngine
     {
         public EntitiesDB entitiesDB { get; set; } = null!;
 
-        private readonly GraphicsDevice _graphics = graphics;
         private readonly IEntityFunctions _entityFunctions = entityFunctions;
 
         public void Ready()

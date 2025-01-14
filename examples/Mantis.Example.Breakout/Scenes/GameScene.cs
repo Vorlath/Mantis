@@ -12,10 +12,10 @@ namespace Mantis.Example.Breakout.Scenes
     public static class ExclusiveGroups
     {
 
-        public static ExclusiveGroup BallGroup = new();
-        public static ExclusiveGroup BlockGroup = new();
-        public static ExclusiveGroup WallGroup = new();
-        public static ExclusiveGroup PaddleGroup = new();
+        public static readonly ExclusiveGroup BallGroup = new();
+        public static readonly ExclusiveGroup BlockGroup = new();
+        public static readonly ExclusiveGroup WallGroup = new();
+        public static readonly ExclusiveGroup PaddleGroup = new();
     }
 
     public class GameScene : IScene
