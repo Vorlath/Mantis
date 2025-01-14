@@ -1,18 +1,15 @@
 ﻿using Mantis.Example.Breakout.Components;
 using Mantis.Example.Breakout.Descriptors;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Svelto.ECS;
 
 namespace Mantis.Example.Breakout.Engines
 {
-    public class CollisionEngine(GraphicsDevice graphics, IEntityFunctions entityFunctions) : IFrameEngine, IQueryingEntitiesEngine
+    public class CollisionEngine(IEntityFunctions entityFunctions) : IFrameEngine, IQueryingEntitiesEngine
     {
-        public int num = 0;
-        public EntitiesDB entitiesDB { get; set; }
+        public EntitiesDB entitiesDB { get; set; } = null!;
 
-        private readonly GraphicsDevice graphics = graphics;
-        private readonly IEntityFunctions entityFunctions = entityFunctions;
+        private readonly IEntityFunctions _entityFunctions = entityFunctions;
 
         public void Ready()
         {
@@ -85,7 +82,7 @@ namespace Mantis.Example.Breakout.Engines
                                 if (blockHealth.Value <= 0)
                                 {
                                     //var egid = new EGID(nativeIDs[j], blockGroup);
-                                    this.entityFunctions.RemoveEntity<BlockDescriptor>(nativeIDs[j], blockGroup);
+                                    this._entityFunctions.RemoveEntity<BlockDescriptor>(nativeIDs[j], blockGroup);
                                     // need to learn how to destroy stuff
                                     //blockPosition.destr
                                 }

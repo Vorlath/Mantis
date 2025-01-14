@@ -50,7 +50,7 @@ dotnet_style_parentheses_in_other_operators = never_if_unnecessary
 dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:warning
 
 # Modifier preferences
-dotnet_style_require_accessibility_modifiers = for_non_interface_members
+dotnet_style_require_accessibility_modifiers = always:warning
 
 # Expression-level preferences
 dotnet_prefer_system_hash_code = true
@@ -69,8 +69,8 @@ dotnet_style_prefer_conditional_expression_over_return = true
 dotnet_style_prefer_foreach_explicit_cast_in_source = when_strongly_typed
 dotnet_style_prefer_inferred_anonymous_type_member_names = true
 dotnet_style_prefer_inferred_tuple_names = true
-dotnet_style_prefer_is_null_check_over_reference_equality_method = true
-dotnet_style_prefer_simplified_boolean_expressions = true
+dotnet_style_prefer_is_null_check_over_reference_equality_method = true:warning
+dotnet_style_prefer_simplified_boolean_expressions = true:warning
 dotnet_style_prefer_simplified_interpolation = true
 
 # Field preferences
@@ -99,7 +99,7 @@ csharp_style_expression_bodied_constructors = false
 csharp_style_expression_bodied_indexers = true
 csharp_style_expression_bodied_lambdas = true
 csharp_style_expression_bodied_local_functions = false
-csharp_style_expression_bodied_methods = false
+csharp_style_expression_bodied_methods = false:error
 csharp_style_expression_bodied_operators = false
 csharp_style_expression_bodied_properties = true
 
@@ -133,7 +133,7 @@ csharp_style_prefer_top_level_statements = true
 # Expression-level preferences
 csharp_prefer_simple_default_expression = true
 csharp_style_deconstructed_variable_declaration = true
-csharp_style_implicit_object_creation_when_type_is_apparent = true
+csharp_style_implicit_object_creation_when_type_is_apparent = false:warning
 csharp_style_inlined_variable_declaration = true
 csharp_style_prefer_index_operator = true
 csharp_style_prefer_local_over_anonymous_function = true
@@ -295,3 +295,6 @@ dotnet_naming_rule.enums_should_have_enum_suffix.style = enum_suffix
 dotnet_naming_symbols.enums.applicable_kinds = enum
 dotnet_naming_symbols.enums.applicable_accessibilities = public
 dotnet_naming_symbols.enums.required_modifiers = 
+
+# Disable Use concrete types when possible for improved performance
+dotnet_diagnostic.CA1859.severity = none
