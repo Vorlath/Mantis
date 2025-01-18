@@ -1,4 +1,5 @@
 ﻿using Mantis.Engine.Common;
+using Mantis.Engine.Common.Services;
 using Mantis.Example.Breakout.Components;
 using Mantis.Example.Breakout.Descriptors;
 using Mantis.Example.Breakout.Engines;
@@ -22,6 +23,7 @@ namespace Mantis.Example.Breakout.Scenes
     {
         private readonly EntitiesSubmissionScheduler _entitiesSubmissionScheduler;
         private readonly IFrameEngine[] _engines;
+        private ISystemService _systemService;
         public GameScene(
             EnginesRoot enginesRoot,
             IEnumerable<IEngine> engines,
@@ -71,18 +73,18 @@ namespace Mantis.Example.Breakout.Scenes
 
         public void Draw(GameTime gameTime)
         {
-            foreach (IFrameEngine engine in this._engines)
+            foreach (IDrawSystem drawSystem in this._systemService.GetSystems<IDrawSystem>())
             {
-                engine.Draw(gameTime);
+                drawSystem.Draw(gameTime);
             }
         }
 
         public void Update(GameTime gameTime)
         {
             this._entitiesSubmissionScheduler.SubmitEntities();
-            foreach (IFrameEngine engine in this._engines)
+            foreach (IUpdateSystem updateSystem in this._systemService.GetSystems<IUpdateSystem>())
             {
-                engine.Update(gameTime);
+                updateSystem.Update(gameTime);
             }
         }
     }
