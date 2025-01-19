@@ -1,4 +1,5 @@
-﻿using Mantis.Engine.Common;
+﻿using Mantis.Core.Logging.Common;
+using Mantis.Engine.Common;
 using Mantis.Example.Breakout.Components;
 using Mantis.Example.Breakout.Descriptors;
 using Mantis.Example.Breakout.Engines;
@@ -27,8 +28,11 @@ namespace Mantis.Example.Breakout.Scenes
             IEnumerable<IEngine> engines,
             IEntityFactory entityFactory,
             EntitiesSubmissionScheduler entitiesSubmissionScheduler,
-            GraphicsDevice graphics)
+            GraphicsDevice graphics,
+            ILogger<GameScene> logger)
         {
+            logger.Information("Begin game scene");
+
             this._entitiesSubmissionScheduler = entitiesSubmissionScheduler;
             this._engines = engines.OfType<IFrameEngine>().ToArray();
             foreach (IEngine engine in engines)

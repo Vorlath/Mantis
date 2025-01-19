@@ -49,6 +49,6 @@ dotnet tool uninstall dotnet-mgcb-editor
 #dotnet tool install --version $MonoGameBuildVersion --add-source "$($MonoGameDirectory)/Artifacts/NuGet" dotnet-mgcb
 #dotnet tool install --version $MonoGameBuildVersion --add-source "$($MonoGameDirectory)/Artifacts/NuGet" dotnet-mgcb-editor-windows
 #dotnet tool install --version $MonoGameBuildVersion --add-source "$($MonoGameDirectory)/Artifacts/NuGet" dotnet-mgcb-editor
-dotnet tool install --add-source "$($MonoGameDirectory)/Artifacts/NuGet" dotnet-mgcb
-dotnet tool install --add-source "$($MonoGameDirectory)/Artifacts/NuGet" dotnet-mgcb-editor-windows
-dotnet tool install --add-source "$($MonoGameDirectory)/Artifacts/NuGet" dotnet-mgcb-editor
+dotnet tool install --local --create-manifest-if-needed --add-source "$($MonoGameDirectory)/Artifacts/NuGet" dotnet-mgcb
+dotnet tool install --local --create-manifest-if-needed --add-source "$($MonoGameDirectory)/Artifacts/NuGet" dotnet-mgcb-editor-windows
+dotnet tool install --local --create-manifest-if-needed --add-source "$($MonoGameDirectory)/Artifacts/NuGet" dotnet-mgcb-editor

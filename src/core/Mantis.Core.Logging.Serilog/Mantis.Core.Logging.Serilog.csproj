@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="4.2.0" PrivateAssets="compile" />
+	<PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" PrivateAssets="compile" />
+    <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" PrivateAssets="compile" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Mantis.Core.Common\Mantis.Core.Common.csproj" />
+    <ProjectReference Include="..\Mantis.Core.Logging.Common\Mantis.Core.Logging.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Serilog.ILogger">
+      <Alias>ISerilogLogger</Alias>
+    </Using>
+  </ItemGroup>
+
+</Project>

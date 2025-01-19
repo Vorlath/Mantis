@@ -1,5 +1,8 @@
 ﻿using Autofac;
 using Mantis.Core.Extensions;
+using Mantis.Core.Logging.Common.Enums;
+using Mantis.Core.Logging.Common.Extensions;
+using Mantis.Core.Logging.Serilog.Extensions;
 using Mantis.Engine;
 using Mantis.Engine.Extensions;
 using Mantis.Example.Breakout.Engines;
@@ -42,7 +45,13 @@ namespace Mantis.Example.Breakout
             this._graphics.ApplyChanges();
             this._mantis = new MantisEngine(builder =>
             {
-                builder.RegisterMonoGameServices(this.Content, this._graphics).RegisterECSServices();
+                builder.RegisterCoreServices()
+                    .RegisterMonoGameServices(this.Content, this._graphics)
+                    .RegisterECSServices()
+                    .RegisterSerilogLoggingServices(LogLevelEnum.Debug);
+
+                builder.ConfigureConsoleLoggerSink().ConfigureFileLoggerSink($"logs/log_{DateTime.Now:yyyy-dd-MM}.txt");
+
                 builder.RegisterType<GameScene>().AsSelf().InstancePerLifetimeScope();
                 builder.RegisterType<TextureEngine>().As<IEngine>().InstancePerLifetimeScope();
                 builder.RegisterType<MovementEngine>().As<IEngine>().InstancePerLifetimeScope();
