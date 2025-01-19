@@ -47,10 +47,14 @@ namespace Mantis.Example.Breakout
             {
                 builder.RegisterCoreServices()
                     .RegisterMonoGameServices(this.Content, this._graphics)
-                    .RegisterECSServices()
-                    .RegisterSerilogLoggingServices(LogLevelEnum.Debug);
+                    .RegisterECSServices();
 
-                builder.ConfigureConsoleLoggerSink().ConfigureFileLoggerSink($"logs/log_{DateTime.Now:yyyy-dd-MM}.txt");
+                // Register serilog logging and the desired logger sinks.
+                // Once registered, the logger can be utilized by injecting
+                // ILogger<TContext> into your class TContext. See GameScene for an example
+                builder.RegisterSerilogLoggingServices(LogLevelEnum.Debug) // Register serilog services with a Debug log level
+                    .ConfigureConsoleLoggerSink() // Setup console sink. The log output will be written to the console
+                    .ConfigureFileLoggerSink($"logs/log_{DateTime.Now:yyyy-dd-MM}.txt"); // Setup file sink. The created file will exist in the exe's build path at ./logs/log_yyyy-dd-MM.txt
 
                 builder.RegisterType<GameScene>().AsSelf().InstancePerLifetimeScope();
                 builder.RegisterType<TextureEngine>().As<IEngine>().InstancePerLifetimeScope();
