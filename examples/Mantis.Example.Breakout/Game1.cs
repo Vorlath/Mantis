@@ -1,5 +1,8 @@
 ﻿using Autofac;
 using Mantis.Core.Extensions;
+using Mantis.Core.Logging.Common.Enums;
+using Mantis.Core.Logging.Common.Extensions;
+using Mantis.Core.Logging.Serilog.Extensions;
 using Mantis.Engine;
 using Mantis.Engine.Common;
 using Mantis.Engine.Extensions;
@@ -42,7 +45,17 @@ namespace Mantis.Example.Breakout
             this._graphics.ApplyChanges();
             this._mantis = new MantisEngine(builder =>
             {
-                builder.RegisterMonoGameServices(this.Content, this._graphics).RegisterECSServices();
+                builder.RegisterCoreServices()
+                    .RegisterMonoGameServices(this.Content, this._graphics)
+                    .RegisterECSServices();
+
+                // Register serilog logging and the desired logger sinks.
+                // Once registered, the logger can be utilized by injecting
+                // ILogger<TContext> into your class TContext. See GameScene for an example
+                builder.RegisterSerilogLoggingServices(LogLevelEnum.Debug) // Register serilog services with a Debug log level
+                    .ConfigureConsoleLoggerSink() // Setup console sink. The log output will be written to the console
+                    .ConfigureFileLoggerSink($"logs/log_{DateTime.Now:yyyy-dd-MM}.txt"); // Setup file sink. The created file will exist in the exe's build path at ./logs/log_yyyy-dd-MM.txt
+
                 builder.RegisterType<GameScene>().AsSelf().InstancePerLifetimeScope();
                 builder.RegisterType<TextureEngine>().As<ISystem>().InstancePerLifetimeScope();
                 builder.RegisterType<MovementEngine>().As<ISystem>().InstancePerLifetimeScope();

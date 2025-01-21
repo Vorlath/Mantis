@@ -7,7 +7,7 @@ namespace Mantis.Core.Services
 {
     public class ConfigurationService(ILifetimeScope scope, IEnumerable<Configurator> configurators) : IConfigurationService
     {
-        private readonly ILifetimeScope _scope;
+        private readonly ILifetimeScope _scope = scope;
         private readonly Configurator[] _configurators = [.. configurators];
         private readonly Dictionary<Type, Configurator[]> _configuratorsByType = [];
 

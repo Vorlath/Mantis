@@ -1,4 +1,5 @@
-﻿using Mantis.Engine.Common;
+﻿using Mantis.Core.Logging.Common;
+using Mantis.Engine.Common;
 using Mantis.Engine.Common.Services;
 using Mantis.Example.Breakout.Components;
 using Mantis.Example.Breakout.Descriptors;
@@ -21,15 +22,21 @@ namespace Mantis.Example.Breakout.Scenes
     public class GameScene : IScene
     {
         private readonly EntitiesSubmissionScheduler _entitiesSubmissionScheduler;
+        private readonly IFrameEngine[] _engines;
+        private readonly ILogger<GameScene> _logger;
+
         private ISystemService _systemService;
         public GameScene(
             EnginesRoot enginesRoot,
             IEntityFactory entityFactory,
             EntitiesSubmissionScheduler entitiesSubmissionScheduler,
             GraphicsDevice graphics,
+            ILogger<GameScene> logger),
             ISystemService systemService)
         {
             this._entitiesSubmissionScheduler = entitiesSubmissionScheduler;
+            this._engines = engines.OfType<IFrameEngine>().ToArray();
+            this._logger = logger;
             this._systemService = systemService;
             foreach (IEngine engine in _systemService.GetSystems<IEngine>())
             {
@@ -67,10 +74,17 @@ namespace Mantis.Example.Breakout.Scenes
             // paddle
             entityInitializer = entityFactory.BuildEntity<PaddleDescriptor>(3, ExclusiveGroups.PaddleGroup);
             entityInitializer.Init(new Position(0, graphics.Viewport.Height - 16));
+
+            // Example logger usage.
+            this._logger.Debug("Created GameScene!");
         }
 
         public void Draw(GameTime gameTime)
         {
+            // Example logger usage.
+            // This will not be logged with a minimum log level of Debug
+            this._logger.Verbose("Draw");
+
             foreach (IDrawSystem drawSystem in this._systemService.GetSystems<IDrawSystem>())
             {
                 drawSystem.Draw(gameTime);
@@ -79,6 +93,10 @@ namespace Mantis.Example.Breakout.Scenes
 
         public void Update(GameTime gameTime)
         {
+            // Example logger usage.
+            // This will not be logged with a minimum log level of Debug
+            this._logger.Verbose("Update");
+
             this._entitiesSubmissionScheduler.SubmitEntities();
             foreach (IUpdateSystem updateSystem in this._systemService.GetSystems<IUpdateSystem>())
             {
