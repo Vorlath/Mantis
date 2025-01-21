@@ -1,9 +1,9 @@
 ﻿using Autofac;
 using Mantis.Core.Common;
 using Mantis.Core.Common.Extensions;
-using Mantis.Core.Logging.Common;
 using Mantis.Core.Logging.Common.Configurations;
 using Mantis.Core.Logging.Common.Enums;
+using Mantis.Core.Logging.Serilog.Modules;
 using Serilog;
 
 namespace Mantis.Core.Logging.Serilog.Extensions
@@ -12,7 +12,7 @@ namespace Mantis.Core.Logging.Serilog.Extensions
     {
         public static ContainerBuilder RegisterSerilogLoggingServices(this ContainerBuilder builder, LogLevelEnum minimumLogLevel)
         {
-            builder.RegisterGeneric(typeof(SerilogMantisLogger<>)).As(typeof(ILogger<>)).InstancePerLifetimeScope();
+            builder.RegisterModule<SerilogLoggingModule>();
             builder.Configure<LoggerConfiguration>((scope, serilogLoggerConfiguration) =>
             {
                 // Configure the minimum log level

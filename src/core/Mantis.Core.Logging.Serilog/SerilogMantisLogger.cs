@@ -11,6 +11,8 @@ namespace Mantis.Core.Logging.Serilog
             .Enrich.WithProperty(LoggingConstants.SourceContext, typeof(TContext).Name)
             .CreateLogger();
 
+        public Type Context => typeof(TContext);
+
         public void Verbose(string message)
         {
             this._serilog.Verbose(message);

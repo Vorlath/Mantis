@@ -1,7 +1,9 @@
 ﻿namespace Mantis.Core.Logging.Common
 {
-    public interface ILogger<TContext>
+    public interface ILogger
     {
+        Type Context { get; }
+
         void Verbose(string message);
         void Verbose<T>(string messageTemplate, T propertyValue);
         void Verbose<T0, T1>(string messageTemplate, T0 propertyValue0, T1 propertyValue1);
@@ -67,5 +69,10 @@
         void Fatal<T0, T1>(Exception? exception, string messageTemplate, T0 propertyValue0, T1 propertyValue1);
         void Fatal<T0, T1, T2>(Exception? exception, string messageTemplate, T0 propertyValue0, T1 propertyValue1, T2 propertyValue2);
         void Fatal(Exception? exception, string messageTemplate, params object?[]? propertyValues);
+    }
+
+    public interface ILogger<TContext> : ILogger
+    {
+
     }
 }
