@@ -22,23 +22,21 @@ namespace Mantis.Example.Breakout.Scenes
     public class GameScene : IScene
     {
         private readonly EntitiesSubmissionScheduler _entitiesSubmissionScheduler;
-        private readonly IFrameEngine[] _engines;
         private readonly ILogger<GameScene> _logger;
 
-        private ISystemService _systemService;
+        private readonly ISystemService _systemService;
         public GameScene(
             EnginesRoot enginesRoot,
             IEntityFactory entityFactory,
             EntitiesSubmissionScheduler entitiesSubmissionScheduler,
             GraphicsDevice graphics,
-            ILogger<GameScene> logger),
+            ILogger<GameScene> logger,
             ISystemService systemService)
         {
             this._entitiesSubmissionScheduler = entitiesSubmissionScheduler;
-            this._engines = engines.OfType<IFrameEngine>().ToArray();
             this._logger = logger;
             this._systemService = systemService;
-            foreach (IEngine engine in _systemService.GetSystems<IEngine>())
+            foreach (IEngine engine in this._systemService.GetSystems<IEngine>())
             {
                 enginesRoot.AddEngine(engine);
             }

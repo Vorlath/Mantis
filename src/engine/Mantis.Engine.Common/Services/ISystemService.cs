@@ -28,6 +28,5 @@
         /// <typeparam name="TSystem"></typeparam>
         /// <returns></returns>
         bool HasSystem<TSystem>() where TSystem : ISystem;
-
     }
 }

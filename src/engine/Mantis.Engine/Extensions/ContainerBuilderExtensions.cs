@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autofac;
+﻿using Autofac;
+using Mantis.Engine.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,6 +15,12 @@ namespace Mantis.Engine.Extensions
             builder.RegisterInstance<ContentManager>(content);
             builder.RegisterInstance<GraphicsDeviceManager>(graphicsDeviceManager);
             builder.RegisterInstance<GraphicsDevice>(graphicsDeviceManager.GraphicsDevice);
+            return builder;
+        }
+
+        public static ContainerBuilder RegisterSystem<TSystem>(this ContainerBuilder builder) where TSystem : ISystem
+        {
+            builder.RegisterType<TSystem>().As<ISystem>().InstancePerLifetimeScope();
             return builder;
         }
     }
