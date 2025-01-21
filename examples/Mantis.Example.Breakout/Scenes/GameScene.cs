@@ -2,7 +2,6 @@
 using Mantis.Engine.Common.Services;
 using Mantis.Example.Breakout.Components;
 using Mantis.Example.Breakout.Descriptors;
-using Mantis.Example.Breakout.Engines;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Svelto.ECS;
@@ -22,18 +21,17 @@ namespace Mantis.Example.Breakout.Scenes
     public class GameScene : IScene
     {
         private readonly EntitiesSubmissionScheduler _entitiesSubmissionScheduler;
-        private readonly IFrameEngine[] _engines;
         private ISystemService _systemService;
         public GameScene(
             EnginesRoot enginesRoot,
-            IEnumerable<IEngine> engines,
             IEntityFactory entityFactory,
             EntitiesSubmissionScheduler entitiesSubmissionScheduler,
-            GraphicsDevice graphics)
+            GraphicsDevice graphics,
+            ISystemService systemService)
         {
             this._entitiesSubmissionScheduler = entitiesSubmissionScheduler;
-            this._engines = engines.OfType<IFrameEngine>().ToArray();
-            foreach (IEngine engine in engines)
+            this._systemService = systemService;
+            foreach (IEngine engine in _systemService.GetSystems<IEngine>())
             {
                 enginesRoot.AddEngine(engine);
             }

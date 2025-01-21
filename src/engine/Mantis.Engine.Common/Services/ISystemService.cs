@@ -3,20 +3,20 @@
     public interface ISystemService
     {
         /// <summary>
-        /// 
+        /// Gets all systems in the systems container
         /// </summary>
         /// <returns></returns>
         IEnumerable<ISystem> GetAll();
 
         /// <summary>
-        /// 
+        /// Returns all systems of type <typeparamref name="TSystem"/>
         /// </summary>
         /// <typeparam name="TSystem"></typeparam>
         /// <returns></returns>
         IEnumerable<TSystem> GetSystems<TSystem>();
 
         /// <summary>
-        /// 
+        /// Returns the first instance of type <typeparamref name="TSystem"/>
         /// </summary>
         /// <typeparam name="TSystem"></typeparam>
         /// <returns></returns>

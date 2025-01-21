@@ -2,7 +2,7 @@
 
 namespace Mantis.Engine.Common
 {
-    public interface IUpdateSystem
+    public interface IUpdateSystem : ISystem
     {
         /// <summary>
         /// 

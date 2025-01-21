@@ -1,12 +1,12 @@
 ﻿using Autofac;
 using Mantis.Core.Extensions;
 using Mantis.Engine;
+using Mantis.Engine.Common;
 using Mantis.Engine.Extensions;
 using Mantis.Example.Breakout.Engines;
 using Mantis.Example.Breakout.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Svelto.ECS;
 
 namespace Mantis.Example.Breakout
 {
@@ -44,10 +44,10 @@ namespace Mantis.Example.Breakout
             {
                 builder.RegisterMonoGameServices(this.Content, this._graphics).RegisterECSServices();
                 builder.RegisterType<GameScene>().AsSelf().InstancePerLifetimeScope();
-                builder.RegisterType<TextureEngine>().As<IEngine>().InstancePerLifetimeScope();
-                builder.RegisterType<MovementEngine>().As<IEngine>().InstancePerLifetimeScope();
-                builder.RegisterType<CollisionEngine>().As<IEngine>().InstancePerLifetimeScope();
-                builder.RegisterType<ControllableEngine>().As<IEngine>().InstancePerLifetimeScope();
+                builder.RegisterType<TextureEngine>().As<ISystem>().InstancePerLifetimeScope();
+                builder.RegisterType<MovementEngine>().As<ISystem>().InstancePerLifetimeScope();
+                builder.RegisterType<CollisionEngine>().As<ISystem>().InstancePerLifetimeScope();
+                builder.RegisterType<ControllableEngine>().As<ISystem>().InstancePerLifetimeScope();
             });
             this._mantis.Scenes.Create<GameScene>();
         }
