@@ -15,6 +15,7 @@ namespace Mantis.Engine
         {
             ContainerBuilder builder = new();
             builder.RegisterType<SceneService>().As<ISceneService>().SingleInstance();
+            builder.RegisterType<SystemService>().As<ISystemService>().InstancePerLifetimeScope();
             customBuilder(builder);
             this._container = builder.Build();
 
