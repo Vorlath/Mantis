@@ -1,4 +1,5 @@
-﻿using Mantis.Engine.Common;
+﻿using Mantis.Core.Logging.Common;
+using Mantis.Engine.Common;
 using Mantis.Example.Breakout.Components;
 using Mantis.Example.Breakout.Descriptors;
 using Mantis.Example.Breakout.Engines;
@@ -22,15 +23,19 @@ namespace Mantis.Example.Breakout.Scenes
     {
         private readonly EntitiesSubmissionScheduler _entitiesSubmissionScheduler;
         private readonly IFrameEngine[] _engines;
+        private readonly ILogger<GameScene> _logger;
+
         public GameScene(
             EnginesRoot enginesRoot,
             IEnumerable<IEngine> engines,
             IEntityFactory entityFactory,
             EntitiesSubmissionScheduler entitiesSubmissionScheduler,
-            GraphicsDevice graphics)
+            GraphicsDevice graphics,
+            ILogger<GameScene> logger)
         {
             this._entitiesSubmissionScheduler = entitiesSubmissionScheduler;
             this._engines = engines.OfType<IFrameEngine>().ToArray();
+            this._logger = logger;
             foreach (IEngine engine in engines)
             {
                 enginesRoot.AddEngine(engine);
@@ -67,10 +72,17 @@ namespace Mantis.Example.Breakout.Scenes
             // paddle
             entityInitializer = entityFactory.BuildEntity<PaddleDescriptor>(3, ExclusiveGroups.PaddleGroup);
             entityInitializer.Init(new Position(0, graphics.Viewport.Height - 16));
+
+            // Example logger usage.
+            this._logger.Debug("Created GameScene!");
         }
 
         public void Draw(GameTime gameTime)
         {
+            // Example logger usage.
+            // This will not be logged with a minimum log level of Debug
+            this._logger.Verbose("Draw");
+
             foreach (IFrameEngine engine in this._engines)
             {
                 engine.Draw(gameTime);
@@ -79,6 +91,10 @@ namespace Mantis.Example.Breakout.Scenes
 
         public void Update(GameTime gameTime)
         {
+            // Example logger usage.
+            // This will not be logged with a minimum log level of Debug
+            this._logger.Verbose("Update");
+
             this._entitiesSubmissionScheduler.SubmitEntities();
             foreach (IFrameEngine engine in this._engines)
             {
