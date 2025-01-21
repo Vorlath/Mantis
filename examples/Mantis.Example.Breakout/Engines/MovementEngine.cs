@@ -1,4 +1,4 @@
-﻿using Mantis.Engine.Common;
+﻿using Mantis.Engine.Common.Systems;
 using Mantis.Example.Breakout.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -6,7 +6,7 @@ using Svelto.ECS;
 
 namespace Mantis.Example.Breakout.Engines
 {
-    public class MovementEngine(GraphicsDevice graphics) : IQueryingEntitiesEngine, IUpdateSystem
+    public class MovementEngine(GraphicsDevice graphics) : IQueryingEntitiesEngine, IUpdateSystem, ISceneSystem
     {
 
         public EntitiesDB entitiesDB { get; set; } = null!;

@@ -1,44 +1,52 @@
-﻿using Mantis.Engine.Common;
-using Mantis.Engine.Common.Services;
+﻿using Mantis.Engine.Common.Services;
+using Mantis.Engine.Common.Systems;
 
 namespace Mantis.Engine.Services
 {
-    public class SystemService(IEnumerable<ISystem> systems) : ISystemService
+    public class SystemService<TSystem>(IEnumerable<TSystem> systems) : ISystemService<TSystem>
+        where TSystem : ISystem
     {
-        private readonly List<ISystem> _systems = systems.ToList();
+        private readonly List<TSystem> _systems = systems.ToList();
 
-        public IEnumerable<ISystem> GetAll()
+        public IEnumerable<TSystem> GetAll()
         {
             return this._systems;
         }
 
-        public ISystem GetSystem<TSystem>() where TSystem : ISystem
+        public T GetSystem<T>()
+            where T : ISystem
         {
             foreach (var system in systems)
             {
-                if (system is TSystem requestedSystem)
+                if (system is T requestedSystem)
                 {
                     return requestedSystem;
                 }
             }
+
             throw new KeyNotFoundException(nameof(TSystem));
         }
 
-        public IEnumerable<TSystem> GetSystems<TSystem>()
+        public IEnumerable<T> GetSystems<T>()
         {
-            return this._systems.OfType<TSystem>();
+            return this._systems.OfType<T>();
         }
 
-        public bool HasSystem<TSystem>() where TSystem : ISystem
+        public bool HasSystem<T>()
+            where T : ISystem
         {
             foreach (var system in systems)
             {
-                if (system is TSystem)
+                if (system is not null)
                 {
                     return true;
                 }
             }
             return false;
         }
+    }
+
+    public class SystemService(IEnumerable<ISceneSystem> systems) : SystemService<ISceneSystem>(systems), ISystemService
+    {
     }
 }

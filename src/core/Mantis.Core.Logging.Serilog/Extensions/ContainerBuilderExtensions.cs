@@ -30,7 +30,7 @@ namespace Mantis.Core.Logging.Serilog.Extensions
                 if (fileSinkConfiguration.Value.Enabled == true)
                 {
                     serilogLoggerConfiguration.WriteTo.File(
-                        path: fileSinkConfiguration.Value.Path ?? throw new ArgumentNullException(),
+                        path: fileSinkConfiguration.Value.Path ?? throw new Exception(nameof(FileLoggerSinkConfiguration.Path)),
                         outputTemplate: fileSinkConfiguration.Value.OutputTemplate,
                         retainedFileCountLimit: 8,
                         shared: true
