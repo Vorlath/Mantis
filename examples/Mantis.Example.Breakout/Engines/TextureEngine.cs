@@ -1,4 +1,4 @@
-﻿using Mantis.Engine.Common;
+﻿using Mantis.Engine.Common.Systems;
 using Mantis.Example.Breakout.Components;
 using Mantis.Example.Breakout.Enums;
 using Microsoft.Xna.Framework;
@@ -8,7 +8,7 @@ using Svelto.ECS;
 
 namespace Mantis.Example.Breakout.Engines
 {
-    public class TextureEngine : IQueryingEntitiesEngine, IDrawSystem
+    public class TextureEngine : IQueryingEntitiesEngine, IDrawSystem, ISceneSystem
     {
         private readonly SpriteBatch _spriteBatch;
         private readonly Dictionary<TextureEnum, Texture2D> _textures;

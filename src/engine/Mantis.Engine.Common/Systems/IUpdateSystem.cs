@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Mantis.Engine.Common
+namespace Mantis.Engine.Common.Systems
 {
-    public interface IDrawSystem : ISystem
+    public interface IUpdateSystem : ISystem
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="gameTime"></param>
-        void Draw(GameTime gameTime);
+        public void Update(GameTime gameTime);
     }
 }
