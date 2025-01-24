@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using Autofac;
+﻿using Autofac;
 using Mantis.Engine.Common;
 using Mantis.Engine.Common.Services;
 
@@ -13,8 +12,10 @@ namespace Mantis.Engine.Services
         public TScene Create<TScene>()
             where TScene : IScene
         {
+            // TODO: Create a new scsope per scene
             TScene scene = this._scope.Resolve<TScene>();
             this._scenes.Add(scene);
+            scene.Initialize(this._scope);
             return scene;
         }
 

@@ -1,7 +1,7 @@
-﻿using Mantis.Core.Logging.Common;
+﻿using Autofac;
+using Mantis.Core.Logging.Common;
 using Mantis.Engine.Common;
 using Mantis.Engine.Common.Services;
-using Mantis.Engine.Common.Systems;
 using Mantis.Example.Breakout.Components;
 using Mantis.Example.Breakout.Descriptors;
 using Microsoft.Xna.Framework;
@@ -20,30 +20,41 @@ namespace Mantis.Example.Breakout.Scenes
         public static readonly ExclusiveGroup PaddleGroup = new();
     }
 
-    public class GameScene : IScene
+    public class GameScene : Scene
     {
         private readonly EntitiesSubmissionScheduler _entitiesSubmissionScheduler;
-        private readonly ILogger<GameScene> _logger;
+        private readonly EnginesRoot _enginesRoot;
+        private readonly GraphicsDevice _graphics;
+        private readonly IEntityFactory _entityFactory;
 
-        private readonly ISystemService _systemService;
         public GameScene(
-            EnginesRoot enginesRoot,
-            IEntityFactory entityFactory,
-            EntitiesSubmissionScheduler entitiesSubmissionScheduler,
             GraphicsDevice graphics,
-            ILogger<GameScene> logger,
-            ISystemService systemService)
+            EnginesRoot enginesRoot,
+            EntitiesSubmissionScheduler entitiesSubmissionScheduler,
+            IEntityFactory entityFactory,
+            ISystemService systemService,
+            ILogger<GameScene> logger) : base(systemService, logger)
         {
             this._entitiesSubmissionScheduler = entitiesSubmissionScheduler;
-            this._logger = logger;
-            this._systemService = systemService;
-            foreach (IEngine engine in this._systemService.GetSystems<IEngine>())
+            this._graphics = graphics;
+            this._enginesRoot = enginesRoot;
+            this._entityFactory = entityFactory;
+        }
+
+        protected override void Initialize(ILifetimeScope scope)
+        {
+            base.Initialize(scope);
+
+            // Example logger usage.
+            this.logger.Debug("Initializing GameScene...");
+
+            foreach (IEngine engine in this.systemService.GetSystems<IEngine>())
             {
-                enginesRoot.AddEngine(engine);
+                this._enginesRoot.AddEngine(engine);
             }
             // ball
             int num = 0;
-            var entityInitializer = entityFactory.BuildEntity<BallDescriptor>(0, ExclusiveGroups.BallGroup);
+            var entityInitializer = this._entityFactory.BuildEntity<BallDescriptor>(0, ExclusiveGroups.BallGroup);
             entityInitializer.Init(new Position(100, 500));
             entityInitializer.Init(new Velocity(200, 300));
             entityInitializer.Init(new Size(16, 16));
@@ -55,7 +66,7 @@ namespace Mantis.Example.Breakout.Scenes
             {
                 for (int j = 1; j < 11; j++)
                 {
-                    entityInitializer = entityFactory.BuildEntity<BlockDescriptor>((uint)num, ExclusiveGroups.BlockGroup);
+                    entityInitializer = this._entityFactory.BuildEntity<BlockDescriptor>((uint)num, ExclusiveGroups.BlockGroup);
                     entityInitializer.Init(new Position((j * 64), (i * 32)));
                     entityInitializer.Init(new Size(64, 32));
                     entityInitializer.Init(new Health(1));
@@ -71,36 +82,16 @@ namespace Mantis.Example.Breakout.Scenes
             // entityInitializer.Init(new Collidable());
 
             // paddle
-            entityInitializer = entityFactory.BuildEntity<PaddleDescriptor>(3, ExclusiveGroups.PaddleGroup);
-            entityInitializer.Init(new Position(0, graphics.Viewport.Height - 16));
-
-            // Example logger usage.
-            this._logger.Debug("Created GameScene!");
+            entityInitializer = this._entityFactory.BuildEntity<PaddleDescriptor>(3, ExclusiveGroups.PaddleGroup);
+            entityInitializer.Init(new Position(0, this._graphics.Viewport.Height - 16));
         }
 
-        public void Draw(GameTime gameTime)
+        protected override void Update(GameTime gameTime)
         {
-            // Example logger usage.
-            // This will not be logged with a minimum log level of Debug
-            this._logger.Verbose("Draw");
+            base.Update(gameTime);
 
-            foreach (IDrawSystem drawSystem in this._systemService.GetSystems<IDrawSystem>())
-            {
-                drawSystem.Draw(gameTime);
-            }
-        }
-
-        public void Update(GameTime gameTime)
-        {
-            // Example logger usage.
-            // This will not be logged with a minimum log level of Debug
-            this._logger.Verbose("Update");
-
+            // TODO: Put this into a system
             this._entitiesSubmissionScheduler.SubmitEntities();
-            foreach (IUpdateSystem updateSystem in this._systemService.GetSystems<IUpdateSystem>())
-            {
-                updateSystem.Update(gameTime);
-            }
         }
     }
 }

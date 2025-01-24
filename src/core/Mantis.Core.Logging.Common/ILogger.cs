@@ -71,7 +71,7 @@
         void Fatal(Exception? exception, string messageTemplate, params object?[]? propertyValues);
     }
 
-    public interface ILogger<TContext> : ILogger
+    public interface ILogger<out TContext> : ILogger
     {
 
     }
