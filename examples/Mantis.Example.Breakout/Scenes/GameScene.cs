@@ -1,7 +1,5 @@
 ﻿using Autofac;
-using Mantis.Core.Logging.Common;
 using Mantis.Engine.Common;
-using Mantis.Engine.Common.Services;
 using Mantis.Example.Breakout.Components;
 using Mantis.Example.Breakout.Descriptors;
 using Microsoft.Xna.Framework;
@@ -31,9 +29,7 @@ namespace Mantis.Example.Breakout.Scenes
             GraphicsDevice graphics,
             EnginesRoot enginesRoot,
             EntitiesSubmissionScheduler entitiesSubmissionScheduler,
-            IEntityFactory entityFactory,
-            ISystemService systemService,
-            ILogger<GameScene> logger) : base(systemService, logger)
+            IEntityFactory entityFactory)
         {
             this._entitiesSubmissionScheduler = entitiesSubmissionScheduler;
             this._graphics = graphics;

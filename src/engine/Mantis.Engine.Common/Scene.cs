@@ -1,18 +1,22 @@
 ﻿using Autofac;
 using Mantis.Core.Logging.Common;
+using Mantis.Core.Logging.Common.Services;
 using Mantis.Engine.Common.Services;
 using Mantis.Engine.Common.Systems;
 using Microsoft.Xna.Framework;
 
 namespace Mantis.Engine.Common
 {
-    public abstract class Scene(ISystemService systemService, ILogger<Scene> logger) : IScene
+    public abstract class Scene : IScene
     {
-        protected readonly ISystemService systemService = systemService;
-        protected readonly ILogger<Scene> logger = logger;
+        protected ISystemService systemService { get; private set; } = null!;
+        protected ILogger logger { get; private set; } = null!;
 
         protected virtual void Initialize(ILifetimeScope scope)
         {
+            this.systemService = scope.Resolve<ISystemService>();
+            this.logger = scope.Resolve<ILoggerService>().GetLogger(this.GetType());
+
             foreach (IInitializeSystem initializeSystem in this.systemService.GetSystems<IInitializeSystem>())
             {
                 initializeSystem.Initialize(scope);
