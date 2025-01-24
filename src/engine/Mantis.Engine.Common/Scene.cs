@@ -13,7 +13,10 @@ namespace Mantis.Engine.Common
 
         protected virtual void Initialize(ILifetimeScope scope)
         {
-            //TODO: Create IInitializeSystem and invoke here
+            foreach (IInitializeSystem initializeSystem in this.systemService.GetSystems<IInitializeSystem>())
+            {
+                initializeSystem.Initialize(scope);
+            }
         }
 
         protected virtual void Update(GameTime gameTime)

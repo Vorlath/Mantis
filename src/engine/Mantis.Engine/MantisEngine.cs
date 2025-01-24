@@ -23,21 +23,27 @@ namespace Mantis.Engine
 
             this._globalSystems = this._container.Resolve<ISystemService<IGlobalSystem>>();
             this.Scenes = this._container.Resolve<ISceneService>();
+
+            // Initialize all registered Global IInitializeSystems
+            foreach (IInitializeSystem globalInitializeSystem in this._globalSystems.GetSystems<IInitializeSystem>())
+            {
+                globalInitializeSystem.Initialize(this._container);
+            }
         }
 
         public void Update(GameTime gameTime)
         {
-            foreach (IUpdateSystem globalSystem in this._globalSystems.GetSystems<IUpdateSystem>())
+            foreach (IUpdateSystem globalUpdateSystem in this._globalSystems.GetSystems<IUpdateSystem>())
             {
-                globalSystem.Update(gameTime);
+                globalUpdateSystem.Update(gameTime);
             }
         }
 
         public void Draw(GameTime gameTime)
         {
-            foreach (IDrawSystem globalSystem in this._globalSystems.GetSystems<IDrawSystem>())
+            foreach (IDrawSystem globalDrawSystem in this._globalSystems.GetSystems<IDrawSystem>())
             {
-                globalSystem.Draw(gameTime);
+                globalDrawSystem.Draw(gameTime);
             }
         }
     }
