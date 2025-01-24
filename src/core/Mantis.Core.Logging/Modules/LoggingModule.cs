@@ -37,14 +37,6 @@ namespace Mantis.Core.Logging.Modules
                 return;
             }
 
-            this.AttachToComponentRegistration_Logger(ra, componentRegistry, registration);
-        }
-
-        private void AttachToComponentRegistration_Logger(
-            ReflectionActivator ra,
-            IComponentRegistryBuilder componentRegistry,
-            IComponentRegistration registration)
-        {
             foreach (LoggerParameterContext loggerParameterContext in LoggingModule.GetLoggerParameterContexts(ra, registration))
             {
                 registration.PipelineBuilding += (_, pipline) =>
@@ -56,7 +48,8 @@ namespace Mantis.Core.Logging.Modules
 
         private static IEnumerable<LoggerParameterContext> GetLoggerParameterContexts(ReflectionActivator ra, IComponentRegistration registration)
         {
-            ConstructorInfo[] constructors = Array.Empty<ConstructorInfo>();
+            _ = Array.Empty<ConstructorInfo>();
+            ConstructorInfo[] constructors;
             try
             {
                 constructors = ra.ConstructorFinder.FindConstructors(ra.LimitType);
