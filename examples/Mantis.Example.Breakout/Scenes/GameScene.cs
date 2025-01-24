@@ -18,24 +18,16 @@ namespace Mantis.Example.Breakout.Scenes
         public static readonly ExclusiveGroup PaddleGroup = new();
     }
 
-    public class GameScene : Scene
+    public class GameScene(
+        GraphicsDevice graphics,
+        EnginesRoot enginesRoot,
+        EntitiesSubmissionScheduler entitiesSubmissionScheduler,
+        IEntityFactory entityFactory) : Scene
     {
-        private readonly EntitiesSubmissionScheduler _entitiesSubmissionScheduler;
-        private readonly EnginesRoot _enginesRoot;
-        private readonly GraphicsDevice _graphics;
-        private readonly IEntityFactory _entityFactory;
-
-        public GameScene(
-            GraphicsDevice graphics,
-            EnginesRoot enginesRoot,
-            EntitiesSubmissionScheduler entitiesSubmissionScheduler,
-            IEntityFactory entityFactory)
-        {
-            this._entitiesSubmissionScheduler = entitiesSubmissionScheduler;
-            this._graphics = graphics;
-            this._enginesRoot = enginesRoot;
-            this._entityFactory = entityFactory;
-        }
+        private readonly EntitiesSubmissionScheduler _entitiesSubmissionScheduler = entitiesSubmissionScheduler;
+        private readonly EnginesRoot _enginesRoot = enginesRoot;
+        private readonly GraphicsDevice _graphics = graphics;
+        private readonly IEntityFactory _entityFactory = entityFactory;
 
         protected override void Initialize(ILifetimeScope scope)
         {
@@ -44,10 +36,13 @@ namespace Mantis.Example.Breakout.Scenes
             // Example logger usage.
             this.logger.Debug("Initializing GameScene...");
 
+            // TODO: This should happen automatically within Mantis.Core.ECS
+            // Perhaps an IEngineService is in order
             foreach (IEngine engine in this.systemService.GetSystems<IEngine>())
             {
                 this._enginesRoot.AddEngine(engine);
             }
+
             // ball
             int num = 0;
             var entityInitializer = this._entityFactory.BuildEntity<BallDescriptor>(0, ExclusiveGroups.BallGroup);
