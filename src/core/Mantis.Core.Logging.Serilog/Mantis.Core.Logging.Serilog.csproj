@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Mantis.Core.Common\Mantis.Core.Common.csproj" />
     <ProjectReference Include="..\Mantis.Core.Logging.Common\Mantis.Core.Logging.Common.csproj" />
+    <ProjectReference Include="..\Mantis.Core.Logging\Mantis.Core.Logging.csproj" />
   </ItemGroup>
 
   <ItemGroup>
