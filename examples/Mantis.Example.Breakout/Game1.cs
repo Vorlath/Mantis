@@ -4,12 +4,12 @@ using Mantis.Core.Logging.Common.Enums;
 using Mantis.Core.Logging.Common.Extensions;
 using Mantis.Core.Logging.Serilog.Extensions;
 using Mantis.Engine;
+using Mantis.Engine.Common.Extensions;
 using Mantis.Engine.Extensions;
 using Mantis.Example.Breakout.Engines;
 using Mantis.Example.Breakout.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Svelto.ECS;
 
 namespace Mantis.Example.Breakout
 {
@@ -57,10 +57,10 @@ namespace Mantis.Example.Breakout
                     .ConfigureFileLoggerSink($"logs/log_{DateTime.Now:yyyy-dd-MM}.txt"); // Setup file sink. The created file will exist in the exe's build path at ./logs/log_yyyy-dd-MM.txt
 
                 builder.RegisterType<GameScene>().AsSelf().InstancePerLifetimeScope();
-                builder.RegisterType<TextureEngine>().As<IEngine>().InstancePerLifetimeScope();
-                builder.RegisterType<MovementEngine>().As<IEngine>().InstancePerLifetimeScope();
-                builder.RegisterType<CollisionEngine>().As<IEngine>().InstancePerLifetimeScope();
-                builder.RegisterType<ControllableEngine>().As<IEngine>().InstancePerLifetimeScope();
+                builder.RegisterSceneSystem<TextureEngine>();
+                builder.RegisterSceneSystem<MovementEngine>();
+                builder.RegisterSceneSystem<CollisionEngine>();
+                builder.RegisterSceneSystem<ControllableEngine>();
             });
             this._mantis.Scenes.Create<GameScene>();
         }

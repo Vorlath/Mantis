@@ -1,8 +1,9 @@
 ﻿using Mantis.Core.Logging.Common;
 using Mantis.Engine.Common;
+using Mantis.Engine.Common.Services;
+using Mantis.Engine.Common.Systems;
 using Mantis.Example.Breakout.Components;
 using Mantis.Example.Breakout.Descriptors;
-using Mantis.Example.Breakout.Engines;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Svelto.ECS;
@@ -22,21 +23,21 @@ namespace Mantis.Example.Breakout.Scenes
     public class GameScene : IScene
     {
         private readonly EntitiesSubmissionScheduler _entitiesSubmissionScheduler;
-        private readonly IFrameEngine[] _engines;
         private readonly ILogger<GameScene> _logger;
 
+        private readonly ISystemService _systemService;
         public GameScene(
             EnginesRoot enginesRoot,
-            IEnumerable<IEngine> engines,
             IEntityFactory entityFactory,
             EntitiesSubmissionScheduler entitiesSubmissionScheduler,
             GraphicsDevice graphics,
-            ILogger<GameScene> logger)
+            ILogger<GameScene> logger,
+            ISystemService systemService)
         {
             this._entitiesSubmissionScheduler = entitiesSubmissionScheduler;
-            this._engines = engines.OfType<IFrameEngine>().ToArray();
             this._logger = logger;
-            foreach (IEngine engine in engines)
+            this._systemService = systemService;
+            foreach (IEngine engine in this._systemService.GetSystems<IEngine>())
             {
                 enginesRoot.AddEngine(engine);
             }
@@ -83,9 +84,9 @@ namespace Mantis.Example.Breakout.Scenes
             // This will not be logged with a minimum log level of Debug
             this._logger.Verbose("Draw");
 
-            foreach (IFrameEngine engine in this._engines)
+            foreach (IDrawSystem drawSystem in this._systemService.GetSystems<IDrawSystem>())
             {
-                engine.Draw(gameTime);
+                drawSystem.Draw(gameTime);
             }
         }
 
@@ -96,9 +97,9 @@ namespace Mantis.Example.Breakout.Scenes
             this._logger.Verbose("Update");
 
             this._entitiesSubmissionScheduler.SubmitEntities();
-            foreach (IFrameEngine engine in this._engines)
+            foreach (IUpdateSystem updateSystem in this._systemService.GetSystems<IUpdateSystem>())
             {
-                engine.Update(gameTime);
+                updateSystem.Update(gameTime);
             }
         }
     }

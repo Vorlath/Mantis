@@ -1,4 +1,5 @@
-﻿using Mantis.Example.Breakout.Components;
+﻿using Mantis.Engine.Common.Systems;
+using Mantis.Example.Breakout.Components;
 using Mantis.Example.Breakout.Enums;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -7,7 +8,7 @@ using Svelto.ECS;
 
 namespace Mantis.Example.Breakout.Engines
 {
-    public class TextureEngine : IFrameEngine, IQueryingEntitiesEngine
+    public class TextureEngine : IQueryingEntitiesEngine, IDrawSystem, ISceneSystem
     {
         private readonly SpriteBatch _spriteBatch;
         private readonly Dictionary<TextureEnum, Texture2D> _textures;
@@ -48,11 +49,6 @@ namespace Mantis.Example.Breakout.Engines
                 }
             }
             this._spriteBatch.End();
-        }
-
-        public void Update(GameTime gameTime)
-        {
-            //throw new NotImplementedException();
         }
     }
 }

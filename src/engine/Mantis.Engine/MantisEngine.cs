@@ -1,39 +1,47 @@
 ﻿using Autofac;
 using Mantis.Engine.Common;
+using Mantis.Engine.Common.Extensions;
 using Mantis.Engine.Common.Services;
+using Mantis.Engine.Common.Systems;
 using Mantis.Engine.Services;
+using Mantis.Engine.Systems;
 using Microsoft.Xna.Framework;
 
 namespace Mantis.Engine
 {
-    public class MantisEngine
+    public class MantisEngine : IMantisEngine
     {
         private readonly IContainer _container;
-
+        private readonly ISystemService<IGlobalSystem> _globalSystems;
         public ISceneService Scenes { get; }
         public MantisEngine(Action<ContainerBuilder> customBuilder)
         {
             ContainerBuilder builder = new();
             builder.RegisterType<SceneService>().As<ISceneService>().SingleInstance();
+            builder.RegisterType<SystemService<IGlobalSystem>>().As<ISystemService<IGlobalSystem>>().SingleInstance();
+            builder.RegisterType<SystemService>().As<ISystemService>().As<ISystemService<ISceneSystem>>().InstancePerLifetimeScope();
+            builder.RegisterGlobalSystem<SceneFrameSystem>();
+
             customBuilder(builder);
             this._container = builder.Build();
 
+            this._globalSystems = this._container.Resolve<ISystemService<IGlobalSystem>>();
             this.Scenes = this._container.Resolve<ISceneService>();
         }
 
         public void Update(GameTime gameTime)
         {
-            foreach (IScene scene in this.Scenes.GetAll())
+            foreach (IUpdateSystem globalSystem in this._globalSystems.GetSystems<IUpdateSystem>())
             {
-                scene.Update(gameTime);
+                globalSystem.Update(gameTime);
             }
         }
 
         public void Draw(GameTime gameTime)
         {
-            foreach (IScene scene in this.Scenes.GetAll())
+            foreach (IDrawSystem globalSystem in this._globalSystems.GetSystems<IDrawSystem>())
             {
-                scene.Draw(gameTime);
+                globalSystem.Draw(gameTime);
             }
         }
     }

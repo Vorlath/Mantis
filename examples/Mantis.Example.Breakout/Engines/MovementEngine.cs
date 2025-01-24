@@ -1,11 +1,12 @@
-﻿using Mantis.Example.Breakout.Components;
+﻿using Mantis.Engine.Common.Systems;
+using Mantis.Example.Breakout.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Svelto.ECS;
 
 namespace Mantis.Example.Breakout.Engines
 {
-    public class MovementEngine(GraphicsDevice graphics) : IFrameEngine, IQueryingEntitiesEngine
+    public class MovementEngine(GraphicsDevice graphics) : IQueryingEntitiesEngine, IUpdateSystem, ISceneSystem
     {
 
         public EntitiesDB entitiesDB { get; set; } = null!;
@@ -17,10 +18,7 @@ namespace Mantis.Example.Breakout.Engines
             //    throw new NotImplementedException();
         }
 
-        public void Draw(GameTime gameTime)
-        {
 
-        }
 
         public void Update(GameTime gameTime)
         {
