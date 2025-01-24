@@ -45,7 +45,7 @@ namespace Mantis.Example.LunarLander.Scenes
             int num = 0;
             var entityInitializer = entityFactory.BuildEntity<BallDescriptor>(0, ExclusiveGroups.BallGroup);
             entityInitializer.Init(new Position(100, 500));
-            entityInitializer.Init(new Velocity(200, 300));
+            entityInitializer.Init(new Velocity(20, 30));
             entityInitializer.Init(new Size(16, 16));
             num++;
 

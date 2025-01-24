@@ -12,7 +12,7 @@ namespace Mantis.Example.LunarLander.Descriptors
         [
             new ComponentBuilder<Position>(new Position()),
             new ComponentBuilder<Size>(new Size(10, 10)),
-            new ComponentBuilder<Texture>(new Texture(Enums.TextureEnum.Ball, Color.White)),
+            new ComponentBuilder<Texture>(new Texture(Enums.TextureEnum.Lander, Color.White)),
             new ComponentBuilder<Velocity>(new Velocity())
         ];
     }

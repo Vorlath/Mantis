@@ -2,7 +2,7 @@
 {
     public enum TextureEnum
     {
-        Ball,
+        Lander,
         Wall,
         Paddle,
         Block

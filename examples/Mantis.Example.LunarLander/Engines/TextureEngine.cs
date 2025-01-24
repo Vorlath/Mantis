@@ -17,7 +17,7 @@ namespace Mantis.Example.LunarLander.Engines
         {
             this._spriteBatch = spriteBatch;
             this._textures = new() {
-                { TextureEnum.Ball, contentManager.Load<Texture2D>("ball") },
+                { TextureEnum.Lander, contentManager.Load<Texture2D>("Lander") },
                 { TextureEnum.Paddle, contentManager.Load<Texture2D>("paddle") },
                 { TextureEnum.Block, contentManager.Load<Texture2D>("block") }
             };
@@ -33,7 +33,12 @@ namespace Mantis.Example.LunarLander.Engines
         public void Draw(GameTime gameTime)
         {
             var groups = this.entitiesDB.FindGroups<Texture, Position, Size>();
-            this._spriteBatch.Begin();
+            var screenSize = new Vector2(512, 512);
+            var screenScale = Matrix.CreateScale(4, 4, 1.0f);
+
+            // Apply scaling to the sprite batch
+            this._spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, screenScale);
+            //this._spriteBatch.Begin();
             foreach (var ((textures, positions, sizes, count), _) in this.entitiesDB.QueryEntities<Texture, Position, Size>(groups))
             {
                 for (int i = 0; i < count; i++)

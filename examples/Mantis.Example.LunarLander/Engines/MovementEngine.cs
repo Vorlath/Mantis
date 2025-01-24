@@ -43,9 +43,9 @@ namespace Mantis.Example.LunarLander.Engines
             position.Value += (velocity.Value * (float)gameTime.ElapsedGameTime.TotalSeconds);
 
             // Check for walls
-            if (position.Value.X + size.Value.X > this._graphics.Viewport.Width)
+            if (position.Value.X + size.Value.X > this._graphics.Viewport.Width / 4)
             {
-                position.Value.X = this._graphics.Viewport.Width - size.Value.X;
+                position.Value.X = (this._graphics.Viewport.Width / 4) - size.Value.X;
                 velocity.Value.X *= -1;
             }
             if (position.Value.X < 0)
@@ -53,9 +53,9 @@ namespace Mantis.Example.LunarLander.Engines
                 position.Value.X = 0;
                 velocity.Value.X *= -1;
             }
-            if (position.Value.Y + size.Value.Y > this._graphics.Viewport.Height)
+            if (position.Value.Y + size.Value.Y > this._graphics.Viewport.Height / 4)
             {
-                position.Value.Y = this._graphics.Viewport.Height - size.Value.Y;
+                position.Value.Y = (this._graphics.Viewport.Height / 4) - size.Value.Y;
                 velocity.Value.Y *= -1;
             }
             if (position.Value.Y < 0)
