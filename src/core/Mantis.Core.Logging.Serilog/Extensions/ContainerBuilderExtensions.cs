@@ -3,7 +3,9 @@ using Mantis.Core.Common;
 using Mantis.Core.Common.Extensions;
 using Mantis.Core.Logging.Common.Configurations;
 using Mantis.Core.Logging.Common.Enums;
-using Mantis.Core.Logging.Serilog.Modules;
+using Mantis.Core.Logging.Common.Services;
+using Mantis.Core.Logging.Extensions;
+using Mantis.Core.Logging.Serilog.Services;
 using Serilog;
 
 namespace Mantis.Core.Logging.Serilog.Extensions
@@ -12,7 +14,9 @@ namespace Mantis.Core.Logging.Serilog.Extensions
     {
         public static ContainerBuilder RegisterSerilogLoggingServices(this ContainerBuilder builder, LogLevelEnum minimumLogLevel)
         {
-            builder.RegisterModule<SerilogLoggingModule>();
+            builder.RegisterCoreLoggingServices();
+            builder.RegisterType<SerilogLoggerService>().As<ILoggerService>().InstancePerLifetimeScope();
+
             builder.Configure<LoggerConfiguration>((scope, serilogLoggerConfiguration) =>
             {
                 // Configure the minimum log level
