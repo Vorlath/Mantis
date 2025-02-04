@@ -19,24 +19,24 @@ namespace Mantis.Example.LunarLander.Engines
 
         public void Update(GameTime gameTime)
         {
-            var groups = this.entitiesDB.FindGroups<Velocity, Position, Size>(); // This should get ball, and nothing else
-            foreach (var ((velocities, positions, sizes, count), _) in this.entitiesDB.QueryEntities<Velocity, Position, Size>(groups))
+            var groups = this.entitiesDB.FindGroups<Velocity, Transform2D, Size>(); // This should get ball, and nothing else
+            foreach (var ((velocities, positions, sizes, count), _) in this.entitiesDB.QueryEntities<Velocity, Transform2D, Size>(groups))
             {
                 for (int i = 0; i < count; i++)
                 {
                     ref Velocity velocity = ref velocities[i];
-                    ref Position position = ref positions[i];
+                    ref Transform2D position = ref positions[i];
                     ref Size size = ref sizes[i];
 
                     RectangleF ballBounds = RectangleHelper.CreateBoundsF(position, size);
 
                     // check for blocks
-                    var blockGroups = this.entitiesDB.FindGroups<Position, Size, Collidable, Health>();
-                    foreach (var ((blockPositions, blockSizes, collidables, healths, nativeIDs, blockCount), blockGroup) in this.entitiesDB.QueryEntities<Position, Size, Collidable, Health>(blockGroups))
+                    var blockGroups = this.entitiesDB.FindGroups<Transform2D, Size, Collidable, Health>();
+                    foreach (var ((blockPositions, blockSizes, collidables, healths, nativeIDs, blockCount), blockGroup) in this.entitiesDB.QueryEntities<Transform2D, Size, Collidable, Health>(blockGroups))
                     {
                         for (int j = 0; j < blockCount; j++)
                         {
-                            ref Position blockPosition = ref blockPositions[j];
+                            ref Transform2D blockPosition = ref blockPositions[j];
                             ref Health blockHealth = ref healths[j];
                             ref Collidable blockCollidable = ref collidables[j];
                             ref Size blockSize = ref blockSizes[j];
@@ -67,12 +67,10 @@ namespace Mantis.Example.LunarLander.Engines
                                 if (rightIntersect < bottomIntersect && rightIntersect < leftIntersect && rightIntersect < topIntersect)
                                 { // Right hit
                                     ballBounds.X = blockBounds.Right;
-                                    velocity.Value.X *= -1;
                                 }
                                 else if (leftIntersect < bottomIntersect && leftIntersect < topIntersect && leftIntersect < rightIntersect)
                                 { // Left hit
                                     ballBounds.X = blockBounds.Left - ballBounds.Width;
-                                    velocity.Value.X *= -1;
                                 }
 
                                 if (blockHealth.Value <= 0)
@@ -86,8 +84,8 @@ namespace Mantis.Example.LunarLander.Engines
                         }
                     }
 
-                    position.Value.X = ballBounds.Location.X;
-                    position.Value.Y = ballBounds.Location.Y;
+                    position.Position.X = ballBounds.Location.X;
+                    position.Position.Y = ballBounds.Location.Y;
                 }
             }
         }

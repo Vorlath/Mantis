@@ -39,13 +39,8 @@ namespace Mantis.Example.LunarLander
                 e.GraphicsDeviceInformation.PresentationParameters.MultiSampleCount = 8;
                 e.GraphicsDeviceInformation.PresentationParameters.PresentationInterval = PresentInterval.Immediate;
                 e.GraphicsDeviceInformation.PresentationParameters.RenderTargetUsage = RenderTargetUsage.PreserveContents;
-                e.GraphicsDeviceInformation.PresentationParameters.BackBufferHeight = 512;
-                e.GraphicsDeviceInformation.PresentationParameters.BackBufferWidth = 1024;
-                // Set the scale factor (e.g., 2x scaling to make the pixels appear larger)
-                var scale = new Vector2(2f, 2f);
-
-                // Apply scaling to the sprite batch
-                //spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Matrix.CreateScale(scale));
+                e.GraphicsDeviceInformation.PresentationParameters.BackBufferHeight = 1000;
+                e.GraphicsDeviceInformation.PresentationParameters.BackBufferWidth = 1920;
             };
             this._graphics.SynchronizeWithVerticalRetrace = false;
             this._graphics.GraphicsProfile = GraphicsProfile.HiDef;

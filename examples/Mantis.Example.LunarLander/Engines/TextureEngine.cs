@@ -32,24 +32,31 @@ namespace Mantis.Example.LunarLander.Engines
 
         public void Draw(GameTime gameTime)
         {
-            var groups = this.entitiesDB.FindGroups<Texture, Position, Size>();
-            var screenSize = new Vector2(512, 512);
-            var screenScale = Matrix.CreateScale(4, 4, 1.0f);
+            var groups = this.entitiesDB.FindGroups<Texture, Transform2D, Size>();
+            _ = new Vector2(512, 512);
+            //var screenScale = Matrix.CreateScale(4, 4, 1.0f);
 
             // Apply scaling to the sprite batch
-            this._spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, screenScale);
+            this._spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, null);
             //this._spriteBatch.Begin();
-            foreach (var ((textures, positions, sizes, count), _) in this.entitiesDB.QueryEntities<Texture, Position, Size>(groups))
+            foreach (var ((textures, positions, sizes, count), _) in this.entitiesDB.QueryEntities<Texture, Transform2D, Size>(groups))
             {
                 for (int i = 0; i < count; i++)
                 {
                     Texture texture = textures[i];
-                    Position position = positions[i];
+                    Transform2D position = positions[i];
                     Size size = sizes[i];
 
                     this._spriteBatch.Draw(
                         texture: this._textures[texture.Value],
+
+
                         destinationRectangle: RectangleHelper.CreateBounds(position, size),
+                        sourceRectangle: null,
+                        origin: new Vector2(this._textures[texture.Value].Bounds.Width / 2, this._textures[texture.Value].Bounds.Height / 2),
+                        effects: SpriteEffects.None,
+                        layerDepth: 0,
+                        rotation: position.Rotation * (MathF.PI / 180),
                         color: texture.Color);
                 }
             }

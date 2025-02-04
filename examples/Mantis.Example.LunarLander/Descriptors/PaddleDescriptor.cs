@@ -15,7 +15,7 @@ namespace Mantis.Example.LunarLander.Descriptors
             {
                 TargetVelocity = 300f
             }),
-            new ComponentBuilder<Position>(new Position()),
+            new ComponentBuilder<Transform2D>(new Transform2D()),
             new ComponentBuilder<Velocity>(new Velocity()),
             new ComponentBuilder<Size>(new Size(64, 16)),
             new ComponentBuilder<Texture>(new Texture(TextureEnum.Paddle, Color.LightBlue)),
