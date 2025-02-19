@@ -1,13 +1,15 @@
 ﻿using Autofac;
+using Mantis.Core.Common.Builders;
+using Mantis.Core.Common.Extensions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Mantis.Engine.Extensions
 {
-    public static class ContainerBuilderExtensions
+    public static class IMantisRootBuilderExtensions
     {
-        public static ContainerBuilder RegisterMonoGameServices(this ContainerBuilder builder, ContentManager content, GraphicsDeviceManager graphicsDeviceManager)
+        public static IMantisRootBuilder RegisterMonoGameServices(this IMantisRootBuilder builder, ContentManager content, GraphicsDeviceManager graphicsDeviceManager)
         {
             builder.RegisterType<SpriteBatch>().AsSelf().InstancePerLifetimeScope();
 

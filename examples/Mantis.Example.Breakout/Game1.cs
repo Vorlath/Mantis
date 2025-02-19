@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Mantis.Core.Common.Extensions;
 using Mantis.Core.Extensions;
 using Mantis.Core.Logging.Common.Enums;
 using Mantis.Core.Logging.Common.Extensions;

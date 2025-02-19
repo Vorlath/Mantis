@@ -1,14 +1,14 @@
-﻿using Autofac;
+﻿using Mantis.Core.Common.Builders;
 using Mantis.Core.Common.Extensions;
 using Mantis.Core.Logging.Common.Configurations;
 using Mantis.Core.Logging.Common.Constants;
 
 namespace Mantis.Core.Logging.Common.Extensions
 {
-    public static class ContainerBuilderExtensions
+    public static class IMantisRootBuilderExtensions
     {
-        public static ContainerBuilder ConfigureConsoleLoggerSink(
-            this ContainerBuilder builder,
+        public static IMantisRootBuilder ConfigureConsoleLoggerSink(
+            this IMantisRootBuilder builder,
             string outputTemplate = LoggingConstants.DefaultOutputTemplate,
             bool enabled = true)
         {
@@ -19,8 +19,8 @@ namespace Mantis.Core.Logging.Common.Extensions
             });
         }
 
-        public static ContainerBuilder ConfigureFileLoggerSink(
-            this ContainerBuilder builder,
+        public static IMantisRootBuilder ConfigureFileLoggerSink(
+            this IMantisRootBuilder builder,
             string path,
             string outputTemplate = LoggingConstants.DefaultOutputTemplate,
             bool enabled = true)

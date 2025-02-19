@@ -2,9 +2,9 @@
 {
     public interface IServiceResolver
     {
-        T ResolveService<T>()
+        T Resolve<T>()
             where T : class;
 
-        object ResolveService(Type type);
+        object Resolve(Type type);
     }
 }

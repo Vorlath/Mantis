@@ -38,13 +38,13 @@ namespace Mantis.Core
             return mantisScope;
         }
 
-        public T ResolveService<T>()
+        public T Resolve<T>()
             where T : class
         {
             return this._autofac.Resolve<T>();
         }
 
-        public object ResolveService(Type type)
+        public object Resolve(Type type)
         {
             return this._autofac.Resolve(type);
         }
