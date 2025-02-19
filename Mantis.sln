@@ -59,6 +59,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mantis.Core.Logging.Serilog
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mantis.Core.Logging", "src\core\Mantis.Core.Logging\Mantis.Core.Logging.csproj", "{36A2185C-F8BD-4AC3-8614-9E5F05724E1F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mantis.Core.Serialization.Common", "src\core\Mantis.Core.Serialization.Common\Mantis.Core.Serialization.Common.csproj", "{2711FDA5-1D4A-4529-B855-9740C673E245}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mantis.Core.Serialization", "src\core\Mantis.Core.Serialization\Mantis.Core.Serialization.csproj", "{6C67FE91-9FBC-4317-B76F-7CAAC55959C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -133,6 +137,14 @@ Global
 		{36A2185C-F8BD-4AC3-8614-9E5F05724E1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36A2185C-F8BD-4AC3-8614-9E5F05724E1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36A2185C-F8BD-4AC3-8614-9E5F05724E1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2711FDA5-1D4A-4529-B855-9740C673E245}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2711FDA5-1D4A-4529-B855-9740C673E245}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2711FDA5-1D4A-4529-B855-9740C673E245}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2711FDA5-1D4A-4529-B855-9740C673E245}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C67FE91-9FBC-4317-B76F-7CAAC55959C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C67FE91-9FBC-4317-B76F-7CAAC55959C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C67FE91-9FBC-4317-B76F-7CAAC55959C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C67FE91-9FBC-4317-B76F-7CAAC55959C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -162,6 +174,8 @@ Global
 		{25CB0AEC-4B0F-40FB-BC91-AD7CEB59D0C4} = {271DF633-4254-4610-A4B7-D909F4501ADF}
 		{5B728B97-14C6-47EE-AEAE-E32472938049} = {271DF633-4254-4610-A4B7-D909F4501ADF}
 		{36A2185C-F8BD-4AC3-8614-9E5F05724E1F} = {271DF633-4254-4610-A4B7-D909F4501ADF}
+		{2711FDA5-1D4A-4529-B855-9740C673E245} = {271DF633-4254-4610-A4B7-D909F4501ADF}
+		{6C67FE91-9FBC-4317-B76F-7CAAC55959C5} = {271DF633-4254-4610-A4B7-D909F4501ADF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7F4F9176-64F3-43D9-912D-00699AA19BD1}
