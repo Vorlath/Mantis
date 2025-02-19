@@ -59,6 +59,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mantis.Core.Logging.Serilog
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mantis.Core.Logging", "src\core\Mantis.Core.Logging\Mantis.Core.Logging.csproj", "{36A2185C-F8BD-4AC3-8614-9E5F05724E1F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mantis.Tests.Common.Core", "tests\common\Mantis.Tests.Common.Core\Mantis.Tests.Common.Core.csproj", "{14A6D213-C1E3-4893-8D76-AC915DB94352}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -133,6 +135,10 @@ Global
 		{36A2185C-F8BD-4AC3-8614-9E5F05724E1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36A2185C-F8BD-4AC3-8614-9E5F05724E1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36A2185C-F8BD-4AC3-8614-9E5F05724E1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14A6D213-C1E3-4893-8D76-AC915DB94352}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14A6D213-C1E3-4893-8D76-AC915DB94352}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14A6D213-C1E3-4893-8D76-AC915DB94352}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14A6D213-C1E3-4893-8D76-AC915DB94352}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -162,6 +168,7 @@ Global
 		{25CB0AEC-4B0F-40FB-BC91-AD7CEB59D0C4} = {271DF633-4254-4610-A4B7-D909F4501ADF}
 		{5B728B97-14C6-47EE-AEAE-E32472938049} = {271DF633-4254-4610-A4B7-D909F4501ADF}
 		{36A2185C-F8BD-4AC3-8614-9E5F05724E1F} = {271DF633-4254-4610-A4B7-D909F4501ADF}
+		{14A6D213-C1E3-4893-8D76-AC915DB94352} = {DB7D3EF4-656E-4784-8062-F44676C5C162}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7F4F9176-64F3-43D9-912D-00699AA19BD1}

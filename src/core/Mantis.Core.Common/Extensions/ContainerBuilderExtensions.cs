@@ -13,7 +13,7 @@ namespace Mantis.Core.Common.Extensions
         /// <param name="configurator"></param>
         /// <returns></returns>
         public static ContainerBuilder Configure<T>(this ContainerBuilder builder, Action<ILifetimeScope, T> configurator)
-            where T : class, new()
+            where T : class
         {
             builder.RegisterInstance(new Configurator<T>(configurator)).As<Configurator>();
 
@@ -29,7 +29,7 @@ namespace Mantis.Core.Common.Extensions
         /// <param name="configurator"></param>
         /// <returns></returns>
         public static ContainerBuilder Configure<T>(this ContainerBuilder builder, Action<T> configurator)
-            where T : class, new()
+            where T : class
         {
             builder.RegisterInstance(new Configurator<T>((_, i) => configurator(i))).As<Configurator>();
 

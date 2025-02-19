@@ -1,33 +1,19 @@
 using Autofac;
 using Autofac.Extras.Moq;
-using Mantis.Engine.Common;
 using Mantis.Engine.Services;
-using Microsoft.Xna.Framework;
+using Mantis.Tests.Engine.Stubs;
 
 namespace Mantis.Tests.Engine
 {
     public class SceneServiceTests
     {
-        private class TestScene : IScene
-        {
-            public void Draw(GameTime gameTime)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void Update(GameTime gameTime)
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         [Fact]
-        public void SceneService_Create_UniqueInstances()
+        public void CreateTwoScenes_AreUnique()
         {
             using AutoMock autoMock = AutoMock.GetLoose(builder =>
             {
                 // Register test scene
-                builder.RegisterType<TestScene>().InstancePerDependency();
+                builder.RegisterType<TestNotImplementedScene>().InstancePerDependency();
             });
 
             SceneService sceneService = autoMock.Create<SceneService>();
@@ -36,11 +22,11 @@ namespace Mantis.Tests.Engine
             Assert.Empty(sceneService.GetAll());
 
             // Create a single test scene
-            TestScene testSceneOne = sceneService.Create<TestScene>();
+            TestNotImplementedScene testSceneOne = sceneService.Create<TestNotImplementedScene>();
             Assert.Single(sceneService.GetAll());
 
             // Create a second test scene
-            TestScene testSceneTwo = sceneService.Create<TestScene>();
+            TestNotImplementedScene testSceneTwo = sceneService.Create<TestNotImplementedScene>();
             Assert.Equal(2, sceneService.GetAll().Count());
 
             // Ensure both scenes are unique instances
