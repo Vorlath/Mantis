@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\libraries\MonoGame\MonoGame.Framework\MonoGame.Framework.DesktopGL.csproj" />
+    <ProjectReference Include="..\..\core\Mantis.Core.Common\Mantis.Core.Common.csproj" />
   </ItemGroup>
 
 </Project>

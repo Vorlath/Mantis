@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\libraries\Svelto.ECS\com.sebaslab.svelto.ecs\Svelto.ECS.csproj" />
+    <ProjectReference Include="..\Mantis.Core.Common\Mantis.Core.Common.csproj" />
     <ProjectReference Include="..\Mantis.Core.ECS.Common\Mantis.Core.ECS.Common.csproj" />
   </ItemGroup>
 

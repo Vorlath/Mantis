@@ -14,6 +14,6 @@
         /// <typeparam name="TScene">The type of scene to create</typeparam>
         /// <returns></returns>
         TScene Create<TScene>()
-            where TScene : IScene;
+            where TScene : class, IScene;
     }
 }

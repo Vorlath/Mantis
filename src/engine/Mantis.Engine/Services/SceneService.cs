@@ -1,19 +1,18 @@
-﻿using System.Runtime.CompilerServices;
-using Autofac;
+﻿using Mantis.Core.Common;
 using Mantis.Engine.Common;
 using Mantis.Engine.Common.Services;
 
 namespace Mantis.Engine.Services
 {
-    public sealed class SceneService(ILifetimeScope scope) : ISceneService
+    public sealed class SceneService(IMantisRoot root) : ISceneService
     {
-        private readonly ILifetimeScope _scope = scope;
+        private readonly IMantisRoot _root = root;
         private readonly List<IScene> _scenes = [];
 
         public TScene Create<TScene>()
-            where TScene : IScene
+            where TScene : class, IScene
         {
-            TScene scene = this._scope.Resolve<TScene>();
+            TScene scene = this._root.CreateScope().Resolve<TScene>();
             this._scenes.Add(scene);
             return scene;
         }

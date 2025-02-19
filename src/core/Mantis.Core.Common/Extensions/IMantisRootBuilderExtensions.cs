@@ -1,8 +1,9 @@
 ﻿using Autofac;
+using Mantis.Core.Common.Builders;
 
 namespace Mantis.Core.Common.Extensions
 {
-    public static class ContainerBuilderExtensions
+    public static class IMantisRootBuilderExtensions
     {
         /// <summary>
         /// Register a configurator to be applied when resolving an
@@ -12,7 +13,7 @@ namespace Mantis.Core.Common.Extensions
         /// <param name="builder"></param>
         /// <param name="configurator"></param>
         /// <returns></returns>
-        public static ContainerBuilder Configure<T>(this ContainerBuilder builder, Action<ILifetimeScope, T> configurator)
+        public static IMantisRootBuilder Configure<T>(this IMantisRootBuilder builder, Action<ILifetimeScope, T> configurator)
             where T : class
         {
             builder.RegisterInstance(new Configurator<T>(configurator)).As<Configurator>();
@@ -28,7 +29,7 @@ namespace Mantis.Core.Common.Extensions
         /// <param name="builder"></param>
         /// <param name="configurator"></param>
         /// <returns></returns>
-        public static ContainerBuilder Configure<T>(this ContainerBuilder builder, Action<T> configurator)
+        public static IMantisRootBuilder Configure<T>(this IMantisRootBuilder builder, Action<T> configurator)
             where T : class
         {
             builder.RegisterInstance(new Configurator<T>((_, i) => configurator(i))).As<Configurator>();

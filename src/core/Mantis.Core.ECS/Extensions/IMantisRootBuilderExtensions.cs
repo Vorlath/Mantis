@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using Mantis.Core.Common.Builders;
+using Mantis.Core.Common.Extensions;
 using Mantis.Core.ECS.Common.Services;
 using Mantis.Core.ECS.Services;
 using Svelto.ECS;
@@ -6,9 +8,9 @@ using Svelto.ECS.Schedulers;
 
 namespace Mantis.Core.Extensions
 {
-    public static class ContainerBuilderExtensions
+    public static class IMantisRootBuilderExtensions
     {
-        public static ContainerBuilder RegisterECSServices(this ContainerBuilder builder)
+        public static IMantisRootBuilder RegisterECSServices(this IMantisRootBuilder builder)
         {
             builder.RegisterType<EntitiesSubmissionScheduler>().AsSelf().InstancePerLifetimeScope();
             builder.RegisterType<EnginesRoot>().AsSelf().InstancePerLifetimeScope();

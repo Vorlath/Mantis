@@ -1,4 +1,8 @@
 ﻿using Autofac;
+using Mantis.Core.Builders;
+using Mantis.Core.Common;
+using Mantis.Core.Common.Builders;
+using Mantis.Core.Common.Extensions;
 using Mantis.Engine.Common;
 using Mantis.Engine.Common.Extensions;
 using Mantis.Engine.Common.Services;
@@ -11,22 +15,22 @@ namespace Mantis.Engine
 {
     public class MantisEngine : IMantisEngine
     {
-        private readonly IContainer _container;
+        private readonly IMantisRoot _root;
         private readonly ISystemService<IGlobalSystem> _globalSystems;
         public ISceneService Scenes { get; }
-        public MantisEngine(Action<ContainerBuilder> customBuilder)
+        public MantisEngine(Action<IMantisRootBuilder> build)
         {
-            ContainerBuilder builder = new();
+            MantisRootBuilder builder = new MantisRootBuilder();
             builder.RegisterType<SceneService>().As<ISceneService>().SingleInstance();
             builder.RegisterType<SystemService<IGlobalSystem>>().As<ISystemService<IGlobalSystem>>().SingleInstance();
             builder.RegisterType<SystemService>().As<ISystemService>().As<ISystemService<ISceneSystem>>().InstancePerLifetimeScope();
             builder.RegisterGlobalSystem<SceneFrameSystem>();
 
-            customBuilder(builder);
-            this._container = builder.Build();
+            build(builder);
+            this._root = builder.Build();
 
-            this._globalSystems = this._container.Resolve<ISystemService<IGlobalSystem>>();
-            this.Scenes = this._container.Resolve<ISceneService>();
+            this._globalSystems = this._root.Resolve<ISystemService<IGlobalSystem>>();
+            this.Scenes = this._root.Resolve<ISceneService>();
         }
 
         public void Update(GameTime gameTime)
