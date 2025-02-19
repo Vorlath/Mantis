@@ -48,7 +48,7 @@ namespace Mantis.Core.Logging.Modules
 
         private static IEnumerable<LoggerParameterContext> GetLoggerParameterContexts(ReflectionActivator ra, IComponentRegistration registration)
         {
-            ConstructorInfo[] constructors = Array.Empty<ConstructorInfo>();
+            ConstructorInfo[] constructors;
             try
             {
                 constructors = ra.ConstructorFinder.FindConstructors(ra.LimitType);
