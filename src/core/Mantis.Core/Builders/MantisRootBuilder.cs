@@ -13,7 +13,7 @@ namespace Mantis.Core.Builders
             this.ContainerBuilder = new ContainerBuilder();
 
             // Configure
-            this.ContainerBuilder.RegisterType<MantisRoot>().As<IMantisRoot>().SingleInstance();
+            this.ContainerBuilder.RegisterType<MantisRoot>().AsSelf().As<IMantisRoot>().SingleInstance();
             this.ContainerBuilder.Register<IMantisScope>(x => x.Resolve<IMantisRoot>().MainScope).SingleInstance();
         }
 
