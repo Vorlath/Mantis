@@ -6,7 +6,7 @@ using Mantis.Core.Common.Builders;
 
 namespace Mantis.Core
 {
-    public class MantisRoot : IMantisRoot
+    public class MantisRoot : IMantisRoot, IDisposable
     {
         private readonly ILifetimeScope _autofac;
         private readonly List<IMantisScope> _scopes;
@@ -38,6 +38,11 @@ namespace Mantis.Core
             return mantisScope;
         }
 
+        public void RemoveScope(MantisScope scope)
+        {
+            this._scopes.Remove(scope);
+        }
+
         public T Resolve<T>()
             where T : class
         {
@@ -47,6 +52,12 @@ namespace Mantis.Core
         public object Resolve(Type type)
         {
             return this._autofac.Resolve(type);
+        }
+
+        public void Dispose()
+        {
+            this._autofac.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

@@ -3,10 +3,18 @@ using Mantis.Core.Common;
 
 namespace Mantis.Core
 {
-    public class MantisScope(ILifetimeScope autofac, IMantisRoot root) : IMantisScope
+    public class MantisScope(ILifetimeScope autofac, MantisRoot root) : IMantisScope, IDisposable
     {
+        private readonly MantisRoot _root = root;
         private readonly ILifetimeScope _autofac = autofac;
-        public IMantisRoot Root { get; } = root;
+        public IMantisRoot Root => this._root;
+
+        public void Dispose()
+        {
+            // Alert the root that the current scope has been dispoed
+            this._root.RemoveScope(this);
+            GC.SuppressFinalize(this);
+        }
 
         public T Resolve<T>()
             where T : class
