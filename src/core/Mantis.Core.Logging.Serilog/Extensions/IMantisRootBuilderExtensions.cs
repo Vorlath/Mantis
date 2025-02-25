@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Mantis.Core.Common;
+using Mantis.Core.Common.Builders;
 using Mantis.Core.Common.Extensions;
 using Mantis.Core.Logging.Common.Configurations;
 using Mantis.Core.Logging.Common.Enums;
@@ -10,9 +11,9 @@ using Serilog;
 
 namespace Mantis.Core.Logging.Serilog.Extensions
 {
-    public static class ContainerBuilderExtensions
+    public static class IMantisRootBuilderExtensions
     {
-        public static ContainerBuilder RegisterSerilogLoggingServices(this ContainerBuilder builder, LogLevelEnum minimumLogLevel)
+        public static IMantisRootBuilder RegisterSerilogLoggingServices(this IMantisRootBuilder builder, LogLevelEnum minimumLogLevel)
         {
             builder.RegisterCoreLoggingServices();
             builder.RegisterType<SerilogLoggerService>().As<ILoggerService>().InstancePerLifetimeScope();

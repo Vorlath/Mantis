@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Mantis.Console.Scenes;
 using Mantis.Console.Services;
+using Mantis.Core.Common.Extensions;
 using Mantis.Core.Extensions;
 using Mantis.Engine;
 using Mantis.Engine.Extensions;
