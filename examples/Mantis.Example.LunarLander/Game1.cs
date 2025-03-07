@@ -8,6 +8,7 @@ using Mantis.Engine.Common.Extensions;
 using Mantis.Engine.Extensions;
 using Mantis.Example.LunarLander.Engines;
 using Mantis.Example.LunarLander.Scenes;
+using Mantis.Example.LunarLander.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -63,6 +64,7 @@ namespace Mantis.Example.LunarLander
                 builder.RegisterSceneSystem<MovementEngine>();
                 builder.RegisterSceneSystem<CollisionEngine>();
                 builder.RegisterSceneSystem<ControllableEngine>();
+                builder.RegisterSceneSystem<AnimationSystem>();
             });
             this._mantis.Scenes.Create<GameScene>();
         }
