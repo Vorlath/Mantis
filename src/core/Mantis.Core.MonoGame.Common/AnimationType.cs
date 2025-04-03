@@ -1,12 +1,23 @@
 ﻿namespace Mantis.Core.MonoGame.Common
 {
-
+    //TODO getAnimationTypeByName
     public class AnimationType
     {
-        public AnimationFrame[] Frames;
-        public AnimationType(AnimationFrame[] frames)
+        public readonly int Id;
+        public List<AnimationFrame> Frames;
+        public AnimationType(List<AnimationFrame> frames)
         {
-            Frames = frames;
+            this.Frames = frames;
+            this.Id = _nextId++;
+            _instances.Add(this.Id, this);
         }
+
+        public static AnimationType GetAnimationTypeById(int id)
+        {
+            return _instances[id];
+        }
+
+        private static Dictionary<int, AnimationType> _instances = new Dictionary<int, AnimationType>();
+        private static int _nextId;
     }
 }

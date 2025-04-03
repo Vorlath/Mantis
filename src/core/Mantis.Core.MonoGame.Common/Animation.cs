@@ -5,7 +5,7 @@ namespace Mantis.Core.MonoGame.Common
     /// <summary>
     /// Holds a single animation, a number of frames that can be looped
     /// </summary>
-    public class Animation
+    public struct Animation
     {
         //private AnimatedTextureType _type;
 
@@ -14,17 +14,31 @@ namespace Mantis.Core.MonoGame.Common
         public bool Loopable;
         public bool IsPaused;
         public bool Ended;
-        public AnimationType Type;
+        public int TypeId;
+        public Color Color;
 
 
-        public Animation(AnimationType type, float currentFrameDuration = 0, int currentFrameIndex = 0, bool loopable = true, bool isPaused = false)
+
+        public AnimationType Type
+        {
+            get => AnimationType.GetAnimationTypeById(this.TypeId);
+            set
+            {
+                this.TypeId = value.Id;
+                this.CurrentFrameIndex = 0;
+                this.CurrentFrameDuration = 0;
+            }
+        }
+
+        public Animation(AnimationType type, Color color, float currentFrameDuration = 0, int currentFrameIndex = 0, bool loopable = true, bool isPaused = false)
         {
             this.CurrentFrameDuration = currentFrameDuration;
             this.CurrentFrameIndex = currentFrameIndex;
             this.Loopable = loopable;
             this.IsPaused = isPaused;
             this.Ended = false;
-            this.Type = type;
+            this.TypeId = type.Id;
+            this.Color = color;
         }
 
         public Sprite GetCurrentFrame(GameTime gameTime)
@@ -33,7 +47,7 @@ namespace Mantis.Core.MonoGame.Common
             if (this.Type.Frames[this.CurrentFrameIndex].Duration <= this.CurrentFrameDuration)
             {
                 this.CurrentFrameDuration = 0;
-                if (++this.CurrentFrameIndex == this.Type.Frames.Length)
+                if (++this.CurrentFrameIndex == this.Type.Frames.Count)
                 {
                     // Check if animation needs to be looped
                     if (this.Loopable)
@@ -51,7 +65,6 @@ namespace Mantis.Core.MonoGame.Common
             {
                 this.CurrentFrameDuration += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             }
-            //Console.WriteLine(this.CurrentFrameIndex);
             return this.Type.Frames[this.CurrentFrameIndex].Sprite;
         }
     }

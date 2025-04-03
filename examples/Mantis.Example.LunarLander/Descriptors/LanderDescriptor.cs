@@ -13,6 +13,7 @@ namespace Mantis.Example.LunarLander.Descriptors
             new ComponentBuilder<Size>(new Size(128, 128)),
             new ComponentBuilder<Texture>(new Texture(TextureEnum.Lander, Color.White)),
             new ComponentBuilder<Gravity>(new Gravity()),
+            new ComponentBuilder<Animated>(new Animated()),
             new ComponentBuilder<Collidable>(new Collidable()),
             new ComponentBuilder<Controllable>(new Controllable()),
             ];

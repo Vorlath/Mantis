@@ -1,10 +1,12 @@
 ﻿using Mantis.Core.Logging.Common;
+using Mantis.Core.MonoGame.Common;
 using Mantis.Engine.Common;
 using Mantis.Engine.Common.Services;
 using Mantis.Engine.Common.Systems;
 using Mantis.Example.LunarLander.Components;
 using Mantis.Example.LunarLander.Descriptors;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Svelto.ECS;
 using Svelto.ECS.Schedulers;
@@ -32,7 +34,8 @@ namespace Mantis.Example.LunarLander.Scenes
             EntitiesSubmissionScheduler entitiesSubmissionScheduler,
             GraphicsDevice graphics,
             ILogger<GameScene> logger,
-            ISystemService systemService)
+            ISystemService systemService,
+            ContentManager content)
         {
             this._entitiesSubmissionScheduler = entitiesSubmissionScheduler;
             this._logger = logger;
@@ -41,6 +44,28 @@ namespace Mantis.Example.LunarLander.Scenes
             {
                 enginesRoot.AddEngine(engine);
             }
+
+            var _texture = content.Load<Texture2D>("animation");
+            var SpriteSheet = new SpriteSheet(_texture, [
+                new SpriteData("1", new Rectangle(0, 0, 16, 16)),
+                new SpriteData("2", new Rectangle(16, 0, 16, 16)),
+                new SpriteData("3", new Rectangle(0, 16, 16, 16)),
+                new SpriteData("4", new Rectangle(16, 16, 16, 16))
+                ]);
+
+            // Name this
+            AnimationType FirstAnimation = SpriteSheet.CreateAnimationType([
+                new AnimationFrameContext("1", 1000),
+                new AnimationFrameContext("2", 1000),
+                new AnimationFrameContext("3", 1000),
+                new AnimationFrameContext("4", 1000)
+            ]);
+
+            AnimationType SecondAnimation = SpriteSheet.CreateAnimationType([
+                new AnimationFrameContext("1", 500),
+                new AnimationFrameContext("4", 500)
+          ]);
+
             // lander
             int num = 0;
             var entityInitializer = entityFactory.BuildEntity<LanderDescriptor>(0, ExclusiveGroups.LanderGroup);
@@ -48,9 +73,8 @@ namespace Mantis.Example.LunarLander.Scenes
             entityInitializer.Init(new Velocity(75, 0));
             entityInitializer.Init(new Gravity(5));
             entityInitializer.Init(new Size(32, 32));
+            entityInitializer.Init(new Animated(FirstAnimation));
             num++;
-
-
 
             // Example logger usage.
             this._logger.Debug("Created GameScene!");
