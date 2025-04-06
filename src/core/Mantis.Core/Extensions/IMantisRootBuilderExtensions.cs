@@ -14,6 +14,8 @@ namespace Mantis.Core.Extensions
             builder.RegisterType<ConfigurationService>().As<IConfigurationService>().InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(Configuration<>)).As(typeof(IConfiguration<>)).InstancePerDependency();
 
+            builder.RegisterType<EnvironmentVariableService>().As<IEnvironmentVariableService>().SingleInstance();
+
             return builder;
         }
     }

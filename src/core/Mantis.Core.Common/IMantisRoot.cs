@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using Mantis.Core.Common.Builders;
 using Mantis.Core.Common.Interfaces;
+using Mantis.Core.Common.Services;
 
 namespace Mantis.Core.Common
 {
@@ -16,6 +17,11 @@ namespace Mantis.Core.Common
         /// All active <see cref="IMantisScope"/>s, including the current <see cref="MainScope"/>
         /// </summary>
         ReadOnlyCollection<IMantisScope> Scopes { get; }
+
+        /// <summary>
+        /// The current environment variables
+        /// </summary>
+        IEnvironmentVariableService EnvironmentVariables { get; }
 
         /// <summary>
         /// Create a new <see cref="IMantisScope"/> instance.

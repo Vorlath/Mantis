@@ -5,6 +5,6 @@
     /// </summary>
     public interface IMantisRootBuilder : IMantisBuilder
     {
-
+        IEnvironmentVariableBuilder EnvironmentVariables { get; }
     }
 }
