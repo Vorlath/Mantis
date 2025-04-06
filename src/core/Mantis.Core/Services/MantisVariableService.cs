@@ -22,7 +22,7 @@ namespace Mantis.Core.Services
         {
             if (this._variables.TryGetValue(typeof(T), out TVariable[]? variables) == false)
             {
-                return Enumerable.Empty<T>();
+                return [];
             }
 
             return variables.Select(x => (T)x);
@@ -49,7 +49,7 @@ namespace Mantis.Core.Services
                 return false;
             }
 
-            if (variables[variables.Length - 1] is not T casted)
+            if (variables[^1] is not T casted)
             {
                 variable = default;
                 return false;

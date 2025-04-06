@@ -8,6 +8,6 @@ namespace Mantis.Engine.Common.Systems
         /// 
         /// </summary>
         /// <param name="gameTime"></param>
-        public void Update(GameTime gameTime);
+        void Update(GameTime gameTime);
     }
 }

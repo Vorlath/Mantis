@@ -7,13 +7,7 @@
 
         public static TSelf Create(TValue value)
         {
-            object? variable = Activator.CreateInstance(typeof(TSelf), [value]);
-
-            if (variable is null)
-            {
-                throw new NotImplementedException();
-            }
-
+            object? variable = Activator.CreateInstance(typeof(TSelf), [value]) ?? throw new NotImplementedException();
             if (variable is not TSelf casted)
             {
                 throw new NotImplementedException();

@@ -6,7 +6,7 @@ namespace Mantis.Engine.Services
     public class SystemService<TSystem>(IEnumerable<TSystem> systems) : ISystemService<TSystem>
         where TSystem : ISystem
     {
-        private readonly List<TSystem> _systems = systems.ToList();
+        private readonly List<TSystem> _systems = [.. systems];
 
         public IEnumerable<TSystem> GetAll()
         {
