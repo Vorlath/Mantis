@@ -3,6 +3,9 @@ using Autofac;
 using Mantis.Core.Builders;
 using Mantis.Core.Common;
 using Mantis.Core.Common.Builders;
+using Mantis.Core.Common.Constants;
+using Mantis.Core.Common.Services;
+using Mantis.Core.Logging.Common;
 
 namespace Mantis.Core
 {
@@ -10,19 +13,33 @@ namespace Mantis.Core
     {
         private readonly ILifetimeScope _autofac;
         private readonly List<IMantisScope> _scopes;
+        private readonly ILogger<MantisRoot> _logger;
 
         public IMantisScope MainScope { get; }
         public ReadOnlyCollection<IMantisScope> Scopes { get; }
 
-        public MantisRoot(ILifetimeScope autofac)
+        public IEnvironmentVariableService EnvironmentVariables { get; }
+
+        public MantisRoot(
+            ILifetimeScope autofac,
+            IEnvironmentVariableService environmentVariables,
+            ILogger<MantisRoot> logger)
         {
             this._autofac = autofac;
             this._scopes = [];
+            this._logger = logger;
 
             this.Scopes = new ReadOnlyCollection<IMantisScope>(this._scopes);
 
             this.MainScope = new MantisScope(autofac, this);
             this._scopes.Add(this.MainScope);
+
+            this.EnvironmentVariables = environmentVariables;
+
+            this._logger.Information(
+                "Starting. Company = {Company}, Project = {Project}",
+                this.EnvironmentVariables.Get<MantisCoreVariables.Environment.Company>().Value,
+                this.EnvironmentVariables.Get<MantisCoreVariables.Environment.Project>().Value);
         }
 
         public IMantisScope CreateScope(Action<IMantisScopeBuilder>? build = null)

@@ -11,6 +11,6 @@
         /// <summary>
         /// The configured instance.
         /// </summary>
-        public T Value { get; set; }
+        T Value { get; set; }
     }
 }

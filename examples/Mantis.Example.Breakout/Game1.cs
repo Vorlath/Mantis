@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Mantis.Core.Common.Constants;
 using Mantis.Core.Common.Extensions;
 using Mantis.Core.Extensions;
 using Mantis.Core.Logging.Common.Enums;
@@ -46,6 +47,10 @@ namespace Mantis.Example.Breakout
             this._graphics.ApplyChanges();
             this._mantis = new MantisEngine(builder =>
             {
+                builder.EnvironmentVariables
+                    .Add(MantisCoreVariables.Environment.Company.Create("Vorlath"))
+                    .Add(MantisCoreVariables.Environment.Project.Create("Example.Breakout"));
+
                 builder.RegisterCoreServices()
                     .RegisterMonoGameServices(this.Content, this._graphics)
                     .RegisterECSServices();
