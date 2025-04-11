@@ -1,5 +1,4 @@
-﻿using Mantis.Core.MonoGame.Common;
-using Mantis.Core.MonoGame.Common.Extensions;
+﻿using Mantis.Core.MonoGame.Common.Extensions;
 using Mantis.Engine.Common.Systems;
 using Mantis.Example.LunarLander.Components;
 using Microsoft.Xna.Framework;
@@ -38,7 +37,14 @@ namespace Mantis.Example.LunarLander.Systems
                     ref Transform2D position = ref positions[i];
                     ref Size size = ref sizes[i];
 
-                    this._spriteBatch.Draw(gameTime, ref animated.Animation, position.Position, Color.White);
+                    this._spriteBatch.Draw(
+                        gameTime: gameTime,
+                       animation: ref animated.Animation,
+                       destinationRectangle: RectangleHelper.CreateBounds(position, size),
+                       rotation: position.Rotation * (MathF.PI / 180),
+                       color: Color.White);
+
+                    //this._spriteBatch.Draw(gameTime, ref animated.Animation, position.Position, Color.White);
 
                     //this._spriteBatch.Draw(
                     //    texture: this._animations[animation.Value].Animation.GetCurrentFrame(gameTime).Texture,
@@ -50,10 +56,10 @@ namespace Mantis.Example.LunarLander.Systems
                     //    rotation: position.Rotation * (MathF.PI / 180),
                     //    color: animation.Color);
 
-                    if ((int)(gameTime.TotalGameTime.TotalSeconds / 10) % 2 == 1)
-                    {
-                        animated.Animation.Type = AnimationType.GetAnimationTypeById(1);
-                    }
+                    //if ((int)(gameTime.TotalGameTime.TotalSeconds / 10) % 2 == 1)
+                    //{
+                    //    animated.Animation.Type = AnimationType.GetAnimationTypeById(1);
+                    //}
                 }
             }
             this._spriteBatch.End();

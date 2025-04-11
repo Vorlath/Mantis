@@ -45,26 +45,38 @@ namespace Mantis.Example.LunarLander.Scenes
                 enginesRoot.AddEngine(engine);
             }
 
-            var _texture = content.Load<Texture2D>("animation");
+            var _texture = content.Load<Texture2D>("LanderSheet");
             var SpriteSheet = new SpriteSheet(_texture, [
                 new SpriteData("1", new Rectangle(0, 0, 16, 16)),
                 new SpriteData("2", new Rectangle(16, 0, 16, 16)),
-                new SpriteData("3", new Rectangle(0, 16, 16, 16)),
-                new SpriteData("4", new Rectangle(16, 16, 16, 16))
+                new SpriteData("3", new Rectangle(32, 0, 16, 16)),
+                new SpriteData("4", new Rectangle(0, 16, 16, 16)),
+                new SpriteData("5", new Rectangle(16, 16, 16, 16))
                 ]);
 
             // Name this
-            AnimationType FirstAnimation = SpriteSheet.CreateAnimationType([
-                new AnimationFrameContext("1", 1000),
-                new AnimationFrameContext("2", 1000),
-                new AnimationFrameContext("3", 1000),
-                new AnimationFrameContext("4", 1000)
+            AnimationType LanderIdle = SpriteSheet.CreateAnimationType([
+                new AnimationFrameContext("1", 10000)
             ]);
 
-            AnimationType SecondAnimation = SpriteSheet.CreateAnimationType([
-                new AnimationFrameContext("1", 500),
+            AnimationType LanderBurnStart = SpriteSheet.CreateAnimationType([
+                new AnimationFrameContext("2", 100),
+                new AnimationFrameContext("3", 500)
+            ]);
+
+            AnimationType LanderBurnEnd = SpriteSheet.CreateAnimationType([
+                new AnimationFrameContext("3", 500),
+                new AnimationFrameContext("2", 500),
+                new AnimationFrameContext("1", 500)
+            ]);
+
+            AnimationType LanderRotateCW = SpriteSheet.CreateAnimationType([
                 new AnimationFrameContext("4", 500)
-          ]);
+            ]);
+
+            AnimationType LanderRotateCCW = SpriteSheet.CreateAnimationType([
+                new AnimationFrameContext("5", 500)
+            ]);
 
             // lander
             int num = 0;
@@ -73,7 +85,7 @@ namespace Mantis.Example.LunarLander.Scenes
             entityInitializer.Init(new Velocity(75, 0));
             entityInitializer.Init(new Gravity(5));
             entityInitializer.Init(new Size(32, 32));
-            entityInitializer.Init(new Animated(FirstAnimation));
+            entityInitializer.Init(new Animated(LanderIdle));
             num++;
 
             // Example logger usage.
