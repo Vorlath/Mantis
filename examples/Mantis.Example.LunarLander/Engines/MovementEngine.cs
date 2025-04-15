@@ -15,8 +15,6 @@ namespace Mantis.Example.LunarLander.Engines
             //    throw new NotImplementedException();
         }
 
-
-
         public void Update(GameTime gameTime)
         {
             var groups = this.entitiesDB.FindGroups<Velocity, Transform2D, Size, Gravity>();
@@ -39,26 +37,6 @@ namespace Mantis.Example.LunarLander.Engines
         {
             velocity.Value.Y += (gravity.Value * (float)gameTime.ElapsedGameTime.TotalSeconds);
             position.Position += (velocity.Value * (float)gameTime.ElapsedGameTime.TotalSeconds);
-
-            //// Check for walls
-            //if (position.Position.X + size.Value.X > this._graphics.Viewport.Width)
-            //{
-            //    position.Position.X = 0;
-            //}
-            //if (position.Position.X < 0)
-            //{
-            //    position.Position.X = (this._graphics.Viewport.Width) - size.Value.X;
-            //}
-            //if (position.Position.Y + size.Value.Y > this._graphics.Viewport.Height)
-            //{
-            //    position.Position.Y = (this._graphics.Viewport.Height) - size.Value.Y;
-            //    velocity.Value.Y *= -1;
-            //}
-            //if (position.Position.Y < 0)
-            //{
-            //    position.Position.Y = 0;
-            //    velocity.Value.Y *= -1;
-            //}
         }
     }
 }

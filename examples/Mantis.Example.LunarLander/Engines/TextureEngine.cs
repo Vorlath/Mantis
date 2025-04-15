@@ -34,11 +34,9 @@ namespace Mantis.Example.LunarLander.Engines
         {
             var groups = this.entitiesDB.FindGroups<Texture, Transform2D, Size>();
             _ = new Vector2(512, 512);
-            //var screenScale = Matrix.CreateScale(4, 4, 1.0f);
 
             // Apply scaling to the sprite batch
             this._spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, null);
-            //this._spriteBatch.Begin();
             foreach (var ((textures, positions, sizes, count), _) in this.entitiesDB.QueryEntities<Texture, Transform2D, Size>(groups))
             {
                 for (int i = 0; i < count; i++)
@@ -49,8 +47,6 @@ namespace Mantis.Example.LunarLander.Engines
 
                     this._spriteBatch.Draw(
                         texture: this._textures[texture.Value],
-
-
                         destinationRectangle: RectangleHelper.CreateBounds(position, size),
                         sourceRectangle: null,
                         origin: new Vector2(this._textures[texture.Value].Bounds.Width / 2, this._textures[texture.Value].Bounds.Height / 2),
