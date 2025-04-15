@@ -16,6 +16,6 @@ namespace Mantis.Example.LunarLander.Descriptors
             new ComponentBuilder<Animated>(new Animated()),
             new ComponentBuilder<Collidable>(new Collidable()),
             new ComponentBuilder<Controllable>(new Controllable()),
-            ];
+        ];
     }
 }
