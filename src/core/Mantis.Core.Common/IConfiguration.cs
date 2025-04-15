@@ -2,7 +2,7 @@
 {
     /// <summary>
     /// Contains an instance of type <typeparamref name="T"/> that has been
-    /// configured via all configurators registered with <see cref="Extensions.ContainerBuilderExtensions.Configure{T}(Autofac.ContainerBuilder, Action{Autofac.ILifetimeScope, T})"/>
+    /// configured via all configurators registered with <see cref="Extensions.IMantisRootBuilderExtensions.Configure{T}(Autofac.ContainerBuilder, Action{Autofac.ILifetimeScope, T})"/>
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public interface IConfiguration<T>
@@ -11,6 +11,6 @@
         /// <summary>
         /// The configured instance.
         /// </summary>
-        public T Value { get; set; }
+        T Value { get; set; }
     }
 }

@@ -10,7 +10,6 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Autofac.Extras.Moq" Version="7.0.0" />
 		<PackageReference Include="coverlet.collector" Version="6.0.2">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -26,6 +25,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\src\core\Mantis.Core.Common\Mantis.Core.Common.csproj" />
 	  <ProjectReference Include="..\..\..\src\core\Mantis.Core\Mantis.Core.csproj" />
+	  <ProjectReference Include="..\..\common\Mantis.Tests.Common.Core\Mantis.Tests.Common.Core.csproj" />
 	</ItemGroup>
 
   <ItemGroup>
