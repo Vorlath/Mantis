@@ -32,7 +32,6 @@ namespace Mantis.Example.LunarLander.Scenes
             EnginesRoot enginesRoot,
             IEntityFactory entityFactory,
             EntitiesSubmissionScheduler entitiesSubmissionScheduler,
-            GraphicsDevice graphics,
             ILogger<GameScene> logger,
             ISystemService systemService,
             ContentManager content)
@@ -58,35 +57,30 @@ namespace Mantis.Example.LunarLander.Scenes
             AnimationType LanderIdle = SpriteSheet.CreateAnimationType([
                 new AnimationFrameContext("1", 10000)
             ]);
-
-            AnimationType LanderBurnStart = SpriteSheet.CreateAnimationType([
+            _ = SpriteSheet.CreateAnimationType([
                 new AnimationFrameContext("2", 100),
                 new AnimationFrameContext("3", 500)
             ]);
-
-            AnimationType LanderBurnEnd = SpriteSheet.CreateAnimationType([
+            _ = SpriteSheet.CreateAnimationType([
                 new AnimationFrameContext("3", 500),
                 new AnimationFrameContext("2", 500),
                 new AnimationFrameContext("1", 500)
             ]);
-
-            AnimationType LanderRotateCW = SpriteSheet.CreateAnimationType([
+            _ = SpriteSheet.CreateAnimationType([
                 new AnimationFrameContext("4", 500)
             ]);
-
-            AnimationType LanderRotateCCW = SpriteSheet.CreateAnimationType([
+            _ = SpriteSheet.CreateAnimationType([
                 new AnimationFrameContext("5", 500)
             ]);
 
             // lander
-            int num = 0;
+
             var entityInitializer = entityFactory.BuildEntity<LanderDescriptor>(0, ExclusiveGroups.LanderGroup);
             entityInitializer.Init(new Transform2D(0, 0, 270));
             entityInitializer.Init(new Velocity(75, 0));
             entityInitializer.Init(new Gravity(5));
             entityInitializer.Init(new Size(32, 32));
             entityInitializer.Init(new Animated(LanderIdle));
-            num++;
 
             // Example logger usage.
             this._logger.Debug("Created GameScene!");

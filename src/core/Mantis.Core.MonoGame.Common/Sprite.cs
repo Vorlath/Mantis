@@ -6,17 +6,10 @@ namespace Mantis.Core.MonoGame.Common
     /// <summary>
     /// Holds a raw frame, a bound with a name that will be applied to a spritesheet.
     /// </summary>
-    public class Sprite
+    public class Sprite(string id, Rectangle bounds, Texture2D texture)
     {
-        public string Id;
-        public Rectangle Bounds;
-        public Texture2D Texture;
-
-        public Sprite(string id, Rectangle bounds, Texture2D texture)
-        {
-            this.Id = id;
-            this.Bounds = bounds;
-            this.Texture = texture;
-        }
+        public string Id = id;
+        public Rectangle Bounds = bounds;
+        public Texture2D Texture = texture;
     }
 }

@@ -48,7 +48,7 @@ namespace Mantis.Example.LunarLander.Engines
                         }
                     }
 
-                    transform2D.Rotation += (100f * targetVelocityModifier) * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    transform2D.Rotation += 100f * targetVelocityModifier * (float)gameTime.ElapsedGameTime.TotalSeconds;
                     velocity.Value += new Vector2(MathF.Sin(transform2D.Rotation * (MathF.PI / 180)), -MathF.Cos(transform2D.Rotation * (MathF.PI / 180))) * (GetThrusters() * 0.0012f);
                     //velocity.Value.X = MathHelper.Lerp(velocity.Value.X, controllable.TargetVelocity * targetVelocityModifier, (float)gameTime.ElapsedGameTime.TotalSeconds * 2f);
                 }

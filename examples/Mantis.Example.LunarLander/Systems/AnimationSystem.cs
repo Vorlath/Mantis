@@ -7,9 +7,9 @@ using Svelto.ECS;
 
 namespace Mantis.Example.LunarLander.Systems
 {
-    internal class AnimationSystem : IDrawSystem, ISceneSystem, IQueryingEntitiesEngine
+    internal class AnimationSystem(SpriteBatch spriteBatch) : IDrawSystem, ISceneSystem, IQueryingEntitiesEngine
     {
-        private SpriteBatch _spriteBatch;
+        private readonly SpriteBatch _spriteBatch = spriteBatch;
 
         public EntitiesDB entitiesDB { get; set; } = null!;
 
@@ -18,10 +18,6 @@ namespace Mantis.Example.LunarLander.Systems
             //    throw new NotImplementedException();
         }
 
-        public AnimationSystem(SpriteBatch spriteBatch)
-        {
-            this._spriteBatch = spriteBatch;
-        }
         public void Draw(GameTime gameTime)
         {
             var groups = this.entitiesDB.FindGroups<Animated, Transform2D, Size>();

@@ -17,7 +17,7 @@
             return _instances[id];
         }
 
-        private static Dictionary<int, AnimationType> _instances = new Dictionary<int, AnimationType>();
+        private static readonly Dictionary<int, AnimationType> _instances = [];
         private static int _nextId;
     }
 }

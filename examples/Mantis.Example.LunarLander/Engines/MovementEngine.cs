@@ -1,17 +1,14 @@
 ﻿using Mantis.Engine.Common.Systems;
 using Mantis.Example.LunarLander.Components;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Svelto.ECS;
 
 namespace Mantis.Example.LunarLander.Engines
 {
-    public class MovementEngine(GraphicsDevice graphics) : IQueryingEntitiesEngine, IUpdateSystem, ISceneSystem
+    public class MovementEngine() : IQueryingEntitiesEngine, IUpdateSystem, ISceneSystem
     {
 
         public EntitiesDB entitiesDB { get; set; } = null!;
-
-        private readonly GraphicsDevice _graphics = graphics;
 
         public void Ready()
         {
@@ -33,12 +30,12 @@ namespace Mantis.Example.LunarLander.Engines
                     ref Gravity gravity = ref gravities[i];
 
 
-                    this.Update(ref velocity, ref position, ref size, ref gravity, gameTime);
+                    Update(ref velocity, ref position, ref gravity, gameTime);
                 }
             }
         }
 
-        private void Update(ref Velocity velocity, ref Transform2D position, ref Size size, ref Gravity gravity, GameTime gameTime)
+        private static void Update(ref Velocity velocity, ref Transform2D position, ref Gravity gravity, GameTime gameTime)
         {
             velocity.Value.Y += (gravity.Value * (float)gameTime.ElapsedGameTime.TotalSeconds);
             position.Position += (velocity.Value * (float)gameTime.ElapsedGameTime.TotalSeconds);

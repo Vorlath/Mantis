@@ -5,40 +5,29 @@ namespace Mantis.Core.MonoGame.Common
     /// <summary>
     /// Holds a single animation, a number of frames that can be looped
     /// </summary>
-    public struct Animation
+    public struct Animation(AnimationType type, Color color, float currentFrameDuration = 0, int currentFrameIndex = 0, bool loopable = true, bool isPaused = false)
     {
         //private AnimatedTextureType _type;
 
-        public float CurrentFrameDuration;
-        public int CurrentFrameIndex;
-        public bool Loopable;
-        public bool IsPaused;
-        public bool Ended;
-        public int TypeId;
-        public Color Color;
+        public float CurrentFrameDuration = currentFrameDuration;
+        public int CurrentFrameIndex = currentFrameIndex;
+        public bool Loopable = loopable;
+        public bool IsPaused = isPaused;
+        public bool Ended = false;
+        public int TypeId = type.Id;
+        public Color Color = color;
 
 
 
         public AnimationType Type
         {
-            get => AnimationType.GetAnimationTypeById(this.TypeId);
+            readonly get => AnimationType.GetAnimationTypeById(this.TypeId);
             set
             {
                 this.TypeId = value.Id;
                 this.CurrentFrameIndex = 0;
                 this.CurrentFrameDuration = 0;
             }
-        }
-
-        public Animation(AnimationType type, Color color, float currentFrameDuration = 0, int currentFrameIndex = 0, bool loopable = true, bool isPaused = false)
-        {
-            this.CurrentFrameDuration = currentFrameDuration;
-            this.CurrentFrameIndex = currentFrameIndex;
-            this.Loopable = loopable;
-            this.IsPaused = isPaused;
-            this.Ended = false;
-            this.TypeId = type.Id;
-            this.Color = color;
         }
 
         public Sprite GetCurrentFrame(GameTime gameTime)

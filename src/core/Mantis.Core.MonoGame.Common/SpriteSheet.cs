@@ -7,13 +7,13 @@ namespace Mantis.Core.MonoGame.Common
 
         //Holds a spritesheet, and the different slides that have been cutout of the spritesheet
 
-        private Texture2D _texture;
+        private readonly Texture2D _texture;
         private readonly Dictionary<string, Sprite> _sprites;
 
         public SpriteSheet(Texture2D texture, SpriteData[] frames)
         {
             this._texture = texture;
-            this._sprites = new Dictionary<string, Sprite>();
+            this._sprites = [];
             foreach (var frame in frames)
             {
                 this._sprites.Add(frame.Id, new Sprite(frame.Id, frame.Bounds, this._texture));
@@ -27,7 +27,7 @@ namespace Mantis.Core.MonoGame.Common
 
         public AnimationType CreateAnimationType(AnimationFrameContext[] animationFrameContexts)
         {
-            List<AnimationFrame> Frames = new List<AnimationFrame>();
+            List<AnimationFrame> Frames = [];
             foreach (AnimationFrameContext animationFrameContext in animationFrameContexts)
             {
                 Frames.Add(new AnimationFrame(animationFrameContext.Duration, this._sprites[animationFrameContext.Id]));

@@ -1,14 +1,8 @@
 ﻿namespace Mantis.Core.MonoGame.Common
 {
-    public class AnimationFrame
+    public class AnimationFrame(int duration, Sprite frame)
     {
-        public readonly int Duration;
-        public Sprite Sprite;
-
-        public AnimationFrame(int duration, Sprite frame)
-        {
-            this.Duration = duration;
-            this.Sprite = frame;
-        }
+        public readonly int Duration = duration;
+        public Sprite Sprite = frame;
     }
 }
