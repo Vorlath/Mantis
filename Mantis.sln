@@ -63,6 +63,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mantis.Core.MonoGame", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mantis.Core.MonoGame.Common", "src\core\Mantis.Core.MonoGame.Common\Mantis.Core.MonoGame.Common.csproj", "{2D6663E0-D30E-477A-BF5B-065864361AE7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mantis26", "mantis26", "{CE3758A4-A11D-40A4-901D-7352DF1F01C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mantis.Mantis26.OnlyUp", "mantis26\Mantis.Mantis26.OnlyUp\Mantis.Mantis26.OnlyUp.csproj", "{B7F5D980-63FB-4235-A723-2F3C5762710F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -149,6 +153,10 @@ Global
 		{2D6663E0-D30E-477A-BF5B-065864361AE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D6663E0-D30E-477A-BF5B-065864361AE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D6663E0-D30E-477A-BF5B-065864361AE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7F5D980-63FB-4235-A723-2F3C5762710F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7F5D980-63FB-4235-A723-2F3C5762710F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7F5D980-63FB-4235-A723-2F3C5762710F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7F5D980-63FB-4235-A723-2F3C5762710F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -180,6 +188,7 @@ Global
 		{250B9065-C8C7-48C5-A5CD-D3B80B60B6E8} = {3B50B8D3-9093-4D92-9061-4CAA1562353B}
 		{1C1F9BFB-B23A-4CE2-9DE0-41584F58B382} = {271DF633-4254-4610-A4B7-D909F4501ADF}
 		{2D6663E0-D30E-477A-BF5B-065864361AE7} = {271DF633-4254-4610-A4B7-D909F4501ADF}
+		{B7F5D980-63FB-4235-A723-2F3C5762710F} = {CE3758A4-A11D-40A4-901D-7352DF1F01C4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7F4F9176-64F3-43D9-912D-00699AA19BD1}
