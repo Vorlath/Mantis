@@ -21,7 +21,7 @@ namespace Mantis.Mantis26.OnlyUp.Systems
         public void Draw(GameTime gameTime)
         {
             var groups = this.entitiesDB.FindGroups<Animated, Transform2D, Size>();
-            _ = new Vector2(512, 512);
+            //_ = new Vector2(512, 512);
 
             // Apply scaling to the sprite batch
             this._spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, null);
@@ -34,11 +34,12 @@ namespace Mantis.Mantis26.OnlyUp.Systems
                     ref Size size = ref sizes[i];
 
                     this._spriteBatch.Draw(
-                        gameTime: gameTime,
+                       gameTime: gameTime,
                        animation: ref animated.Animation,
                        destinationRectangle: RectangleHelper.CreateBounds(position, size),
                        rotation: position.Rotation * (MathF.PI / 180),
-                       color: Color.White);
+                       color: Color.White,
+                       origin: Vector2.Zero);
                 }
             }
             this._spriteBatch.End();

@@ -12,7 +12,7 @@ namespace Mantis.Mantis26.OnlyUp.Descriptors
         private static readonly IComponentBuilder[] _componentsToBuild =
         [
             new ComponentBuilder<Transform2D>(new Transform2D()),
-            new ComponentBuilder<Collidable>(new Collidable(0)),
+            new ComponentBuilder<Collidable>(new Collidable(new RectangleF(), Vector2.Zero)),
             new ComponentBuilder<Size>(new Size()),
             new ComponentBuilder<Texture>(new Texture(TextureEnum.Wall, Color.White))
         ];

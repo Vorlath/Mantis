@@ -61,11 +61,12 @@ namespace Mantis.Mantis26.OnlyUp
                     .ConfigureFileLoggerSink($"logs/log_{DateTime.Now:yyyy-dd-MM}.txt"); // Setup file sink. The created file will exist in the exe's build path at ./logs/log_yyyy-dd-MM.txt
 
                 builder.RegisterType<GameScene>().AsSelf().InstancePerLifetimeScope();
-                //builder.RegisterSceneSystem<TextureEngine>();
+                builder.RegisterSceneSystem<AnimationSystem>();
+                builder.RegisterSceneSystem<TextureEngine>();
                 builder.RegisterSceneSystem<MovementEngine>();
                 builder.RegisterSceneSystem<CollisionEngine>();
                 builder.RegisterSceneSystem<ControllableEngine>();
-                builder.RegisterSceneSystem<AnimationSystem>();
+
             });
             this._mantis.Scenes.Create<GameScene>();
         }

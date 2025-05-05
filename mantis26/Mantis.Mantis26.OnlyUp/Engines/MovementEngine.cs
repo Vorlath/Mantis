@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using Mantis.Core.MonoGame.Common;
-using Mantis.Engine.Common.Systems;
+﻿using Mantis.Engine.Common.Systems;
 using Mantis.Mantis26.OnlyUp.Components;
 using Microsoft.Xna.Framework;
 using Svelto.ECS;
@@ -22,7 +20,7 @@ namespace Mantis.Mantis26.OnlyUp.Engines
             var groups = this.entitiesDB.FindGroups<Velocity, Transform2D, PlayerState, Gravity>();
             foreach (var ((velocities, positions, playerStates, gravities, count), group) in this.entitiesDB.QueryEntities<Velocity, Transform2D, PlayerState, Gravity>(groups))
             {
-                var (animations, _) = this.entitiesDB.QueryEntities<Animated>(group);
+                var (animations, collisions, _) = this.entitiesDB.QueryEntities<Animated, Collidable>(group);
                 for (int i = 0; i < count; i++)
                 {
                     ref Velocity velocity = ref velocities[i];
@@ -30,21 +28,21 @@ namespace Mantis.Mantis26.OnlyUp.Engines
                     ref PlayerState playerState = ref playerStates[i];
                     ref Gravity gravity = ref gravities[i];
                     ref Animated animation = ref animations[i];
+                    ref Collidable collision = ref collisions[i];
 
 
-                    Update(ref playerState, ref velocity, ref position, ref gravity, ref animation, gameTime);
+                    Update(ref playerState, ref velocity, ref position, ref gravity, ref animation, ref collision, gameTime);
                 }
             }
         }
 
-        private static void Update(ref PlayerState playerState, ref Velocity velocity, ref Transform2D position, ref Gravity gravity, ref Animated animation, GameTime gameTime)
+        private static void Update(ref PlayerState playerState, ref Velocity velocity, ref Transform2D position, ref Gravity gravity, ref Animated animation, ref Collidable collision, GameTime gameTime)
         {
             // set velocity to 0
 
             if (playerState.isGrounded)
             {
                 velocity.Value.Y = 0;
-
                 velocity.Value.X = 0;
             }
 
@@ -52,10 +50,8 @@ namespace Mantis.Mantis26.OnlyUp.Engines
             //This is temporary
             if (position.Position.Y > 925 && !playerState.isGrounded)
             {
-                animation.Animation.Type = AnimationType.GetAnimationTypeById(0);
                 playerState.isGrounded = true;
                 position.Position.Y = 924.0f;
-                Debug.WriteLine(position.Position.Y);
             }
             else
             {
@@ -65,6 +61,10 @@ namespace Mantis.Mantis26.OnlyUp.Engines
                 }
             }
             position.Position += (velocity.Value * (float)gameTime.ElapsedGameTime.TotalSeconds);
+
+            // new position based on the entity's updated position, while keeping the box's size
+            //collision.CollisionBox = RectangleHelper.CreateCollisionBoundsF(position.Position, collision.Offset, collision.CollisionBox.Size);
+            collision.CollisionBox = RectangleHelper.CreateBoundsF(position.Position, collision.CollisionBox.Size);
         }
     }
 }

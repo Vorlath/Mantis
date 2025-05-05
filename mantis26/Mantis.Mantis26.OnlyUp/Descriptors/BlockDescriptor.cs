@@ -14,9 +14,7 @@ namespace Mantis.Mantis26.OnlyUp.Descriptors
             new ComponentBuilder<Transform2D>(new Transform2D()),
             new ComponentBuilder<Size>(new Size(10, 10)),
             new ComponentBuilder<Texture>(new Texture(TextureEnum.Block, Color.LightBlue)),
-            new ComponentBuilder<Health>(new Health()),
             new ComponentBuilder<Collidable>(new Collidable()),
-            new ComponentBuilder<Destructable>(new Destructable())
         ];
     }
 }

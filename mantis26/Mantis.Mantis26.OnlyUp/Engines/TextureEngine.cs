@@ -19,7 +19,8 @@ namespace Mantis.Mantis26.OnlyUp.Engines
             this._textures = new() {
                 { TextureEnum.Lander, contentManager.Load<Texture2D>("Lander") },
                 { TextureEnum.Paddle, contentManager.Load<Texture2D>("paddle") },
-                { TextureEnum.Block, contentManager.Load<Texture2D>("block") }
+                { TextureEnum.Block, contentManager.Load<Texture2D>("block") },
+                { TextureEnum.Widget, contentManager.Load<Texture2D>("Widget") }
             };
         }
 
@@ -49,11 +50,35 @@ namespace Mantis.Mantis26.OnlyUp.Engines
                         texture: this._textures[texture.Value],
                         destinationRectangle: RectangleHelper.CreateBounds(position, size),
                         sourceRectangle: null,
-                        origin: new Vector2(this._textures[texture.Value].Bounds.Width / 2, this._textures[texture.Value].Bounds.Height / 2),
+                        origin: new Vector2(0, 0),
                         effects: SpriteEffects.None,
                         layerDepth: 0,
                         rotation: position.Rotation * (MathF.PI / 180),
                         color: texture.Color);
+                }
+            }
+
+            var collisionGroups = this.entitiesDB.FindGroups<Collidable, Transform2D, Size>();
+            foreach (var ((collisions, positions, sizes, count), _) in this.entitiesDB.QueryEntities<Collidable, Transform2D, Size>(collisionGroups))
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    Collidable collision = collisions[i];
+                    Transform2D position = positions[i];
+                    //Size size = sizes[i];
+
+                    //Rectangle collisionBox = new Rectangle((int)collision.CollisionBox.X, (int)collision.CollisionBox.Y, (int)collision.CollisionBox.Width, (int)collision.CollisionBox.Height);
+                    Rectangle collisionBox = RectangleHelper.CreateCollisionBounds(collision.CollisionBox.Location, collision.Offset, collision.CollisionBox.Size);
+
+                    this._spriteBatch.Draw(
+                        texture: this._textures[TextureEnum.Widget],
+                        destinationRectangle: collisionBox,
+                        sourceRectangle: null,
+                        origin: new Vector2(0, 0),
+                        effects: SpriteEffects.None,
+                        layerDepth: 0,
+                        rotation: position.Rotation * (MathF.PI / 180),
+                        color: Color.Magenta);
                 }
             }
             this._spriteBatch.End();

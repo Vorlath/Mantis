@@ -5,6 +5,7 @@
         Lander,
         Wall,
         Paddle,
-        Block
+        Block,
+        Widget
     }
 }

@@ -1,6 +1,4 @@
 ﻿using Mantis.Mantis26.OnlyUp.Components;
-using Mantis.Mantis26.OnlyUp.Enums;
-using Microsoft.Xna.Framework;
 using Svelto.ECS;
 
 namespace Mantis.Mantis26.OnlyUp.Descriptors
@@ -11,7 +9,7 @@ namespace Mantis.Mantis26.OnlyUp.Descriptors
             new ComponentBuilder<Transform2D>(new Transform2D()),
             new ComponentBuilder<Velocity>(new Velocity()),
             new ComponentBuilder<Size>(new Size(128, 128)),
-            new ComponentBuilder<Texture>(new Texture(TextureEnum.Lander, Color.White)),
+            //new ComponentBuilder<Texture>(new Texture(TextureEnum.Lander, Color.White)),
             new ComponentBuilder<Gravity>(new Gravity()),
             new ComponentBuilder<Animated>(new Animated()),
             new ComponentBuilder<Collidable>(new Collidable()),

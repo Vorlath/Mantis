@@ -44,8 +44,10 @@ namespace Mantis.Mantis26.OnlyUp.Scenes
                 enginesRoot.AddEngine(engine);
             }
 
-            var _texture = content.Load<Texture2D>("MNKY");
-            var SpriteSheet = new SpriteSheet(_texture, [
+            /////////////////////////////////////////////////////
+            /// MNKY Animations
+            var _MNKYTexture = content.Load<Texture2D>("MNKY");
+            var MNKYSpriteSheet = new SpriteSheet(_MNKYTexture, [
                 new SpriteData("1", new Rectangle(0, 0, 32, 32)),
                 new SpriteData("2", new Rectangle(32, 0, 32, 32)),
                 new SpriteData("3", new Rectangle(0, 32, 32, 32)),
@@ -54,38 +56,58 @@ namespace Mantis.Mantis26.OnlyUp.Scenes
                 new SpriteData("6", new Rectangle(32, 64, 32, 32))
                 ]);
 
-            // Name this
-            AnimationType MNKYIdleRight = SpriteSheet.CreateAnimationType([
-                new AnimationFrameContext("1", 10000)
+            AnimationType MNKYIdleRight = MNKYSpriteSheet.CreateAnimationType([
+                new AnimationFrameContext("1", 1000)
             ]);
-            AnimationType MNKYIdleLeft = SpriteSheet.CreateAnimationType([
-                new AnimationFrameContext("2", 10000)
-
+            MNKYSpriteSheet.CreateAnimationType([
+                new AnimationFrameContext("2", 1000)
             ]);
-            _ = SpriteSheet.CreateAnimationType([
-                new AnimationFrameContext("3", 500)
+            MNKYSpriteSheet.CreateAnimationType([
+                new AnimationFrameContext("3", 1000)
             ]);
-            _ = SpriteSheet.CreateAnimationType([
-                new AnimationFrameContext("4", 500)
+            MNKYSpriteSheet.CreateAnimationType([
+                new AnimationFrameContext("4", 1000)
             ]);
-            _ = SpriteSheet.CreateAnimationType([
-                new AnimationFrameContext("5", 500)
+            MNKYSpriteSheet.CreateAnimationType([
+                new AnimationFrameContext("5", 1000)
             ]);
-            _ = SpriteSheet.CreateAnimationType([
-                new AnimationFrameContext("6", 500)
+            MNKYSpriteSheet.CreateAnimationType([
+                new AnimationFrameContext("6", 1000)
             ]);
 
-            // lander
-
+            /////////////////////////////////////////////////////
+            // MNKY
             var MNKY = entityFactory.BuildEntity<MNKYDescriptor>(0, ExclusiveGroups.LanderGroup);
             MNKY.Init(new Transform2D(0, 0, 0));
             MNKY.Init(new Velocity(75, 0));
             MNKY.Init(new Gravity(1000));
             MNKY.Init(new Size(64, 64));
             MNKY.Init(new Animated(MNKYIdleRight));
+            MNKY.Init(new Collidable(new RectangleF(0, 0, 32, 64), new Vector2(16, 0)));
             MNKY.Init(new Controllable());
             MNKY.Init(new PlayerState());
             MNKY.Init(new Jump(100));
+
+            /////////////////////////////////////////////////////
+            /// Block
+            int num = 0;
+            var Block = entityFactory.BuildEntity<BlockDescriptor>((uint)num, ExclusiveGroups.BlockGroup);
+            Block.Init(new Transform2D(500, 800, 0));
+            Block.Init(new Size(32, 32));
+            Block.Init(new Collidable(new RectangleF(500, 800, 32, 32), Vector2.Zero));
+            Block.Init(new Texture(Enums.TextureEnum.Block, Color.White));
+            num++;
+            for (int i = 2; i < 10; i++)
+            {
+                Block = entityFactory.BuildEntity<BlockDescriptor>((uint)num, ExclusiveGroups.BlockGroup);
+                Block.Init(new Transform2D(32 * i + 500, 800, 0));
+                Block.Init(new Size(32, 32));
+                Block.Init(new Collidable(new RectangleF(32 * i + 500, 800, 32, 32), Vector2.Zero));
+                Block.Init(new Texture(Enums.TextureEnum.Block, Color.White));
+                num++;
+            }
+
+
 
             // Example logger usage.
             this._logger.Debug("Created GameScene!");

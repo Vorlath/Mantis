@@ -1,6 +1,5 @@
 ﻿using Mantis.Engine.Common.Systems;
 using Mantis.Mantis26.OnlyUp.Components;
-using Mantis.Mantis26.OnlyUp.Descriptors;
 using Microsoft.Xna.Framework;
 using Svelto.ECS;
 
@@ -19,73 +18,67 @@ namespace Mantis.Mantis26.OnlyUp.Engines
 
         public void Update(GameTime gameTime)
         {
-            var groups = this.entitiesDB.FindGroups<Velocity, Transform2D, Size>(); // This should get ball, and nothing else
-            foreach (var ((velocities, positions, sizes, count), _) in this.entitiesDB.QueryEntities<Velocity, Transform2D, Size>(groups))
+            var groups = this.entitiesDB.FindGroups<PlayerState, Velocity, Transform2D, Collidable>();
+            foreach (var ((playerStates, velocities, positions, senderCollidables, count), _) in this.entitiesDB.QueryEntities<PlayerState, Velocity, Transform2D, Collidable>(groups))
             {
                 for (int i = 0; i < count; i++)
                 {
                     ref Velocity velocity = ref velocities[i];
                     ref Transform2D position = ref positions[i];
-                    ref Size size = ref sizes[i];
+                    ref Collidable senderCollidable = ref senderCollidables[i];
+                    ref PlayerState playerState = ref playerStates[i];
 
-                    RectangleF ballBounds = RectangleHelper.CreateBoundsF(position, size);
+                    //RectangleF senderBounds = RectangleHelper.CreateCollisionBoundsF(senderCollidable.CollisionBox.Location, senderCollidable.Offset, senderCollidable.CollisionBox.Size);
+                    RectangleF senderBounds = senderCollidable.CollisionBox;
 
                     // check for blocks
-                    var blockGroups = this.entitiesDB.FindGroups<Transform2D, Size, Collidable, Health>();
-                    foreach (var ((blockPositions, blockSizes, collidables, healths, nativeIDs, blockCount), blockGroup) in this.entitiesDB.QueryEntities<Transform2D, Size, Collidable, Health>(blockGroups))
+                    var blockGroups = this.entitiesDB.FindGroups<Transform2D, Collidable>();
+                    foreach (var ((blockPositions, receiverCollidables, nativeIDs, blockCount), blockGroup) in this.entitiesDB.QueryEntities<Transform2D, Collidable>(blockGroups))
                     {
                         for (int j = 0; j < blockCount; j++)
                         {
                             ref Transform2D blockPosition = ref blockPositions[j];
-                            ref Health blockHealth = ref healths[j];
-                            ref Collidable blockCollidable = ref collidables[j];
-                            ref Size blockSize = ref blockSizes[j];
+                            ref Collidable receiverCollidable = ref receiverCollidables[j];
 
-                            RectangleF blockBounds = RectangleHelper.CreateBoundsF(blockPosition, blockSize);
 
-                            if (blockBounds.IntersectsWith(ballBounds))
+                            // RectangleF receiverBounds = RectangleHelper.CreateCollisionBoundsF(receiverCollidable.CollisionBox.Location, receiverCollidable.Offset, receiverCollidable.CollisionBox.Size);
+                            RectangleF receiverBounds = receiverCollidable.CollisionBox;
+
+                            if (receiverBounds.IntersectsWith(senderBounds))
                             {
-                                blockHealth.Value--;
-
                                 // https://stackoverflow.com/questions/5062833/detecting-the-direction-of-a-collision
-                                float bottomIntersect = blockBounds.Bottom - ballBounds.Top;
-                                float topIntersect = ballBounds.Bottom - blockBounds.Top;
-                                float leftIntersect = ballBounds.Right - blockBounds.Left;
-                                float rightIntersect = blockBounds.Right - ballBounds.Left;
+                                float bottomIntersect = receiverBounds.Bottom - senderBounds.Top;
+                                float topIntersect = senderBounds.Bottom - receiverBounds.Top;
+                                float leftIntersect = senderBounds.Right - receiverBounds.Left;
+                                float rightIntersect = receiverBounds.Right - senderBounds.Left;
 
                                 if (topIntersect < bottomIntersect && topIntersect < leftIntersect && topIntersect < rightIntersect)
                                 { // Top hit
-                                    ballBounds.Y = blockBounds.Top - ballBounds.Height;
-                                    velocity.Value.Y *= -1;
+                                    //MNKYBounds.Y = blockBounds.Top - MNKYBounds.Height;
+                                    playerState.isGrounded = true;
                                 }
                                 else if (bottomIntersect < topIntersect && bottomIntersect < leftIntersect && bottomIntersect < rightIntersect)
                                 { // Bottom hit
-                                    ballBounds.Y = blockBounds.Bottom;
-                                    velocity.Value.Y *= -1;
+                                    senderBounds.Y = receiverBounds.Bottom;
+                                    velocity.Value.Y *= 0;
                                 }
 
                                 if (rightIntersect < bottomIntersect && rightIntersect < leftIntersect && rightIntersect < topIntersect)
                                 { // Right hit
-                                    ballBounds.X = blockBounds.Right;
+                                    senderBounds.X = receiverBounds.Right;
+                                    velocity.Value.X *= -0.5f;
                                 }
                                 else if (leftIntersect < bottomIntersect && leftIntersect < topIntersect && leftIntersect < rightIntersect)
                                 { // Left hit
-                                    ballBounds.X = blockBounds.Left - ballBounds.Width;
-                                }
-
-                                if (blockHealth.Value <= 0)
-                                {
-                                    //var egid = new EGID(nativeIDs[j], blockGroup);
-                                    this._entityFunctions.RemoveEntity<BlockDescriptor>(nativeIDs[j], blockGroup);
-                                    // need to learn how to destroy stuff
-                                    //blockPosition.destr
+                                    senderBounds.X = receiverBounds.Left - senderBounds.Width;
+                                    velocity.Value.X *= -0.5f;
                                 }
                             }
                         }
                     }
 
-                    position.Position.X = ballBounds.Location.X;
-                    position.Position.Y = ballBounds.Location.Y;
+                    position.Position.X = senderBounds.Location.X;
+                    position.Position.Y = senderBounds.Location.Y;
                 }
             }
         }
