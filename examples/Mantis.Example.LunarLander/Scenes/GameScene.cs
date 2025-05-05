@@ -22,7 +22,7 @@ namespace Mantis.Example.LunarLander.Scenes
         public static readonly ExclusiveGroup PaddleGroup = new();
     }
 
-    public class GameScene : IScene
+    public class GameScene : BaseScene
     {
         private readonly EntitiesSubmissionScheduler _entitiesSubmissionScheduler;
         private readonly ILogger<GameScene> _logger;
@@ -34,7 +34,7 @@ namespace Mantis.Example.LunarLander.Scenes
             EntitiesSubmissionScheduler entitiesSubmissionScheduler,
             ILogger<GameScene> logger,
             ISystemService systemService,
-            ContentManager content)
+            ContentManager content) : base(systemService)
         {
             this._entitiesSubmissionScheduler = entitiesSubmissionScheduler;
             this._logger = logger;
@@ -86,29 +86,24 @@ namespace Mantis.Example.LunarLander.Scenes
             this._logger.Debug("Created GameScene!");
         }
 
-        public void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
             // Example logger usage.
             // This will not be logged with a minimum log level of Debug
             this._logger.Verbose("Draw");
 
-            foreach (IDrawSystem drawSystem in this._systemService.GetSystems<IDrawSystem>())
-            {
-                drawSystem.Draw(gameTime);
-            }
+            base.Draw(gameTime);
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             // Example logger usage.
             // This will not be logged with a minimum log level of Debug
             this._logger.Verbose("Update");
 
             this._entitiesSubmissionScheduler.SubmitEntities();
-            foreach (IUpdateSystem updateSystem in this._systemService.GetSystems<IUpdateSystem>())
-            {
-                updateSystem.Update(gameTime);
-            }
+            
+            base.Update(gameTime);
         }
     }
 }

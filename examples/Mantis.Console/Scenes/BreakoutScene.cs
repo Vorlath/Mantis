@@ -1,12 +1,13 @@
 ﻿using Mantis.Core.ECS.Common.Services;
 using Mantis.Engine.Common;
+using Mantis.Engine.Common.Services;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Mantis.Console.Scenes
 {
-    public class BreakoutScene(ContentManager content, SpriteBatch spriteBatch, IEntityService entityService) : IScene
+    public class BreakoutScene(ContentManager content, SpriteBatch spriteBatch, IEntityService entityService, ISystemService systemService) : BaseScene(systemService)
     {
         private readonly Texture2D _texture = content.Load<Texture2D>("Art/placeholder");
         private readonly SpriteBatch _spriteBatch = spriteBatch;

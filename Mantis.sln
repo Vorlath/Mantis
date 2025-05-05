@@ -63,6 +63,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mantis.Core.MonoGame", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mantis.Core.MonoGame.Common", "src\core\Mantis.Core.MonoGame.Common\Mantis.Core.MonoGame.Common.csproj", "{2D6663E0-D30E-477A-BF5B-065864361AE7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "analyzers", "analyzers", "{E246D7A3-7B0F-497E-B1C7-17391B43F00B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mantis.Analyzer.Core.Common", "analyzers\Mantis.Analyzer.Core.Common\Mantis.Analyzer.Core.Common.csproj", "{B5AFF6EA-C5FD-442A-BD06-4612AA94F342}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "analyzers", "analyzers", "{19EB84C7-1432-4FD7-BF44-654895BD0AC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mantis.Tests.Analyzer.Core.Common", "tests\analyzers\Mantis.Tests.Analyzer.Core.Common\Mantis.Tests.Analyzer.Core.Common.csproj", "{3319A029-821E-490C-8CC0-B0CEF855C7B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -149,6 +157,14 @@ Global
 		{2D6663E0-D30E-477A-BF5B-065864361AE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D6663E0-D30E-477A-BF5B-065864361AE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D6663E0-D30E-477A-BF5B-065864361AE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5AFF6EA-C5FD-442A-BD06-4612AA94F342}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5AFF6EA-C5FD-442A-BD06-4612AA94F342}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5AFF6EA-C5FD-442A-BD06-4612AA94F342}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5AFF6EA-C5FD-442A-BD06-4612AA94F342}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3319A029-821E-490C-8CC0-B0CEF855C7B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3319A029-821E-490C-8CC0-B0CEF855C7B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3319A029-821E-490C-8CC0-B0CEF855C7B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3319A029-821E-490C-8CC0-B0CEF855C7B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -180,6 +196,9 @@ Global
 		{250B9065-C8C7-48C5-A5CD-D3B80B60B6E8} = {3B50B8D3-9093-4D92-9061-4CAA1562353B}
 		{1C1F9BFB-B23A-4CE2-9DE0-41584F58B382} = {271DF633-4254-4610-A4B7-D909F4501ADF}
 		{2D6663E0-D30E-477A-BF5B-065864361AE7} = {271DF633-4254-4610-A4B7-D909F4501ADF}
+		{B5AFF6EA-C5FD-442A-BD06-4612AA94F342} = {E246D7A3-7B0F-497E-B1C7-17391B43F00B}
+		{19EB84C7-1432-4FD7-BF44-654895BD0AC9} = {5BAC9D30-1917-4184-9C86-C0C4FB53F233}
+		{3319A029-821E-490C-8CC0-B0CEF855C7B3} = {19EB84C7-1432-4FD7-BF44-654895BD0AC9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7F4F9176-64F3-43D9-912D-00699AA19BD1}

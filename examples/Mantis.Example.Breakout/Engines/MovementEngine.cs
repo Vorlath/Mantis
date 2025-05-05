@@ -1,4 +1,6 @@
-﻿using Mantis.Engine.Common.Systems;
+﻿using Mantis.Core.Common.Attributes;
+using Mantis.Engine.Common.Enums;
+using Mantis.Engine.Common.Systems;
 using Mantis.Example.Breakout.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,7 +21,7 @@ namespace Mantis.Example.Breakout.Engines
         }
 
 
-
+        [SequenceGroup<UpdateSequenceGroupEnum>(UpdateSequenceGroupEnum.Update)]
         public void Update(GameTime gameTime)
         {
             var groups = this.entitiesDB.FindGroups<Velocity, Position, Size>();

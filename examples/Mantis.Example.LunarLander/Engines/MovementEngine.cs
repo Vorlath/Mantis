@@ -1,4 +1,6 @@
-﻿using Mantis.Engine.Common.Systems;
+﻿using Mantis.Core.Common.Attributes;
+using Mantis.Engine.Common.Enums;
+using Mantis.Engine.Common.Systems;
 using Mantis.Example.LunarLander.Components;
 using Microsoft.Xna.Framework;
 using Svelto.ECS;
@@ -15,6 +17,7 @@ namespace Mantis.Example.LunarLander.Engines
             //    throw new NotImplementedException();
         }
 
+        [SequenceGroup<UpdateSequenceGroupEnum>(UpdateSequenceGroupEnum.Update)]
         public void Update(GameTime gameTime)
         {
             var groups = this.entitiesDB.FindGroups<Velocity, Transform2D, Size, Gravity>();
