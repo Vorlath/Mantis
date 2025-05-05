@@ -8,6 +8,7 @@
 # BEGIN VARIABLES
 # ---------------
 
+ANALYZER_VERSION="1.1.3"
 MONOGAME_BUILD_VERSION="1.3.3.7-cpt"
 
 WORKING_DIRECTORY=$(pwd)
@@ -78,5 +79,3 @@ cat <<EOF > "$SOLUTION_DIRECTORY/nuget.config"
   </packageSources>
 </configuration>
 EOF
-
-echo "CREATED FILES"
