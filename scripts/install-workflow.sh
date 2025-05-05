@@ -78,3 +78,5 @@ cat <<EOF > "$SOLUTION_DIRECTORY/nuget.config"
   </packageSources>
 </configuration>
 EOF
+
+echo "CREATED FILES"
