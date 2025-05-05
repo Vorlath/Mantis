@@ -142,7 +142,7 @@ namespace Mantis.Core.Common.Extensions.System
             string genericArguments = type.GetGenericArguments()
                 .Select(x => x.Name)
                 .Aggregate((x1, x2) => $"{x1}, {x2}");
-            
+
             return $"{name[..name.IndexOf('`')]}"
                    + $"<{genericArguments}>";
         }

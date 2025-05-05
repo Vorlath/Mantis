@@ -13,11 +13,11 @@ namespace Mantis.Engine.Services
             where TScene : class, IScene
         {
             TScene scene = this._root.CreateScope().Resolve<TScene>();
-            
+
             // Initialize the new scene
             scene.Initialize();
             this._scenes.Add(scene);
-            
+
             return scene;
         }
 

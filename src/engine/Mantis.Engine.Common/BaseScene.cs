@@ -9,7 +9,7 @@ namespace Mantis.Engine.Common
     {
         private readonly DelegateSequenceGroup<UpdateSequenceGroupEnum, Action<GameTime>> _updateSystems = new DelegateSequenceGroup<UpdateSequenceGroupEnum, Action<GameTime>>(true);
         private readonly DelegateSequenceGroup<DrawSequenceGroupEnum, Action<GameTime>> _drawSystems = new DelegateSequenceGroup<DrawSequenceGroupEnum, Action<GameTime>>(true);
-        
+
         public ISystemService SystemService { get; } = systemService;
 
         public virtual void Initialize()

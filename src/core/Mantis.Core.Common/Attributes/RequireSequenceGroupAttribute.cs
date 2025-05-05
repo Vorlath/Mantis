@@ -5,6 +5,7 @@
     /// This will provider a compile time error if the Mantis source analyzer
     /// is installed.
     /// </summary>
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public abstract class RequireSequenceGroupAttribute : Attribute
     {
         public readonly Type SequenceGroupType;

@@ -102,7 +102,7 @@ namespace Mantis.Example.LunarLander.Scenes
             this._logger.Verbose("Update");
 
             this._entitiesSubmissionScheduler.SubmitEntities();
-            
+
             base.Update(gameTime);
         }
     }

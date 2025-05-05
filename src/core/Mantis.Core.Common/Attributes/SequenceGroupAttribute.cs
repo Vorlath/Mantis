@@ -4,7 +4,7 @@
     /// Determins the members sequence group
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Field, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class SequenceGroupAttribute<T> : Attribute
         where T : unmanaged, Enum
     {
