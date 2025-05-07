@@ -1,4 +1,6 @@
-﻿using Mantis.Core.MonoGame.Common;
+﻿using Mantis.Core.Common.Attributes;
+using Mantis.Core.MonoGame.Common;
+using Mantis.Engine.Common.Enums;
 using Mantis.Engine.Common.Systems;
 using Mantis.Example.LunarLander.Components;
 using Microsoft.Xna.Framework;
@@ -17,6 +19,7 @@ namespace Mantis.Example.LunarLander.Engines
         }
 
 
+        [SequenceGroup<UpdateSequenceGroupEnum>(UpdateSequenceGroupEnum.Update)]
         public void Update(GameTime gameTime)
         {
             float targetVelocityModifier = GetTargetVelocityModifier();
