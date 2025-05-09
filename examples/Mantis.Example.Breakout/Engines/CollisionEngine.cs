@@ -1,4 +1,6 @@
-﻿using Mantis.Engine.Common.Systems;
+﻿using Mantis.Core.Common.Attributes;
+using Mantis.Engine.Common.Enums;
+using Mantis.Engine.Common.Systems;
 using Mantis.Example.Breakout.Components;
 using Mantis.Example.Breakout.Descriptors;
 using Microsoft.Xna.Framework;
@@ -17,6 +19,7 @@ namespace Mantis.Example.Breakout.Engines
             //    throw new NotImplementedException();
         }
 
+        [SequenceGroup<UpdateSequenceGroupEnum>(UpdateSequenceGroupEnum.Update)]
         public void Update(GameTime gameTime)
         {
             var groups = this.entitiesDB.FindGroups<Velocity, Position, Size>(); // This should get ball, and nothing else

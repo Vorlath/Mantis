@@ -399,3 +399,7 @@ FodyWeavers.xsd
 *.sln.iml
 
 .config/dotnet-tools.json
+.nuget
+nuget.config
+Mantis.Core.Common.g.targets
+.idea

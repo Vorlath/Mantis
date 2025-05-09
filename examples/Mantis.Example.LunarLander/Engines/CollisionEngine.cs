@@ -1,4 +1,6 @@
-﻿using Mantis.Engine.Common.Systems;
+﻿using Mantis.Core.Common.Attributes;
+using Mantis.Engine.Common.Enums;
+using Mantis.Engine.Common.Systems;
 using Mantis.Example.LunarLander.Components;
 using Mantis.Example.LunarLander.Descriptors;
 using Microsoft.Xna.Framework;
@@ -17,6 +19,7 @@ namespace Mantis.Example.LunarLander.Engines
             //    throw new NotImplementedException();
         }
 
+        [SequenceGroup<UpdateSequenceGroupEnum>(UpdateSequenceGroupEnum.Update)]
         public void Update(GameTime gameTime)
         {
             var groups = this.entitiesDB.FindGroups<Velocity, Transform2D, Size>(); // This should get ball, and nothing else
