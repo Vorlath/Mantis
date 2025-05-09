@@ -1,4 +1,6 @@
-﻿using Mantis.Core.MonoGame.Common.Extensions;
+﻿using Mantis.Core.Common.Attributes;
+using Mantis.Core.MonoGame.Common.Extensions;
+using Mantis.Engine.Common.Enums;
 using Mantis.Engine.Common.Systems;
 using Mantis.Mantis26.OnlyUp.Components;
 using Microsoft.Xna.Framework;
@@ -18,6 +20,7 @@ namespace Mantis.Mantis26.OnlyUp.Systems
             //    throw new NotImplementedException();
         }
 
+        [SequenceGroup<DrawSequenceGroupEnum>(DrawSequenceGroupEnum.Draw)]
         public void Draw(GameTime gameTime)
         {
             var groups = this.entitiesDB.FindGroups<Animated, Transform2D, Size>();

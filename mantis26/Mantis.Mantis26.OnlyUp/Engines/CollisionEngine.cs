@@ -1,4 +1,6 @@
-﻿using Mantis.Engine.Common.Systems;
+﻿using Mantis.Core.Common.Attributes;
+using Mantis.Engine.Common.Enums;
+using Mantis.Engine.Common.Systems;
 using Mantis.Mantis26.OnlyUp.Components;
 using Microsoft.Xna.Framework;
 using Svelto.ECS;
@@ -16,6 +18,7 @@ namespace Mantis.Mantis26.OnlyUp.Engines
             //    throw new NotImplementedException();
         }
 
+        [SequenceGroup<UpdateSequenceGroupEnum>(UpdateSequenceGroupEnum.Update)]
         public void Update(GameTime gameTime)
         {
             var groups = this.entitiesDB.FindGroups<PlayerState, Velocity, Transform2D, Collidable>();

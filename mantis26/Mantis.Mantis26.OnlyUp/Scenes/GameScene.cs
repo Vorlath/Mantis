@@ -2,7 +2,6 @@
 using Mantis.Core.MonoGame.Common;
 using Mantis.Engine.Common;
 using Mantis.Engine.Common.Services;
-using Mantis.Engine.Common.Systems;
 using Mantis.Mantis26.OnlyUp.Components;
 using Mantis.Mantis26.OnlyUp.Descriptors;
 using Microsoft.Xna.Framework;
@@ -22,24 +21,23 @@ namespace Mantis.Mantis26.OnlyUp.Scenes
         public static readonly ExclusiveGroup PaddleGroup = new();
     }
 
-    public class GameScene : IScene
+    public class GameScene : BaseScene
     {
         private readonly EntitiesSubmissionScheduler _entitiesSubmissionScheduler;
         private readonly ILogger<GameScene> _logger;
 
-        private readonly ISystemService _systemService;
         public GameScene(
             EnginesRoot enginesRoot,
             IEntityFactory entityFactory,
             EntitiesSubmissionScheduler entitiesSubmissionScheduler,
             ILogger<GameScene> logger,
             ISystemService systemService,
-            ContentManager content)
+            ContentManager content) : base(systemService)
         {
             this._entitiesSubmissionScheduler = entitiesSubmissionScheduler;
             this._logger = logger;
-            this._systemService = systemService;
-            foreach (IEngine engine in this._systemService.GetSystems<IEngine>())
+
+            foreach (IEngine engine in this.SystemService.GetSystems<IEngine>())
             {
                 enginesRoot.AddEngine(engine);
             }
@@ -113,29 +111,23 @@ namespace Mantis.Mantis26.OnlyUp.Scenes
             this._logger.Debug("Created GameScene!");
         }
 
-        public void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
             // Example logger usage.
             // This will not be logged with a minimum log level of Debug
             this._logger.Verbose("Draw");
 
-            foreach (IDrawSystem drawSystem in this._systemService.GetSystems<IDrawSystem>())
-            {
-                drawSystem.Draw(gameTime);
-            }
+            base.Draw(gameTime);
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             // Example logger usage.
             // This will not be logged with a minimum log level of Debug
             this._logger.Verbose("Update");
 
             this._entitiesSubmissionScheduler.SubmitEntities();
-            foreach (IUpdateSystem updateSystem in this._systemService.GetSystems<IUpdateSystem>())
-            {
-                updateSystem.Update(gameTime);
-            }
+            base.Update(gameTime);
         }
     }
 }

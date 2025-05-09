@@ -1,4 +1,6 @@
-﻿using Mantis.Core.MonoGame.Common;
+﻿using Mantis.Core.Common.Attributes;
+using Mantis.Core.MonoGame.Common;
+using Mantis.Engine.Common.Enums;
 using Mantis.Engine.Common.Systems;
 using Mantis.Mantis26.OnlyUp.Components;
 using Microsoft.Xna.Framework;
@@ -16,7 +18,7 @@ namespace Mantis.Mantis26.OnlyUp.Engines
             // throw new NotImplementedException();
         }
 
-
+        [SequenceGroup<UpdateSequenceGroupEnum>(UpdateSequenceGroupEnum.Update)]
         public void Update(GameTime gameTime)
         {
 
