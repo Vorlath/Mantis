@@ -16,6 +16,12 @@ namespace Mantis.Engine.Common
         {
             this._updateSystems.Add(this.SystemService.GetAll());
             this._drawSystems.Add(this.SystemService.GetAll());
+
+            DelegateSequenceGroup<InitializeSequenceGroupEnum>.Invoke(
+                instances: this.SystemService.GetAll(), 
+                delegateType: typeof(Action<>).MakeGenericType(this.GetType()), 
+                sequenced: true, 
+                args: [this]);
         }
 
         public virtual void Update(GameTime gameTime)

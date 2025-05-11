@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<MonoGamePlatform>DesktopGL</MonoGamePlatform>
+  </PropertyGroup>
+
+  <Import Project="..\..\libraries\MonoGame\Tools\MonoGame.Content.Builder.Task\MonoGame.Content.Builder.Task.props" />
+  <Import Project="..\..\libraries\MonoGame\Tools\MonoGame.Content.Builder.Task\MonoGame.Content.Builder.Task.targets" />
+  <ItemGroup>
+    <MonoGameContentReference Include="Content\Content.mgcb" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\libraries\MonoGame\MonoGame.Framework\MonoGame.Framework.DesktopGL.csproj" />
+    <ProjectReference Include="..\..\src\core\Mantis.Core.ECS\Mantis.Core.ECS.csproj" />
+    <ProjectReference Include="..\..\src\core\Mantis.Core.Logging.Serilog\Mantis.Core.Logging.Serilog.csproj" />
+    <ProjectReference Include="..\..\src\core\Mantis.Core.MonoGame.Common\Mantis.Core.MonoGame.Common.csproj" />
+    <ProjectReference Include="..\..\src\core\Mantis.Core\Mantis.Core.csproj" />
+    <ProjectReference Include="..\..\src\engine\Mantis.Engine\Mantis.Engine.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Mantis.Mantis26.Frogger.Components.Texture">
+      <Alias>Texture</Alias>
+    </Using>
+    <Using Include="System.Drawing.RectangleF">
+      <Alias>RectangleF</Alias>
+    </Using>
+  </ItemGroup>
+</Project>
