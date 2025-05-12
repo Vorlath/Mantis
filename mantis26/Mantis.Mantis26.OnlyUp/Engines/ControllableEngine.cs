@@ -140,7 +140,7 @@ namespace Mantis.Mantis26.OnlyUp.Engines
                 playerState.isGrounded = false;
                 velocity.Value.Y = -10 * jump.Charge;
                 velocity.Value.X = (10 * (jump.Charge / 2)) * (direction.isRight ? 1 : -1);
-                jump.Charge = 20;
+                jump.Charge = 30;
             }
         }
     }

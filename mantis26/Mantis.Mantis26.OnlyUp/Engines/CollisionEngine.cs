@@ -22,30 +22,34 @@ namespace Mantis.Mantis26.OnlyUp.Engines
         public void Update(GameTime gameTime)
         {
             var groups = this.entitiesDB.FindGroups<PlayerState, Velocity, Transform2D, Collidable>();
-            foreach (var ((playerStates, velocities, positions, senderCollidables, count), _) in this.entitiesDB.QueryEntities<PlayerState, Velocity, Transform2D, Collidable>(groups))
+            foreach (var ((playerStates, velocities, positions, senderCollidables, count), group) in this.entitiesDB.QueryEntities<PlayerState, Velocity, Transform2D, Collidable>(groups))
             {
+                var (senderSizes, _) = this.entitiesDB.QueryEntities<Size>(group);
                 for (int i = 0; i < count; i++)
                 {
                     ref Velocity velocity = ref velocities[i];
                     ref Transform2D position = ref positions[i];
                     ref Collidable senderCollidable = ref senderCollidables[i];
                     ref PlayerState playerState = ref playerStates[i];
+                    ref Size senderSize = ref senderSizes[i];
 
                     //RectangleF senderBounds = RectangleHelper.CreateCollisionBoundsF(senderCollidable.CollisionBox.Location, senderCollidable.Offset, senderCollidable.CollisionBox.Size);
-                    RectangleF senderBounds = senderCollidable.CollisionBox;
+                    //RectangleF senderBounds = senderCollidable.CollisionBox;
+                    RectangleF senderBounds = RectangleHelper.CreateCollisionBoundsWithOffsetF(ref position, ref senderCollidable);
 
                     // check for blocks
                     var blockGroups = this.entitiesDB.FindGroups<Transform2D, Collidable>();
                     foreach (var ((blockPositions, receiverCollidables, nativeIDs, blockCount), blockGroup) in this.entitiesDB.QueryEntities<Transform2D, Collidable>(blockGroups))
                     {
+                        var (receiverSizes, _) = this.entitiesDB.QueryEntities<Size>(blockGroup);
                         for (int j = 0; j < blockCount; j++)
                         {
                             ref Transform2D blockPosition = ref blockPositions[j];
                             ref Collidable receiverCollidable = ref receiverCollidables[j];
+                            ref Size receiverSize = ref receiverSizes[i];
 
-
-                            // RectangleF receiverBounds = RectangleHelper.CreateCollisionBoundsF(receiverCollidable.CollisionBox.Location, receiverCollidable.Offset, receiverCollidable.CollisionBox.Size);
-                            RectangleF receiverBounds = receiverCollidable.CollisionBox;
+                            //RectangleF receiverBounds = receiverCollidable.CollisionBox;
+                            RectangleF receiverBounds = RectangleHelper.CreateCollisionBoundsWithOffsetF(ref blockPosition, ref receiverCollidable);
 
                             if (receiverBounds.IntersectsWith(senderBounds))
                             {
@@ -62,26 +66,27 @@ namespace Mantis.Mantis26.OnlyUp.Engines
                                 }
                                 else if (bottomIntersect < topIntersect && bottomIntersect < leftIntersect && bottomIntersect < rightIntersect)
                                 { // Bottom hit
-                                    senderBounds.Y = receiverBounds.Bottom;
-                                    velocity.Value.Y *= 0;
+                                    position.Position.Y = receiverBounds.Bottom;
+                                    velocity.Value.Y = 0;
+                                    //velocity.Value.X
                                 }
 
                                 if (rightIntersect < bottomIntersect && rightIntersect < leftIntersect && rightIntersect < topIntersect)
                                 { // Right hit
-                                    senderBounds.X = receiverBounds.Right;
+                                    position.Position.X = receiverCollidable.CollisionBox.Right;
                                     velocity.Value.X *= -0.5f;
                                 }
                                 else if (leftIntersect < bottomIntersect && leftIntersect < topIntersect && leftIntersect < rightIntersect)
                                 { // Left hit
-                                    senderBounds.X = receiverBounds.Left - senderBounds.Width;
+                                    position.Position.X = receiverCollidable.CollisionBox.Left - senderBounds.Size.Width - senderCollidable.Offset.X;
                                     velocity.Value.X *= -0.5f;
                                 }
                             }
                         }
                     }
 
-                    position.Position.X = senderBounds.Location.X;
-                    position.Position.Y = senderBounds.Location.Y;
+                    // position.Position.X = senderBounds.Location.X;
+                    // position.Position.Y = senderBounds.Location.Y;
                 }
             }
         }

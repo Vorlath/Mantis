@@ -1,5 +1,4 @@
 ﻿using Mantis.Core.Common.Attributes;
-using Mantis.Core.MonoGame.Common.Extensions;
 using Mantis.Engine.Common.Enums;
 using Mantis.Engine.Common.Systems;
 using Mantis.Example.LunarLander.Components;
@@ -36,12 +35,12 @@ namespace Mantis.Example.LunarLander.Systems
                     ref Transform2D position = ref positions[i];
                     ref Size size = ref sizes[i];
 
-                    this._spriteBatch.Draw(
-                        gameTime: gameTime,
-                       animation: ref animated.Animation,
-                       destinationRectangle: RectangleHelper.CreateBounds(position, size),
-                       rotation: position.Rotation * (MathF.PI / 180),
-                       color: Color.White);
+                    //this._spriteBatch.Draw(
+                    //    gameTime: gameTime,
+                    //   animation: ref animated.Animation,
+                    //   destinationRectangle: RectangleHelper.CreateBounds(position, size),
+                    //   rotation: position.Rotation * (MathF.PI / 180),
+                    //   color: Color.White);
                 }
             }
             this._spriteBatch.End();

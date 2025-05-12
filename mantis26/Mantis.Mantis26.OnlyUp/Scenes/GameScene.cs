@@ -1,4 +1,5 @@
-﻿using Mantis.Core.Logging.Common;
+﻿using System.Text.Json;
+using Mantis.Core.Logging.Common;
 using Mantis.Core.MonoGame.Common;
 using Mantis.Engine.Common;
 using Mantis.Engine.Common.Services;
@@ -19,6 +20,12 @@ namespace Mantis.Mantis26.OnlyUp.Scenes
         public static readonly ExclusiveGroup BlockGroup = new();
         public static readonly ExclusiveGroup WallGroup = new();
         public static readonly ExclusiveGroup PaddleGroup = new();
+    }
+
+    public class JsonRectangle
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
     }
 
     public class GameScene : BaseScene
@@ -76,7 +83,7 @@ namespace Mantis.Mantis26.OnlyUp.Scenes
             /////////////////////////////////////////////////////
             // MNKY
             var MNKY = entityFactory.BuildEntity<MNKYDescriptor>(0, ExclusiveGroups.LanderGroup);
-            MNKY.Init(new Transform2D(0, 0, 0));
+            MNKY.Init(new Transform2D(8, 0, 0));
             MNKY.Init(new Velocity(75, 0));
             MNKY.Init(new Gravity(1000));
             MNKY.Init(new Size(64, 64));
@@ -84,26 +91,43 @@ namespace Mantis.Mantis26.OnlyUp.Scenes
             MNKY.Init(new Collidable(new RectangleF(0, 0, 32, 64), new Vector2(16, 0)));
             MNKY.Init(new Controllable());
             MNKY.Init(new PlayerState());
-            MNKY.Init(new Jump(100));
+            MNKY.Init(new Jump(150));
 
             /////////////////////////////////////////////////////
             /// Block
+            /// 
+
+            string json = System.IO.File.ReadAllText("Content/Level.json");
+
+            List<JsonRectangle> jsonRectangles = JsonSerializer.Deserialize<List<JsonRectangle>>(json);
+
             int num = 0;
-            var Block = entityFactory.BuildEntity<BlockDescriptor>((uint)num, ExclusiveGroups.BlockGroup);
-            Block.Init(new Transform2D(500, 800, 0));
-            Block.Init(new Size(32, 32));
-            Block.Init(new Collidable(new RectangleF(500, 800, 32, 32), Vector2.Zero));
-            Block.Init(new Texture(Enums.TextureEnum.Block, Color.White));
-            num++;
-            for (int i = 2; i < 10; i++)
+            foreach (JsonRectangle jsonRectangle in jsonRectangles)
             {
-                Block = entityFactory.BuildEntity<BlockDescriptor>((uint)num, ExclusiveGroups.BlockGroup);
-                Block.Init(new Transform2D(32 * i + 500, 800, 0));
+                var Block = entityFactory.BuildEntity<BlockDescriptor>((uint)num, ExclusiveGroups.BlockGroup);
+                Block.Init(new Transform2D(jsonRectangle.X * 32, jsonRectangle.Y * 32, 0));
                 Block.Init(new Size(32, 32));
-                Block.Init(new Collidable(new RectangleF(32 * i + 500, 800, 32, 32), Vector2.Zero));
+                Block.Init(new Collidable(new RectangleF(jsonRectangle.X * 32, jsonRectangle.Y * 32, 32, 32), Vector2.Zero));
                 Block.Init(new Texture(Enums.TextureEnum.Block, Color.White));
                 num++;
             }
+
+            //int num = 0;
+            //var Block = entityFactory.BuildEntity<BlockDescriptor>((uint)num, ExclusiveGroups.BlockGroup);
+            //Block.Init(new Transform2D(500, 800, 0));
+            //Block.Init(new Size(32, 32));
+            //Block.Init(new Collidable(new RectangleF(500, 800, 32, 32), Vector2.Zero));
+            //Block.Init(new Texture(Enums.TextureEnum.Block, Color.White));
+            //num++;
+            //for (int i = 2; i < 10; i++)
+            //{
+            //    Block = entityFactory.BuildEntity<BlockDescriptor>((uint)num, ExclusiveGroups.BlockGroup);
+            //    Block.Init(new Transform2D(32 * i + 500, 800, 0));
+            //    Block.Init(new Size(32, 32));
+            //    Block.Init(new Collidable(new RectangleF(32 * i + 500, 800, 32, 32), Vector2.Zero));
+            //    Block.Init(new Texture(Enums.TextureEnum.Block, Color.White));
+            //    num++;
+            //}
 
 
 

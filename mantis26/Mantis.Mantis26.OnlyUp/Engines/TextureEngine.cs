@@ -12,6 +12,7 @@ namespace Mantis.Mantis26.OnlyUp.Engines
 {
     public class TextureEngine : IQueryingEntitiesEngine, IDrawSystem, ISceneSystem
     {
+        private readonly bool _visualCollisions = false;
         private readonly SpriteBatch _spriteBatch;
         private readonly Dictionary<TextureEnum, Texture2D> _textures;
 
@@ -61,29 +62,33 @@ namespace Mantis.Mantis26.OnlyUp.Engines
                 }
             }
 
-            var collisionGroups = this.entitiesDB.FindGroups<Collidable, Transform2D, Size>();
-            foreach (var ((collisions, positions, sizes, count), _) in this.entitiesDB.QueryEntities<Collidable, Transform2D, Size>(collisionGroups))
+            if (this._visualCollisions)
             {
-                for (int i = 0; i < count; i++)
+                var collisionGroups = this.entitiesDB.FindGroups<Collidable, Transform2D, Size>();
+                foreach (var ((collisions, positions, sizes, count), _) in this.entitiesDB.QueryEntities<Collidable, Transform2D, Size>(collisionGroups))
                 {
-                    Collidable collision = collisions[i];
-                    Transform2D position = positions[i];
-                    //Size size = sizes[i];
+                    for (int i = 0; i < count; i++)
+                    {
+                        Collidable collision = collisions[i];
+                        Transform2D position = positions[i];
+                        //Size size = sizes[i];
 
-                    //Rectangle collisionBox = new Rectangle((int)collision.CollisionBox.X, (int)collision.CollisionBox.Y, (int)collision.CollisionBox.Width, (int)collision.CollisionBox.Height);
-                    Rectangle collisionBox = RectangleHelper.CreateCollisionBounds(collision.CollisionBox.Location, collision.Offset, collision.CollisionBox.Size);
+                        //Rectangle collisionBox = new Rectangle((int)collision.CollisionBox.X, (int)collision.CollisionBox.Y, (int)collision.CollisionBox.Width, (int)collision.CollisionBox.Height);
+                        Rectangle collisionBox = RectangleHelper.CreateCollisionBoundsWithOffset(ref position, ref collision);
 
-                    this._spriteBatch.Draw(
-                        texture: this._textures[TextureEnum.Widget],
-                        destinationRectangle: collisionBox,
-                        sourceRectangle: null,
-                        origin: new Vector2(0, 0),
-                        effects: SpriteEffects.None,
-                        layerDepth: 0,
-                        rotation: position.Rotation * (MathF.PI / 180),
-                        color: Color.Magenta);
+                        this._spriteBatch.Draw(
+                            texture: this._textures[TextureEnum.Widget],
+                            destinationRectangle: collisionBox,
+                            sourceRectangle: null,
+                            origin: new Vector2(0, 0),
+                            effects: SpriteEffects.None,
+                            layerDepth: 0,
+                            rotation: position.Rotation * (MathF.PI / 180),
+                            color: Color.Magenta);
+                    }
                 }
             }
+
             this._spriteBatch.End();
         }
     }

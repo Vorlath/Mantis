@@ -1,5 +1,7 @@
 ﻿using Mantis.Mantis26.OnlyUp.Components;
 using Microsoft.Xna.Framework;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
+using Size = Mantis.Mantis26.OnlyUp.Components.Size;
 
 namespace Mantis.Mantis26.OnlyUp
 {
@@ -23,22 +25,22 @@ namespace Mantis.Mantis26.OnlyUp
                 height: size.Height);
         }
 
-        public static RectangleF CreateBoundsF(System.Drawing.PointF position, System.Drawing.SizeF size)
+        public static RectangleF CreateCollisionBoundsWithOffsetF(ref Transform2D position, ref Collidable collision)
         {
             return new RectangleF(
-                x: position.X,
-                y: position.Y,
-                width: size.Width,
-                height: size.Height);
+                x: position.Position.X + collision.Offset.X,
+                y: position.Position.Y + collision.Offset.Y,
+                width: collision.CollisionBox.Size.Width,
+                height: collision.CollisionBox.Size.Height);
         }
 
-        public static RectangleF CreateCollisionBoundsF(System.Drawing.PointF position, Vector2 offset, System.Drawing.SizeF size)
+        public static Rectangle CreateCollisionBoundsWithOffset(ref Transform2D position, ref Collidable collision)
         {
-            return new RectangleF(
-                x: position.X + offset.X,
-                y: position.Y + offset.Y,
-                width: size.Width,
-                height: size.Height);
+            return new Rectangle(
+                x: (int)position.Position.X + (int)collision.Offset.X,
+                y: (int)position.Position.Y + (int)collision.Offset.Y,
+                width: (int)collision.CollisionBox.Size.Width,
+                height: (int)collision.CollisionBox.Size.Height);
         }
 
         public static RectangleF CreateCollisionBoundsF(Vector2 position, Vector2 offset, System.Drawing.SizeF size)

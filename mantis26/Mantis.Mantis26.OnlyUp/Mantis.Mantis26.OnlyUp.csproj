@@ -32,4 +32,14 @@
 		</Using>
 	</ItemGroup>
 
+	<ItemGroup>
+
+		<Content Include="Content\Level.json">
+
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+
+		</Content>
+
+	</ItemGroup>
+
 </Project>
