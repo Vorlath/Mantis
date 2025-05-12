@@ -9,6 +9,13 @@
             "type": "PowerShell",
             "request": "launch",
             "script": "${workspaceFolder}\\scripts\\format.ps1"
-        }
+        },
+        {
+            "name": "First Time Install",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "${workspaceFolder}\\scripts\\install.ps1 -UpdateGit -BuildAnalyzers -BuildMonoGame"
+        },
+
     ]
 }
