@@ -78,7 +78,7 @@ namespace Mantis.Core.Common.Extensions.System.Reflection
         public static bool TryGetAllCustomAttributes<TAttribute>(this MemberInfo memberInfo, bool inherit, out TAttribute[] attributes)
             where TAttribute : Attribute
         {
-            attributes = memberInfo.GetAllCustomAttributes<TAttribute>(inherit).ToArray();
+            attributes = [.. memberInfo.GetAllCustomAttributes<TAttribute>(inherit)];
             return attributes.Length > 0;
         }
 

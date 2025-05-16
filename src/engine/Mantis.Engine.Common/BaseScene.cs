@@ -18,9 +18,9 @@ namespace Mantis.Engine.Common
             this._drawSystems.Add(this.SystemService.GetAll());
 
             DelegateSequenceGroup<InitializeSequenceGroupEnum>.Invoke(
-                instances: this.SystemService.GetAll(), 
-                delegateType: typeof(Action<>).MakeGenericType(this.GetType()), 
-                sequenced: true, 
+                instances: this.SystemService.GetAll(),
+                delegateType: typeof(Action<>).MakeGenericType(this.GetType()),
+                sequenced: true,
                 args: [this]);
         }
 
