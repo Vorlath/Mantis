@@ -74,9 +74,7 @@ namespace Mantis.Core.Common.Extensions.System
         {
             Type type = instance.GetType();
 
-            List<MethodInfo> matchingMethodInfos = type.GetMethods(BindingFlags.Instance | BindingFlags.Public)
-                .Where(mi => DynamicDelegate<TDelegate>.IsCompatible(delegateType, mi, out _))
-                .ToList();
+            List<MethodInfo> matchingMethodInfos = [.. type.GetMethods(BindingFlags.Instance | BindingFlags.Public).Where(mi => DynamicDelegate<TDelegate>.IsCompatible(delegateType, mi, out _))];
 
             foreach (Type interfaceType in type.GetInterfaces())
             {

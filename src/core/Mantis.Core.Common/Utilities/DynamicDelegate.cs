@@ -117,7 +117,7 @@ namespace Mantis.Core.Common.Utilities
             ParameterInfo[] delegateInvokeParameters = delegateInvokeMethod.GetParameters();
             ParameterInfo[] methodParameters = method.GetParameters();
 
-            List<Type> dynamicMethodParameterTypes = delegateInvokeParameters.Select(x => x.ParameterType).ToList();
+            List<Type> dynamicMethodParameterTypes = [.. delegateInvokeParameters.Select(x => x.ParameterType)];
             if (target is not null && method.IsStatic == false)
             {
                 dynamicMethodParameterTypes.Insert(0, target.GetType());

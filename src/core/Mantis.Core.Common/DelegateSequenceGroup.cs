@@ -12,6 +12,7 @@ namespace Mantis.Core.Common
         where TSequenceGroup : unmanaged, Enum
         where TDelegate : Delegate
     {
+        private readonly Type _delegate;
         private readonly List<DynamicDelegate<TDelegate>> _orphans;
         private readonly HashSet<DynamicDelegate<TDelegate>> _all;
         private readonly Dictionary<SequenceGroup<TSequenceGroup>, TDelegate?> _grouped;
@@ -22,8 +23,9 @@ namespace Mantis.Core.Common
 
         public readonly bool Sequence;
 
-        public DelegateSequenceGroup(bool sequence)
+        public DelegateSequenceGroup(Type @delegate, bool sequence)
         {
+            this._delegate = @delegate;
             this._grouped = [];
             this._all = [];
             this._orphans = [];
@@ -31,6 +33,11 @@ namespace Mantis.Core.Common
             this.Grouped = new ReadOnlyDictionary<SequenceGroup<TSequenceGroup>, TDelegate?>(this._grouped);
             this.Orphans = new ReadOnlyCollection<DynamicDelegate<TDelegate>>(this._orphans);
             this.Sequence = sequence;
+        }
+
+        public DelegateSequenceGroup(bool sequence) : this(typeof(TDelegate), sequence)
+        {
+            //
         }
 
         public void Add(IEnumerable<DynamicDelegate<TDelegate>> delegators)
@@ -128,13 +135,13 @@ namespace Mantis.Core.Common
 
         public void Add(IEnumerable<object> instances)
         {
-            IEnumerable<DynamicDelegate<TDelegate>> delegators = instances.SelectMany(x => x.GetMatchingDelegators<TDelegate>(typeof(TDelegate)));
+            IEnumerable<DynamicDelegate<TDelegate>> delegators = instances.SelectMany(x => x.GetMatchingDelegators<TDelegate>(this._delegate));
             this.Add(delegators);
         }
 
         public void Remove(IEnumerable<object> instances)
         {
-            IEnumerable<DynamicDelegate<TDelegate>> delegators = instances.SelectMany(x => x.GetMatchingDelegators<TDelegate>(typeof(TDelegate)));
+            IEnumerable<DynamicDelegate<TDelegate>> delegators = instances.SelectMany(x => x.GetMatchingDelegators<TDelegate>(this._delegate));
             this.Remove(delegators);
         }
 
