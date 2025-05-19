@@ -10,7 +10,7 @@
             }
 
 
-            return source.Remove(source.LastIndexOf(value));
+            return source[..source.LastIndexOf(value)];
         }
 
         public static bool IsNullOrEmpty(this string? value)

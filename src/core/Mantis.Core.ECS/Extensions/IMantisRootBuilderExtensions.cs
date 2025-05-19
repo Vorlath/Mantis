@@ -2,6 +2,7 @@
 using Mantis.Core.Common.Builders;
 using Mantis.Core.Common.Extensions;
 using Mantis.Core.ECS.Common.Services;
+using Mantis.Core.ECS.Extensions.Svelto;
 using Mantis.Core.ECS.Services;
 using Svelto.ECS;
 using Svelto.ECS.Schedulers;
@@ -14,6 +15,7 @@ namespace Mantis.Core.Extensions
         {
             builder.RegisterType<EntitiesSubmissionScheduler>().AsSelf().InstancePerLifetimeScope();
             builder.RegisterType<EnginesRoot>().AsSelf().InstancePerLifetimeScope();
+            builder.Register<EntitiesDB>(ctx => ctx.Resolve<EnginesRoot>().GetEntitiesDB()).InstancePerLifetimeScope();
             builder.Register(EntityFactoryResolver).InstancePerLifetimeScope();
             builder.Register(EntityFunctionsResolver).InstancePerLifetimeScope();
             builder.RegisterType<EntityService>().As<IEntityService>().InstancePerLifetimeScope();
