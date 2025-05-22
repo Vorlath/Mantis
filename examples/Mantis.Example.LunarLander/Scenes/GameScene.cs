@@ -1,4 +1,5 @@
-﻿using Mantis.Core.Logging.Common;
+﻿using Mantis.Core.Common;
+using Mantis.Core.Logging.Common;
 using Mantis.Core.MonoGame.Common;
 using Mantis.Engine.Common;
 using Mantis.Engine.Common.Services;
@@ -45,31 +46,31 @@ namespace Mantis.Example.LunarLander.Scenes
             }
 
             var _texture = content.Load<Texture2D>("LanderSheet");
-            _ = new SpriteSheet(_texture, [
+            SpriteSheet SpriteSheet = new SpriteSheet(_texture, [
                 new SpriteData("1", new Rectangle(0, 0, 16, 16)),
                 new SpriteData("2", new Rectangle(16, 0, 16, 16)),
                 new SpriteData("3", new Rectangle(32, 0, 16, 16)),
                 new SpriteData("4", new Rectangle(0, 16, 16, 16)),
                 new SpriteData("5", new Rectangle(16, 16, 16, 16))
                 ]);
-            SpriteSheet? SpriteSheet;
+
             // Name this
-            AnimationType LanderIdle = SpriteSheet.CreateAnimationType([
+            AnimationType LanderIdle = SpriteSheet.CreateAnimationType(AnimationTypes.LanderIdle, [
                 new AnimationFrameContext("1", 10000)
             ]);
-            _ = SpriteSheet.CreateAnimationType([
+            _ = SpriteSheet.CreateAnimationType(AnimationTypes.ThrustOn, [
                 new AnimationFrameContext("2", 100),
                 new AnimationFrameContext("3", 500)
             ]);
-            _ = SpriteSheet.CreateAnimationType([
+            _ = SpriteSheet.CreateAnimationType(AnimationTypes.ThrustOff, [
                 new AnimationFrameContext("3", 500),
                 new AnimationFrameContext("2", 500),
                 new AnimationFrameContext("1", 500)
             ]);
-            _ = SpriteSheet.CreateAnimationType([
+            _ = SpriteSheet.CreateAnimationType(AnimationTypes.RotateClockwise, [
                 new AnimationFrameContext("4", 500)
             ]);
-            _ = SpriteSheet.CreateAnimationType([
+            _ = SpriteSheet.CreateAnimationType(AnimationTypes.RotateCounterclockwise, [
                 new AnimationFrameContext("5", 500)
             ]);
 
