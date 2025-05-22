@@ -1,23 +1,40 @@
-﻿namespace Mantis.Core.MonoGame.Common
+﻿using Mantis.Core.Common;
+
+namespace Mantis.Core.MonoGame.Common
 {
     //TODO getAnimationTypeByName
     public class AnimationType
     {
-        public readonly int Id;
+        public readonly Id<AnimationType> Id;
         public List<AnimationFrame> Frames;
-        public AnimationType(List<AnimationFrame> frames)
+        public AnimationType(Id<AnimationType> id, List<AnimationFrame> frames)
         {
             this.Frames = frames;
-            this.Id = _nextId++;
+            this.Id = id;
             _instances.Add(this.Id, this);
         }
 
-        public static AnimationType GetAnimationTypeById(int id)
+        public static AnimationType GetAnimationTypeById(Id<AnimationType> id)
         {
             return _instances[id];
         }
 
-        private static readonly Dictionary<int, AnimationType> _instances = [];
+        public static int GetIdByName(string name)
+        {
+            if (_idsByNames.TryGetValue(name, out int id) == true)
+            {
+                return id;
+            }
+
+            id = _nextId++;
+            _idsByNames.Add(name, id);
+
+            return id;
+        }
+
+        private static readonly Dictionary<Id<AnimationType>, AnimationType> _instances = [];
         private static int _nextId;
+
+        private static readonly Dictionary<string, int> _idsByNames = [];
     }
 }

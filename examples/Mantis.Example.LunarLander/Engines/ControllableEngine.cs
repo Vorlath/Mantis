@@ -38,16 +38,16 @@ namespace Mantis.Example.LunarLander.Engines
 
                     if (GetThrusters() == 1)
                     {
-                        if (animated.Animation.TypeId != 1)
+                        if (animated.Animation.TypeId != AnimationTypes.ThrustOn)
                         {
-                            animated.Animation.Type = AnimationType.GetAnimationTypeById(1);
+                            animated.Animation.Type = AnimationType.GetAnimationTypeById(AnimationTypes.ThrustOn);
                         }
                     }
                     else
                     {
-                        if (animated.Animation.TypeId != 0)
+                        if (animated.Animation.TypeId != AnimationTypes.LanderIdle)
                         {
-                            animated.Animation.Type = AnimationType.GetAnimationTypeById(0);
+                            animated.Animation.Type = AnimationType.GetAnimationTypeById(AnimationTypes.LanderIdle);
                         }
                     }
 
