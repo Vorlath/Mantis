@@ -1,11 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Mantis.Core.Common;
+using Microsoft.Xna.Framework;
 
 namespace Mantis.Core.MonoGame.Common
 {
     /// <summary>
     /// Holds a single animation, a number of frames that can be looped
     /// </summary>
-    public struct Animation(AnimationType type, Color color, float currentFrameDuration = 0, int currentFrameIndex = 0, bool loopable = true, bool isPaused = false)
+    public struct Animation(Id<AnimationType> typeId, Color color, float currentFrameDuration = 0, int currentFrameIndex = 0, bool loopable = true, bool isPaused = false)
     {
         //private AnimatedTextureType _type;
 
@@ -14,10 +15,14 @@ namespace Mantis.Core.MonoGame.Common
         public bool Loopable = loopable;
         public bool IsPaused = isPaused;
         public bool Ended = false;
-        public int TypeId = type.Id;
+        public Id<AnimationType> TypeId = typeId;
         public Color Color = color;
 
-
+        public Animation(AnimationType type, Color color, float currentFrameDuration = 0, int currentFrameIndex = 0, bool loopable = true, bool isPaused = false)
+            : this(type.Id, color, currentFrameDuration, currentFrameIndex, loopable, isPaused)
+        {
+            //
+        }
 
         public AnimationType Type
         {

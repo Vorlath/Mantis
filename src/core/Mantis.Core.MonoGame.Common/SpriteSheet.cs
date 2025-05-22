@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Mantis.Core.Common;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Mantis.Core.MonoGame.Common
 {
@@ -25,14 +26,14 @@ namespace Mantis.Core.MonoGame.Common
             throw new NotImplementedException();
         }
 
-        public AnimationType CreateAnimationType(AnimationFrameContext[] animationFrameContexts)
+        public AnimationType CreateAnimationType(Id<AnimationType> id, AnimationFrameContext[] animationFrameContexts)
         {
-            List<AnimationFrame> Frames = [];
+            List<AnimationFrame> frames = [];
             foreach (AnimationFrameContext animationFrameContext in animationFrameContexts)
             {
-                Frames.Add(new AnimationFrame(animationFrameContext.Duration, this._sprites[animationFrameContext.Id]));
+                frames.Add(new AnimationFrame(animationFrameContext.Duration, this._sprites[animationFrameContext.Id]));
             }
-            AnimationType animationType = new AnimationType(Frames);
+            AnimationType animationType = new AnimationType(id, frames);
             return animationType;
         }
     }
