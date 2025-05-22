@@ -13,8 +13,8 @@ namespace Mantis.Core.MonoGame.Common.Extensions
         }
 
         public static void Draw(
-            this SpriteBatch spriteBatch, 
-            GameTime gameTime, 
+            this SpriteBatch spriteBatch,
+            GameTime gameTime,
             ref Animation animation,
             Vector2 position,
             Color color,
@@ -28,7 +28,7 @@ namespace Mantis.Core.MonoGame.Common.Extensions
                 texture: frame.Texture,
                 position: position,
                 sourceRectangle: new Rectangle(frame.Bounds.X, frame.Bounds.Y, frame.Bounds.Width, frame.Bounds.Height),
-                color: Color.White,
+                color: color,
                 rotation: rotation,
                 origin: origin,
                 scale: scale,

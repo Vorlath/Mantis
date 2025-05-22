@@ -29,7 +29,7 @@ namespace Mantis.Core.Common
 
         public static Id<T> GetByName(string name)
         {
-            if(_ids.TryGetValue(name, out Id<T> id) == false)
+            if (_ids.TryGetValue(name, out Id<T> id) == false)
             {
                 id = new Id<T>(name);
                 Id<T>._ids.Add(name, id);
@@ -39,19 +39,19 @@ namespace Mantis.Core.Common
         }
 
         #region Overrides and Equality
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return HashCode.Combine(this._value);
         }
 
-        public bool Equals(Id<T> other)
+        public readonly bool Equals(Id<T> other)
         {
             return this._value == other._value;
         }
 
-        public override bool Equals(object? obj)
+        public override readonly bool Equals(object? obj)
         {
-            return obj is Id<T> && this.Equals((Id<T>)obj);
+            return obj is Id<T> id && this.Equals(id);
         }
         public static bool operator ==(Id<T> left, Id<T> right)
         {

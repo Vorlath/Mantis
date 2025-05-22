@@ -21,11 +21,11 @@ namespace Mantis.Core.MonoGame.Common
 
         public static int GetIdByName(string name)
         {
-            if(_idsByNames.TryGetValue(name, out int id) == true)
+            if (_idsByNames.TryGetValue(name, out int id) == true)
             {
                 return id;
             }
-            
+
             id = _nextId++;
             _idsByNames.Add(name, id);
 

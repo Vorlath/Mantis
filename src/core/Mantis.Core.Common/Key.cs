@@ -13,7 +13,7 @@ namespace Mantis.Core.Common
     /// Type + string 
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public struct Key<T> : IEquatable<Key<T>>
+    public readonly struct Key<T> : IEquatable<Key<T>>
     {
         private readonly uint128 _value;
 
@@ -30,7 +30,7 @@ namespace Mantis.Core.Common
 
         public static Key<T> GetByName(string name)
         {
-            if(_ids.TryGetValue(name, out Key<T> id) == false)
+            if (_ids.TryGetValue(name, out Key<T> id) == false)
             {
                 id = new Key<T>(name);
                 Key<T>._ids.Add(name, id);
@@ -40,12 +40,12 @@ namespace Mantis.Core.Common
         }
 
         #region Overrides and Equality
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return HashCode.Combine(this._value);
         }
 
-        public bool Equals(Key<T> other)
+        public readonly bool Equals(Key<T> other)
         {
             return this._value.high64 == other._value.high64
                 && this._value.low64 == other._value.low64;
@@ -53,7 +53,7 @@ namespace Mantis.Core.Common
 
         public override bool Equals(object? obj)
         {
-            return obj is Key<T> && this.Equals((Key<T>)obj);
+            return obj is Key<T> key && this.Equals(key);
         }
         public static bool operator ==(Key<T> left, Key<T> right)
         {

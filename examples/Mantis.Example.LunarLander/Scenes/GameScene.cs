@@ -45,14 +45,14 @@ namespace Mantis.Example.LunarLander.Scenes
             }
 
             var _texture = content.Load<Texture2D>("LanderSheet");
-            var SpriteSheet = new SpriteSheet(_texture, [
+            _ = new SpriteSheet(_texture, [
                 new SpriteData("1", new Rectangle(0, 0, 16, 16)),
                 new SpriteData("2", new Rectangle(16, 0, 16, 16)),
                 new SpriteData("3", new Rectangle(32, 0, 16, 16)),
                 new SpriteData("4", new Rectangle(0, 16, 16, 16)),
                 new SpriteData("5", new Rectangle(16, 16, 16, 16))
                 ]);
-
+            SpriteSheet? SpriteSheet;
             // Name this
             AnimationType LanderIdle = SpriteSheet.CreateAnimationType([
                 new AnimationFrameContext("1", 10000)
