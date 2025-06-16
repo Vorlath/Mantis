@@ -11,7 +11,7 @@ namespace Mantis.Core.Files.Common
     {
         public DirectoryPath Directory { get; set; } = directory;
         public string Name { get; set; } = name;
-        public string Value => Path.Combine(this.Directory.Value, this.Name);
+        public readonly string Value => Path.Combine(this.Directory.Value, this.Name);
 
         public static FilePath Absolute(string value)
         {
@@ -37,14 +37,14 @@ namespace Mantis.Core.Files.Common
             return new FilePath(new DirectoryPath(DirectoryPathTypeEnum.AppData, directory), name);
         }
 
-        public override bool Equals(object? obj)
+        public override readonly bool Equals(object? obj)
         {
             return obj is FilePath path &&
                    EqualityComparer<DirectoryPath>.Default.Equals(this.Directory, path.Directory) &&
                    this.Name == path.Name;
         }
 
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return HashCode.Combine(this.Directory, this.Name);
         }

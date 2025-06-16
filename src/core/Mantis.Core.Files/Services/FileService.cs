@@ -13,7 +13,7 @@ namespace Mantis.Core.Files.Services
     public class FileService(IPathService pathService, IEnumerable<IFileFactory> factories) : IFileService
     {
         private readonly IPathService _pathService = pathService;
-        private readonly IFileFactory[] _factories = [..factories];
+        private readonly IFileFactory[] _factories = [.. factories];
 
         public IFile GetOrCreateFile(Type fileType, FilePath path)
         {
@@ -22,7 +22,7 @@ namespace Mantis.Core.Files.Services
             IFileFactory factory = this._factories.First(x => x.CanCreate(fileType));
             string realPath = this._pathService.GetRealPath(path);
             FileStream source = File.Open(realPath, FileMode.OpenOrCreate);
-            IFile file =  factory.Create(fileType, path, source);
+            IFile file = factory.Create(fileType, path, source);
 
             return file;
         }

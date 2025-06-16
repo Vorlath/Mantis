@@ -12,7 +12,7 @@ using Mantis.Core.Serialization.Common.Services;
 namespace Mantis.Core.Serialization.Services
 {
     public class JsonSerializationService(
-        IConfiguration<JsonSerializerOptions> options, 
+        IConfiguration<JsonSerializerOptions> options,
         ILogger logger) : IJsonSerializationService
     {
         private readonly IConfiguration<JsonSerializerOptions> _options = options;
@@ -25,7 +25,7 @@ namespace Mantis.Core.Serialization.Services
                 result = JsonSerializer.Deserialize<T>(json, this._options.Value) ?? throw new NotImplementedException();
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 this._logger.Error(ex, "Exception deserializing json. Json = {JSON}", json);
                 result = default;
@@ -55,7 +55,7 @@ namespace Mantis.Core.Serialization.Services
                 result = JsonSerializer.Serialize<T>(value, this._options.Value);
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 this._logger.Error(ex, "Exception serializing json. Type = {Type}, Value = {Value}", typeof(T).Name, value);
                 result = default;

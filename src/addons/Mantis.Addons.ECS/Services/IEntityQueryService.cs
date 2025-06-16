@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mantis.Core.Files.Common
+namespace Mantis.Addons.ECS.Services
 {
-    public interface IJsonFile<T> : ITextFile
+    public interface IEntityQueryService
     {
-        new T Content { get; set; }
     }
 }

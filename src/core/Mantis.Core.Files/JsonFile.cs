@@ -9,11 +9,11 @@ using Mantis.Core.Serialization.Common.Services;
 namespace Mantis.Core.Files
 {
     public class JsonFile<T>(
-        FilePath path, 
-        string realPath, 
-        FileStream source, 
+        FilePath path,
+        string realPath,
+        FileStream source,
         IJsonSerializationService jsonSerializationService
-    ) : TextFile(path, realPath, source), 
+    ) : TextFile(path, realPath, source),
         IJsonFile<T>
             where T : notnull
     {
@@ -22,7 +22,7 @@ namespace Mantis.Core.Files
         {
             get
             {
-                if(this._jsonSerializationService.TryDeserialize(base.Content, out T? result) == false)
+                if (this._jsonSerializationService.TryDeserialize(base.Content, out T? result) == false)
                 {
                     throw new NotImplementedException();
                 }
@@ -31,7 +31,7 @@ namespace Mantis.Core.Files
             }
             set
             {
-                if(this._jsonSerializationService.TrySerialize(value, out string? json) == false)
+                if (this._jsonSerializationService.TrySerialize(value, out string? json) == false)
                 {
                     throw new NotImplementedException();
                 }

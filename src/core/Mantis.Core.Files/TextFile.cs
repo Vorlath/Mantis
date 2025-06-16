@@ -11,6 +11,7 @@ namespace Mantis.Core.Files
     {
         private bool _dirty;
         private string? _content;
+        private bool _disposedValue;
 
         public Encoding Encoding { get; set; } = Encoding.UTF8;
 
@@ -24,7 +25,7 @@ namespace Mantis.Core.Files
         {
             get
             {
-                if(this._content is null)
+                if (this._content is null)
                 {
                     this.Source.Position = 0;
 
@@ -63,10 +64,37 @@ namespace Mantis.Core.Files
             this.Source.Write(buffer);
         }
 
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this._disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: dispose managed state (managed objects)
+                }
+
+                // TODO: free unmanaged resources (unmanaged objects) and override finalizer
+                // TODO: set large fields to null
+
+                this.Save();
+                this.Source.Dispose();
+
+                this._disposedValue = true;
+            }
+        }
+
+        // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
+        ~TextFile()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            this.Dispose(disposing: false);
+        }
+
         public void Dispose()
         {
-            this.Save();
-            this.Source.Dispose();
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            this.Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

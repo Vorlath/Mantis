@@ -71,6 +71,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "analyzers", "analyzers", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mantis.Tests.Analyzer.Core.Common", "tests\analyzers\Mantis.Tests.Analyzer.Core.Common\Mantis.Tests.Analyzer.Core.Common.csproj", "{3319A029-821E-490C-8CC0-B0CEF855C7B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mantis.Core.Serialization.Common", "src\core\Mantis.Core.Serialization.Common\Mantis.Core.Serialization.Common.csproj", "{EBCE36CD-CFD4-4714-2F4B-77529FE5910C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mantis.Core.Serialization", "src\core\Mantis.Core.Serialization\Mantis.Core.Serialization.csproj", "{441331C2-5029-09AA-8198-59946F1FD389}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mantis.Core.Files.Common", "src\core\Mantis.Core.Files.Common\Mantis.Core.Files.Common.csproj", "{CF090970-965A-9DF8-045A-1E0747BF9710}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mantis.Core.Files", "src\core\Mantis.Core.Files\Mantis.Core.Files.csproj", "{FD4737AA-43F1-6282-EA42-B077E9AF9874}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -165,6 +173,22 @@ Global
 		{3319A029-821E-490C-8CC0-B0CEF855C7B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3319A029-821E-490C-8CC0-B0CEF855C7B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3319A029-821E-490C-8CC0-B0CEF855C7B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBCE36CD-CFD4-4714-2F4B-77529FE5910C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBCE36CD-CFD4-4714-2F4B-77529FE5910C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBCE36CD-CFD4-4714-2F4B-77529FE5910C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBCE36CD-CFD4-4714-2F4B-77529FE5910C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{441331C2-5029-09AA-8198-59946F1FD389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{441331C2-5029-09AA-8198-59946F1FD389}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{441331C2-5029-09AA-8198-59946F1FD389}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{441331C2-5029-09AA-8198-59946F1FD389}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF090970-965A-9DF8-045A-1E0747BF9710}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF090970-965A-9DF8-045A-1E0747BF9710}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF090970-965A-9DF8-045A-1E0747BF9710}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF090970-965A-9DF8-045A-1E0747BF9710}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD4737AA-43F1-6282-EA42-B077E9AF9874}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD4737AA-43F1-6282-EA42-B077E9AF9874}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD4737AA-43F1-6282-EA42-B077E9AF9874}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD4737AA-43F1-6282-EA42-B077E9AF9874}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -199,6 +223,10 @@ Global
 		{B5AFF6EA-C5FD-442A-BD06-4612AA94F342} = {E246D7A3-7B0F-497E-B1C7-17391B43F00B}
 		{19EB84C7-1432-4FD7-BF44-654895BD0AC9} = {5BAC9D30-1917-4184-9C86-C0C4FB53F233}
 		{3319A029-821E-490C-8CC0-B0CEF855C7B3} = {19EB84C7-1432-4FD7-BF44-654895BD0AC9}
+		{EBCE36CD-CFD4-4714-2F4B-77529FE5910C} = {271DF633-4254-4610-A4B7-D909F4501ADF}
+		{441331C2-5029-09AA-8198-59946F1FD389} = {271DF633-4254-4610-A4B7-D909F4501ADF}
+		{CF090970-965A-9DF8-045A-1E0747BF9710} = {271DF633-4254-4610-A4B7-D909F4501ADF}
+		{FD4737AA-43F1-6282-EA42-B077E9AF9874} = {271DF633-4254-4610-A4B7-D909F4501ADF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7F4F9176-64F3-43D9-912D-00699AA19BD1}

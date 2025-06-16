@@ -27,14 +27,14 @@ namespace Mantis.Core.Files.Common
             return new DirectoryPath(DirectoryPathTypeEnum.AppData, value);
         }
 
-        public override bool Equals(object? obj)
+        public override readonly bool Equals(object? obj)
         {
             return obj is DirectoryPath path &&
                    this.Type == path.Type &&
                    this.Value == path.Value;
         }
 
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return HashCode.Combine(this.Type, this.Value);
         }
