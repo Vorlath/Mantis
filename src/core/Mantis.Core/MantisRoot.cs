@@ -4,6 +4,7 @@ using Mantis.Core.Builders;
 using Mantis.Core.Common;
 using Mantis.Core.Common.Builders;
 using Mantis.Core.Common.Constants;
+using Mantis.Core.Common.Extensions;
 using Mantis.Core.Common.Services;
 using Mantis.Core.Logging.Common;
 
@@ -38,8 +39,8 @@ namespace Mantis.Core
 
             this._logger.Information(
                 "Starting. Company = {Company}, Project = {Project}",
-                this.EnvironmentVariables.Get<MantisCoreVariables.Environment.Company>().Value,
-                this.EnvironmentVariables.Get<MantisCoreVariables.Environment.Project>().Value);
+                this.EnvironmentVariables.GetCompany(),
+                this.EnvironmentVariables.GetProject());
         }
 
         public IMantisScope CreateScope(Action<IMantisScopeBuilder>? build = null)
