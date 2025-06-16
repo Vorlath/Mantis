@@ -5,9 +5,10 @@ using Serilog;
 
 namespace Mantis.Core.Logging.Serilog
 {
-    public class SerilogMantisLogger<TContext>(IConfiguration<LoggerConfiguration> configuration) : ILogger<TContext>
+    public class SerilogMantisLogger<TContext>(ISerilogLogger baseLogger) : ILogger<TContext>
     {
-        private readonly ISerilogLogger _serilog = configuration.Value
+        private readonly ISerilogLogger _serilog = new LoggerConfiguration()
+            .WriteTo.Logger(baseLogger)
             .Enrich.WithProperty(LoggingConstants.SourceContext, typeof(TContext).Name)
             .CreateLogger();
 
